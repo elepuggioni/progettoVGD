@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.24f1 (79c78de19888) revision 7980941'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 11  (10.0.22000) 64bit Core' Language: 'it' Physical Memory: 15712 MB
+OS: 'Windows 10  (10.0.19044) 64bit Core' Language: 'it' Physical Memory: 16153 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
 COMMAND LINE ARGUMENTS:
@@ -11,113 +11,141 @@ C:\Program Files\Unity\Hub\Editor\2020.3.24f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/andre/OneDrive/Desktop/Giuhub VGD/GitHub/ProgettoVGD
+C:/Users/elepu/Desktop/progetti VGD/ProgettoVGD/ProgettoVGD
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-53649
-Successfully changed project path to: C:/Users/andre/OneDrive/Desktop/Giuhub VGD/GitHub/ProgettoVGD
-C:/Users/andre/OneDrive/Desktop/Giuhub VGD/GitHub/ProgettoVGD
+56258
+Successfully changed project path to: C:/Users/elepu/Desktop/progetti VGD/ProgettoVGD/ProgettoVGD
+C:/Users/elepu/Desktop/progetti VGD/ProgettoVGD/ProgettoVGD
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 49.38 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 55.26 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.24f1 (79c78de19888)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/andre/OneDrive/Desktop/Giuhub VGD/GitHub/ProgettoVGD/Assets
+[Subsystems] Discovering subsystems at path C:/Users/elepu/Desktop/progetti VGD/ProgettoVGD/ProgettoVGD/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: AMD Radeon(TM) Graphics (ID=0x164c)
+    Renderer: NVIDIA GeForce GTX 1660 Ti with Max-Q Design (ID=0x2191)
     Vendor:   
-    VRAM:     7856 MB
-    Driver:   27.20.21030.1005
+    VRAM:     5991 MB
+    Driver:   30.0.14.7247
 Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56284
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56104
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001709 seconds.
+Registered in 0.003201 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 50.00 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 56.85 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.799 seconds
+- Completed reload, in  0.954 seconds
 Domain Reload Profiling:
-	ReloadAssembly (799ms)
-		BeginReloadAssembly (69ms)
+	ReloadAssembly (954ms)
+		BeginReloadAssembly (120ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (625ms)
-			LoadAssemblies (66ms)
+			CreateAndSetChildDomain (2ms)
+		EndReloadAssembly (707ms)
+			LoadAssemblies (114ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (212ms)
+			SetupTypeCache (246ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (46ms)
-			SetupLoadedEditorAssemblies (232ms)
+			RebuildScriptCaches (47ms)
+			SetupLoadedEditorAssemblies (254ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (6ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (50ms)
-				BeforeProcessingInitializeOnLoad (11ms)
-				ProcessInitializeOnLoadAttributes (123ms)
-				ProcessInitializeOnLoadMethodAttributes (41ms)
+				RefreshPlugins (57ms)
+				BeforeProcessingInitializeOnLoad (19ms)
+				ProcessInitializeOnLoadAttributes (127ms)
+				ProcessInitializeOnLoadMethodAttributes (43ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.005105 seconds.
+Registered in 0.006463 seconds.
 Begin MonoManager ReloadAssembly
+Symbol file data-0000020A086FF840 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Services.Core.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0812AD80 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A082BE010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A082D3820 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A03113600 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A075FA010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A03113600 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02F0E020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07200E90 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07628220 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A082D3820 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A072AC010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A087E2420 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A075BAA20 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.77 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.56 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.414 seconds
+- Completed reload, in  2.317 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1415ms)
-		BeginReloadAssembly (194ms)
+	ReloadAssembly (2319ms)
+		BeginReloadAssembly (292ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
+			DisableScriptedObjects (10ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (24ms)
-		EndReloadAssembly (1135ms)
-			LoadAssemblies (109ms)
+			CreateAndSetChildDomain (39ms)
+		EndReloadAssembly (1898ms)
+			LoadAssemblies (271ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (394ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (65ms)
-			SetupLoadedEditorAssemblies (413ms)
+			SetupTypeCache (745ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (81ms)
+			SetupLoadedEditorAssemblies (602ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
+				InitializePlatformSupportModulesInManaged (10ms)
 				SetLoadedEditorAssemblies (1ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (83ms)
-				ProcessInitializeOnLoadAttributes (301ms)
-				ProcessInitializeOnLoadMethodAttributes (13ms)
-				AfterProcessingInitializeOnLoad (6ms)
-				EditorAssembliesLoaded (0ms)
+				BeforeProcessingInitializeOnLoad (195ms)
+				ProcessInitializeOnLoadAttributes (358ms)
+				ProcessInitializeOnLoadMethodAttributes (22ms)
+				AfterProcessingInitializeOnLoad (15ms)
+				EditorAssembliesLoaded (1ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
+			AwakeInstancesAfterBackupRestoration (17ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 0.50 ms, found 2 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
+Refreshing native plugins compatible for Editor in 0.52 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1504 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 81.0 MB.
-System memory in use after: 81.1 MB.
+System memory in use before: 80.9 MB.
+System memory in use after: 81.0 MB.
 
 Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 1951.
-Total: 4.298400 ms (FindLiveObjects: 0.255600 ms CreateObjectMapping: 0.097300 ms MarkObjects: 3.825500 ms  DeleteObjects: 0.117800 ms)
+Total: 3.662700 ms (FindLiveObjects: 0.214300 ms CreateObjectMapping: 0.082200 ms MarkObjects: 3.271800 ms  DeleteObjects: 0.092800 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -134,133 +162,82 @@ AssetImportParameters requested are different than current active one (requested
 Received Import Request.
   path: Assets/Script/PlayerController.cs
   artifactKey: Guid(4f90a5741c83d8542a088b4e215562b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Script/PlayerController.cs using Guid(4f90a5741c83d8542a088b4e215562b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2857a9690455345c3790fa19ba037d33') in 0.131864 seconds 
-  Import took 0.135211 seconds .
+Start importing Assets/Script/PlayerController.cs using Guid(4f90a5741c83d8542a088b4e215562b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38f879feca428b787c0c01387464821e') in 0.041837 seconds 
+  Import took 0.045293 seconds .
 
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 4.27 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 12 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 51.3 MB.
-System memory in use after: 51.4 MB.
-
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 1951.
-Total: 4.235500 ms (FindLiveObjects: 0.207000 ms CreateObjectMapping: 0.050100 ms MarkObjects: 3.954000 ms  DeleteObjects: 0.022500 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.006261 seconds.
+Registered in 0.008465 seconds.
 Begin MonoManager ReloadAssembly
+Symbol file data-0000020A07BD1010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Services.Core.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07637820 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B819040 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B55DD30 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0333A020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07BDE6F0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B819040 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02F0E020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B642020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A090C6020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B55DD30 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A072AC010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A078AC030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07804020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.53 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.48 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.394 seconds
+- Completed reload, in  1.419 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1395ms)
-		BeginReloadAssembly (158ms)
+	ReloadAssembly (1419ms)
+		BeginReloadAssembly (152ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
+			DisableScriptedObjects (7ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (45ms)
-		EndReloadAssembly (1144ms)
-			LoadAssemblies (115ms)
+			CreateAndSetChildDomain (43ms)
+		EndReloadAssembly (1176ms)
+			LoadAssemblies (123ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (425ms)
+			SetupTypeCache (446ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (58ms)
-			SetupLoadedEditorAssemblies (399ms)
+			RebuildScriptCaches (53ms)
+			SetupLoadedEditorAssemblies (412ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (7ms)
 				SetLoadedEditorAssemblies (1ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (71ms)
-				ProcessInitializeOnLoadAttributes (297ms)
-				ProcessInitializeOnLoadMethodAttributes (15ms)
-				AfterProcessingInitializeOnLoad (7ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.80 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1498 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 80.9 MB.
-System memory in use after: 81.0 MB.
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1953.
-Total: 4.587500 ms (FindLiveObjects: 0.209300 ms CreateObjectMapping: 0.050300 ms MarkObjects: 4.291100 ms  DeleteObjects: 0.034500 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004803 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.51 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.478 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1479ms)
-		BeginReloadAssembly (151ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (44ms)
-		EndReloadAssembly (1232ms)
-			LoadAssemblies (116ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (468ms)
-			ReleaseScriptCaches (2ms)
-			RebuildScriptCaches (67ms)
-			SetupLoadedEditorAssemblies (428ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (6ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (70ms)
-				ProcessInitializeOnLoadAttributes (330ms)
+				BeforeProcessingInitializeOnLoad (121ms)
+				ProcessInitializeOnLoadAttributes (259ms)
 				ProcessInitializeOnLoadMethodAttributes (14ms)
-				AfterProcessingInitializeOnLoad (6ms)
+				AfterProcessingInitializeOnLoad (9ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (9ms)
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.52 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.70 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1498 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 80.9 MB.
-System memory in use after: 81.0 MB.
+System memory in use before: 80.8 MB.
+System memory in use after: 80.9 MB.
 
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1955.
-Total: 4.959900 ms (FindLiveObjects: 0.203500 ms CreateObjectMapping: 0.049900 ms MarkObjects: 4.675900 ms  DeleteObjects: 0.028700 ms)
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1953.
+Total: 3.665800 ms (FindLiveObjects: 0.220400 ms CreateObjectMapping: 0.084100 ms MarkObjects: 3.337800 ms  DeleteObjects: 0.022000 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -274,50 +251,86 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
+Received Import Request.
+  Time since last request: 22.276615 seconds.
+  path: Assets/Script/PlayerController.cs
+  artifactKey: Guid(4f90a5741c83d8542a088b4e215562b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Script/PlayerController.cs using Guid(4f90a5741c83d8542a088b4e215562b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '547946e2754c10268ca0f64a659aba5c') in 0.008700 seconds 
+  Import took 0.012022 seconds .
+
+========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.005240 seconds.
+Registered in 0.006136 seconds.
 Begin MonoManager ReloadAssembly
+Symbol file data-0000020A080FF1C0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Services.Core.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A075CFE50 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07D47010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07DC0010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B087010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A089E2040 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07D47010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02F0E020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B087010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A090C6020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07200E90 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B23E6C0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A080FF1C0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0A978020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.51 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.50 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.337 seconds
+- Completed reload, in  1.417 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1337ms)
-		BeginReloadAssembly (151ms)
+	ReloadAssembly (1418ms)
+		BeginReloadAssembly (136ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (6ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (44ms)
-		EndReloadAssembly (1091ms)
-			LoadAssemblies (113ms)
+			CreateAndSetChildDomain (41ms)
+		EndReloadAssembly (1189ms)
+			LoadAssemblies (122ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (385ms)
+			SetupTypeCache (464ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (59ms)
-			SetupLoadedEditorAssemblies (399ms)
+			RebuildScriptCaches (54ms)
+			SetupLoadedEditorAssemblies (404ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (6ms)
+				InitializePlatformSupportModulesInManaged (7ms)
 				SetLoadedEditorAssemblies (1ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (75ms)
-				ProcessInitializeOnLoadAttributes (296ms)
+				BeforeProcessingInitializeOnLoad (122ms)
+				ProcessInitializeOnLoadAttributes (251ms)
 				ProcessInitializeOnLoadMethodAttributes (14ms)
-				AfterProcessingInitializeOnLoad (6ms)
+				AfterProcessingInitializeOnLoad (9ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
+			AwakeInstancesAfterBackupRestoration (9ms)
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.61 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.83 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1498 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 80.9 MB.
-System memory in use after: 81.0 MB.
+System memory in use before: 80.8 MB.
+System memory in use after: 80.9 MB.
 
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1957.
-Total: 4.186100 ms (FindLiveObjects: 0.209500 ms CreateObjectMapping: 0.048800 ms MarkObjects: 3.883300 ms  DeleteObjects: 0.041800 ms)
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1955.
+Total: 4.119300 ms (FindLiveObjects: 0.228200 ms CreateObjectMapping: 0.077300 ms MarkObjects: 3.781200 ms  DeleteObjects: 0.030400 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -333,48 +346,161 @@ AssetImportParameters requested are different than current active one (requested
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.004755 seconds.
+Registered in 0.005673 seconds.
 Begin MonoManager ReloadAssembly
+Symbol file data-0000020A080FF1C0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Services.Core.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0768D750 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02F40410 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0BB3D020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B087010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A03031DE0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02F40410 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02F0E020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B087010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B23E6C0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07200E90 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A08DD4420 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A078AC030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0751E030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.70 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.48 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.328 seconds
+- Completed reload, in  1.415 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1329ms)
-		BeginReloadAssembly (132ms)
+	ReloadAssembly (1416ms)
+		BeginReloadAssembly (155ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (6ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (39ms)
-		EndReloadAssembly (1108ms)
-			LoadAssemblies (110ms)
+		EndReloadAssembly (1170ms)
+			LoadAssemblies (128ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (402ms)
+			SetupTypeCache (443ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (56ms)
-			SetupLoadedEditorAssemblies (397ms)
+			RebuildScriptCaches (55ms)
+			SetupLoadedEditorAssemblies (409ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
+				InitializePlatformSupportModulesInManaged (6ms)
 				SetLoadedEditorAssemblies (1ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (72ms)
-				ProcessInitializeOnLoadAttributes (296ms)
+				BeforeProcessingInitializeOnLoad (124ms)
+				ProcessInitializeOnLoadAttributes (255ms)
 				ProcessInitializeOnLoadMethodAttributes (13ms)
-				AfterProcessingInitializeOnLoad (7ms)
+				AfterProcessingInitializeOnLoad (9ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
+			AwakeInstancesAfterBackupRestoration (9ms)
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.60 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.50 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1498 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 80.8 MB.
+System memory in use after: 81.0 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1957.
+Total: 4.260600 ms (FindLiveObjects: 0.238600 ms CreateObjectMapping: 0.084500 ms MarkObjects: 3.904300 ms  DeleteObjects: 0.031000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005920 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file data-0000020A0B809020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Services.Core.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0E417320 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07D47010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02E1D140 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02E1D140 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A08CA5FF0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02E1D140 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02F0E020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02E1D140 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A090C6020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07200E90 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A08DD4420 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A078AC030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0751E030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.51 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.515 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1516ms)
+		BeginReloadAssembly (151ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (39ms)
+		EndReloadAssembly (1264ms)
+			LoadAssemblies (134ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (452ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (61ms)
+			SetupLoadedEditorAssemblies (426ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (126ms)
+				ProcessInitializeOnLoadAttributes (268ms)
+				ProcessInitializeOnLoadMethodAttributes (13ms)
+				AfterProcessingInitializeOnLoad (11ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (10ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.51 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1498 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 80.9 MB.
 System memory in use after: 81.0 MB.
 
 Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1959.
-Total: 5.385700 ms (FindLiveObjects: 0.211700 ms CreateObjectMapping: 0.051400 ms MarkObjects: 5.088800 ms  DeleteObjects: 0.031300 ms)
+Total: 4.235900 ms (FindLiveObjects: 0.199600 ms CreateObjectMapping: 0.073800 ms MarkObjects: 3.914400 ms  DeleteObjects: 0.046200 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -388,570 +514,248 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
-Received Import Request.
-  Time since last request: 897.271757 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_banner_01a.fbx
-  artifactKey: Guid(d7113c6e2a0f65c4abdb33666078052f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_banner_01a.fbx using Guid(d7113c6e2a0f65c4abdb33666078052f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7db849dc01fafc58c54c3124de1edafb') in 0.280694 seconds 
-  Import took 0.285370 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000283 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_barrel_01.fbx
-  artifactKey: Guid(caf770415cf8b3745b977df80c57628b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_barrel_01.fbx using Guid(caf770415cf8b3745b977df80c57628b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f91119487e404964b4d872ea9a268d08') in 0.036091 seconds 
-  Import took 0.039628 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000324 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_bowl_metal_01.fbx
-  artifactKey: Guid(09cc238bd856b5d468789a6d2d0f48ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_bowl_metal_01.fbx using Guid(09cc238bd856b5d468789a6d2d0f48ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '587fd131e8e2a5532ca1f0d9b58a6ba2') in 0.035684 seconds 
-  Import took 0.041519 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000307 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_banner_01b.fbx
-  artifactKey: Guid(dc3de67326229ab459a1320acc34b8ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_banner_01b.fbx using Guid(dc3de67326229ab459a1320acc34b8ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49b0ec68ca9b6b3abcd461ae26b19eae') in 0.048460 seconds 
-  Import took 0.052696 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000494 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_bench_wood_01.fbx
-  artifactKey: Guid(6bc5a23d8cb251f40b96a1fbf4ddb4fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_bench_wood_01.fbx using Guid(6bc5a23d8cb251f40b96a1fbf4ddb4fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4cebfa140cc83661aeedaec072776d0c') in 0.035266 seconds 
-  Import took 0.039349 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000302 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_bird_house_01.fbx
-  artifactKey: Guid(8edf1a08abb5cb342a2a608b289c1f91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_bird_house_01.fbx using Guid(8edf1a08abb5cb342a2a608b289c1f91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef38821fa1124080d56ec2b693dbe80a') in 0.032426 seconds 
-  Import took 0.036609 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000402 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_box_wood_01.fbx
-  artifactKey: Guid(ab945ff7c1d59bb4a8b506cb8c7dafcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_box_wood_01.fbx using Guid(ab945ff7c1d59bb4a8b506cb8c7dafcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b45568be69dca0833154b891772b615b') in 0.035418 seconds 
-  Import took 0.040186 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000353 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_bathtub_wood_01.fbx
-  artifactKey: Guid(1a8449922d22bae4791e0335226fa1aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_bathtub_wood_01.fbx using Guid(1a8449922d22bae4791e0335226fa1aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4fa1fc1039f7d17c4e095f12353798f2') in 0.034112 seconds 
-  Import took 0.038678 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.626555 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_broom_01.fbx
-  artifactKey: Guid(752014a26efd03145b74d57634ef9245) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_broom_01.fbx using Guid(752014a26efd03145b74d57634ef9245) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '960cf042d2c4f4c30da1b1c3d008d14a') in 0.080936 seconds 
-  Import took 0.084636 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000325 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_bucket_01.fbx
-  artifactKey: Guid(e978333221b12f44ba9099ca8d181f25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_bucket_01.fbx using Guid(e978333221b12f44ba9099ca8d181f25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0aab2d44701354f9f79da8edd84c92ce') in 0.058033 seconds 
-  Import took 0.061735 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.213791 seconds.
-  path: Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_01.fbx
-  artifactKey: Guid(af5390e2a0373984db3740f21c0ec034) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_01.fbx using Guid(af5390e2a0373984db3740f21c0ec034) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f77eebe8546caf562d3381238c745056') in 0.033321 seconds 
-  Import took 0.037441 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000276 seconds.
-  path: Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_03.fbx
-  artifactKey: Guid(52eeab1f0ce4d934591972b6df5d179b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_03.fbx using Guid(52eeab1f0ce4d934591972b6df5d179b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a809b672619e6e496c18077b4927024') in 0.040636 seconds 
-  Import took 0.044749 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000272 seconds.
-  path: Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_04.fbx
-  artifactKey: Guid(cc4034e4bb7d9cd418975561c7bcd316) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_04.fbx using Guid(cc4034e4bb7d9cd418975561c7bcd316) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b6b9fa8c677bfbf012959547b95055f') in 0.037459 seconds 
-  Import took 0.041327 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000293 seconds.
-  path: Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_02.fbx
-  artifactKey: Guid(3ad660daf3a1e02458b9f3eca418861a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_02.fbx using Guid(3ad660daf3a1e02458b9f3eca418861a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aaa20f23cf4ca3717e71c9bffb373264') in 0.034617 seconds 
-  Import took 0.039262 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000415 seconds.
-  path: Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_05.fbx
-  artifactKey: Guid(7d1c542ac0453aa40a248ffb042193c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Structures/rpgpp_lt_building_05.fbx using Guid(7d1c542ac0453aa40a248ffb042193c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc7ff8f076c9e8e7e83606f5abbbbe6d') in 0.037036 seconds 
-  Import took 0.041163 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000272 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_bush_01.fbx
-  artifactKey: Guid(d28a5d39d87b52c49824501fac8b689c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_bush_01.fbx using Guid(d28a5d39d87b52c49824501fac8b689c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db0d13884ffb42fcc7452643aa34e9bd') in 0.036005 seconds 
-  Import took 0.061049 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.830678 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_bush_02.fbx
-  artifactKey: Guid(d4997bb047d8fbb458f4d63b2322ebdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_bush_02.fbx using Guid(d4997bb047d8fbb458f4d63b2322ebdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7cbfa5bdb5639df85dd77fb6102da0b') in 0.032222 seconds 
-  Import took 0.036665 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000313 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_flower_01.fbx
-  artifactKey: Guid(7d350a824190e0647822f95e9f7bbc97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_flower_01.fbx using Guid(7d350a824190e0647822f95e9f7bbc97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b90393197a18dce32fdcb512febc35a') in 0.031407 seconds 
-  Import took 0.035510 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000467 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_cloud_02.fbx
-  artifactKey: Guid(4432020e36e26f946a400515834f11b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_cloud_02.fbx using Guid(4432020e36e26f946a400515834f11b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc08626a837d6452ce2ac654cef1c37e') in 0.042444 seconds 
-  Import took 0.047064 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000363 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_cloud_01.fbx
-  artifactKey: Guid(b36c73269c1668c4bbfb76bf41a74b15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_cloud_01.fbx using Guid(b36c73269c1668c4bbfb76bf41a74b15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b75a99efb6d2f47194736e90beb13d83') in 0.074848 seconds 
-  Import took 0.079973 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000290 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_chair_01a.fbx
-  artifactKey: Guid(c7acbad2649a15647a7a4dfd8cceb5ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_chair_01a.fbx using Guid(c7acbad2649a15647a7a4dfd8cceb5ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '824dc85d24e2a54d6c0b4a6e5862017b') in 0.036098 seconds 
-  Import took 0.040430 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000466 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_grass_small_01b.fbx
-  artifactKey: Guid(60f048e3ccfd7d0498e095661396963b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_grass_small_01b.fbx using Guid(60f048e3ccfd7d0498e095661396963b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3a7a9f3db582b040f4fc38ba4ff4957') in 0.035067 seconds 
-  Import took 0.039010 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000294 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_flower_02.fbx
-  artifactKey: Guid(7710c12951e94d24eb1b65f105f6823e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_flower_02.fbx using Guid(7710c12951e94d24eb1b65f105f6823e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9106b5d0e7ec82e97669bd8eb923069c') in 0.032176 seconds 
-  Import took 0.036529 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000460 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_flower_03.fbx
-  artifactKey: Guid(f97780a5b4f3ed64ca0fe117ef736a11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_flower_03.fbx using Guid(f97780a5b4f3ed64ca0fe117ef736a11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b692a9a11b7f68e8ef2ecd05091becfb') in 0.033371 seconds 
-  Import took 0.037796 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000432 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_grass_small_01a.fbx
-  artifactKey: Guid(c191cc4231bc1a940986671275027664) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_grass_small_01a.fbx using Guid(c191cc4231bc1a940986671275027664) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df04d91a9abb1e2fe4c19d7045907a57') in 0.035697 seconds 
-  Import took 0.040168 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000350 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_chair_01b.fbx
-  artifactKey: Guid(c23d7dd34e2d29a42bf0998f5f20de59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_chair_01b.fbx using Guid(c23d7dd34e2d29a42bf0998f5f20de59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd651c6d4588bc0332864b4bf274673a0') in 0.032328 seconds 
-  Import took 0.036524 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.082225 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_hanger_clothes_01.fbx
-  artifactKey: Guid(30c389f0d35cc414d9e841ff82ce1424) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_hanger_clothes_01.fbx using Guid(30c389f0d35cc414d9e841ff82ce1424) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '82dd54316f08aa12a486c788467c8144') in 0.038248 seconds 
-  Import took 0.042772 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000279 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_hanger_wood_01.fbx
-  artifactKey: Guid(dc53ddfef4a2d414f83c0332e80bfbb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_hanger_wood_01.fbx using Guid(dc53ddfef4a2d414f83c0332e80bfbb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96ae5fc151b571d33dbcc79063e7a0f8') in 0.066294 seconds 
-  Import took 0.069954 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000270 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_ladder_01.fbx
-  artifactKey: Guid(5a5a8e9d7228e204a91c0fb79c12479b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_ladder_01.fbx using Guid(5a5a8e9d7228e204a91c0fb79c12479b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '519b5d23d479eb84d3c4287aab4e22bd') in 0.037347 seconds 
-  Import took 0.042988 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000313 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_log_wood_01.fbx
-  artifactKey: Guid(83ca3216726525148a325296526fcfa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_log_wood_01.fbx using Guid(83ca3216726525148a325296526fcfa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ff2b44b7f7d6d7d1aa0914c400b043c') in 0.032867 seconds 
-  Import took 0.038730 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000273 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_02.fbx
-  artifactKey: Guid(d1fd41beb70267947bc1c996df07593d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_02.fbx using Guid(d1fd41beb70267947bc1c996df07593d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2f69701592ae1e8d56d0ca4a568acae') in 0.033357 seconds 
-  Import took 0.037199 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000250 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_shield_wall_01b.fbx
-  artifactKey: Guid(ea48d15a3d30c4943927bc8edcd3ff96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_shield_wall_01b.fbx using Guid(ea48d15a3d30c4943927bc8edcd3ff96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e015b955d0b99dc9e11f680dd22303e') in 0.080964 seconds 
-  Import took 0.085143 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000313 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_sky_01.fbx
-  artifactKey: Guid(092e8eab260eaf84e890e2e5dbc513b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_sky_01.fbx using Guid(092e8eab260eaf84e890e2e5dbc513b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08f449e67fa781a2b2dbd5f0af2ed993') in 0.034095 seconds 
-  Import took 0.038561 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000346 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_sand_01.fbx
-  artifactKey: Guid(b75a02a185084be49bc0ead09438de21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_sand_01.fbx using Guid(b75a02a185084be49bc0ead09438de21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '227c019fb79b8292e189936a05acf13e') in 0.031835 seconds 
-  Import took 0.036842 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000306 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_plant_02.fbx
-  artifactKey: Guid(2ef20853860a4694c9c08c312d121b56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_plant_02.fbx using Guid(2ef20853860a4694c9c08c312d121b56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa4fd344e95ddfba313f2ef7b7ecb095') in 0.033339 seconds 
-  Import took 0.037354 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000342 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_table_01.fbx
-  artifactKey: Guid(16c4b1c9bf28bc44eab122106a0e4864) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_table_01.fbx using Guid(16c4b1c9bf28bc44eab122106a0e4864) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d31be1b7919b5117d949c8719ee0da1') in 0.032843 seconds 
-  Import took 0.037517 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000306 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_grass_02.fbx
-  artifactKey: Guid(a90ec1b8be596134b912428bfce1f226) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_grass_02.fbx using Guid(a90ec1b8be596134b912428bfce1f226) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2b64d822ce19c3958488c55fb0dd6b1') in 0.033796 seconds 
-  Import took 0.038406 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000318 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_grass_01.fbx
-  artifactKey: Guid(264414c28ea0fbb41b924fd17d9228b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_grass_01.fbx using Guid(264414c28ea0fbb41b924fd17d9228b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95c3b4b8012adac458e52d1429ed4ac6') in 0.032004 seconds 
-  Import took 0.035826 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000319 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_mountain_01.fbx
-  artifactKey: Guid(9d123ff5b15c0bd4fbd33779e2acdbd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_mountain_01.fbx using Guid(9d123ff5b15c0bd4fbd33779e2acdbd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42745d3fbfcd36d110125210c01de34b') in 0.033036 seconds 
-  Import took 0.037720 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000358 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_hill_small_02.fbx
-  artifactKey: Guid(87dc0b67e5fe70f40a31e17b0c0058b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_hill_small_02.fbx using Guid(87dc0b67e5fe70f40a31e17b0c0058b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64d363eb1a5280ed40655d268640656e') in 0.032985 seconds 
-  Import took 0.037796 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000508 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_plant_01.fbx
-  artifactKey: Guid(82188904581423c4a9ed3fbf3286ccdd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_plant_01.fbx using Guid(82188904581423c4a9ed3fbf3286ccdd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '676f71fe823c0fa0776b932eb4ffd7b8') in 0.032170 seconds 
-  Import took 0.037423 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000360 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_jug_01.fbx
-  artifactKey: Guid(d68abfcba378a4f46847fa7f406b6ba6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_jug_01.fbx using Guid(d68abfcba378a4f46847fa7f406b6ba6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '014d3f991b7904c22c6bd7350b24f945') in 0.034223 seconds 
-  Import took 0.038758 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000296 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_sack_open_01.fbx
-  artifactKey: Guid(1716e599fb056014ca8f5786b3a82fcf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_sack_open_01.fbx using Guid(1716e599fb056014ca8f5786b3a82fcf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fbe65767d303ff64de38144124b177d4') in 0.032522 seconds 
-  Import took 0.037169 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000357 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_tree_01.fbx
-  artifactKey: Guid(15977c94193725642b83e5c7be73b2e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_tree_01.fbx using Guid(15977c94193725642b83e5c7be73b2e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a5ac322925e4b280290eb87f7d6b021') in 0.031275 seconds 
-  Import took 0.035476 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000360 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_small_01.fbx
-  artifactKey: Guid(274fdec0feeaa784f96a62f99c4be287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_small_01.fbx using Guid(274fdec0feeaa784f96a62f99c4be287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46fe3c8136047f69ef85ef0e611a533f') in 0.075729 seconds 
-  Import took 0.079194 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000344 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_tree_02.fbx
-  artifactKey: Guid(7dca68918011bd644a4dc268eea79b44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_tree_02.fbx using Guid(7dca68918011bd644a4dc268eea79b44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc84a00b6dfbb8399e6178b6af2d0794') in 0.032537 seconds 
-  Import took 0.036424 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000371 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_03.fbx
-  artifactKey: Guid(455995b8866658b42b3da7b1cab18535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_03.fbx using Guid(455995b8866658b42b3da7b1cab18535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd743144f7b7a361c38a2169b29fc4d10') in 0.039228 seconds 
-  Import took 0.043070 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000387 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_01.fbx
-  artifactKey: Guid(305f277e1529222439b495a441de2f0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_01.fbx using Guid(305f277e1529222439b495a441de2f0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'adce31231eb16de75a3637f43acae21c') in 0.032228 seconds 
-  Import took 0.036427 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000438 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_path_01a.fbx
-  artifactKey: Guid(46a54c5b0997d8b47bf6519139a81b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_path_01a.fbx using Guid(46a54c5b0997d8b47bf6519139a81b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '929fd69b59e732295d394bc144fb3adf') in 0.078401 seconds 
-  Import took 0.082321 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000314 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_hill_small_01.fbx
-  artifactKey: Guid(3602432658d7f1540978cbbd6875ad2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_hill_small_01.fbx using Guid(3602432658d7f1540978cbbd6875ad2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e238c15e58ae5f3464816a416029949') in 0.031774 seconds 
-  Import took 0.036140 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000473 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_sack_01.fbx
-  artifactKey: Guid(8f07894e139232f4fb48b79133ad05fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_sack_01.fbx using Guid(8f07894e139232f4fb48b79133ad05fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cac4b8f47a28dcf9143a87ffe750bf25') in 0.032218 seconds 
-  Import took 0.036379 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000290 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_path_01b.fbx
-  artifactKey: Guid(70fbff8150321794f8532fef4f4d7c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_path_01b.fbx using Guid(70fbff8150321794f8532fef4f4d7c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9485b967b427a25bc4fc4468cbc1cd0f') in 0.032852 seconds 
-  Import took 0.038534 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000378 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rocks_tiny_01.fbx
-  artifactKey: Guid(2e716c43576f71b4aa87e6cb4ebeaeab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rocks_tiny_01.fbx using Guid(2e716c43576f71b4aa87e6cb4ebeaeab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '427d42c12d7591b9d06bf914a56be77c') in 0.031710 seconds 
-  Import took 0.036337 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000315 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_tree_pine_01.fbx
-  artifactKey: Guid(58c79ebc04f48c74fa4869c3f7d941fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_tree_pine_01.fbx using Guid(58c79ebc04f48c74fa4869c3f7d941fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bd5e1fee27857dfcd125932e9ac9490') in 0.039795 seconds 
-  Import took 0.043883 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000382 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_vase_01.fbx
-  artifactKey: Guid(9bd069d17b875254f9fc1eeccdd647b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_vase_01.fbx using Guid(9bd069d17b875254f9fc1eeccdd647b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0089c6b6667a03d657723e295a87c1f1') in 0.035139 seconds 
-  Import took 0.039785 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000329 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_trough_01.fbx
-  artifactKey: Guid(8b3f67c33dd9e9c4ea594b19207b4fbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_trough_01.fbx using Guid(8b3f67c33dd9e9c4ea594b19207b4fbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd387d36c93ce39ad6c9b92dba3e946d1') in 0.033898 seconds 
-  Import took 0.037991 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000428 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_wood_path_01a.fbx
-  artifactKey: Guid(d4d6eed92fb93e948b95c2fc4d1f6f8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_wood_path_01a.fbx using Guid(d4d6eed92fb93e948b95c2fc4d1f6f8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '806f34f11aa89738debda6824b1ca010') in 0.035044 seconds 
-  Import took 0.039272 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000292 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_wood_path_01b.fbx
-  artifactKey: Guid(f867a2534aa85914d9e6b62f681cdf69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_wood_path_01b.fbx using Guid(f867a2534aa85914d9e6b62f681cdf69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f3aee29ec08e9e292ef3a3fdb4b4f49a') in 0.031082 seconds 
-  Import took 0.035255 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000359 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_wagon_01.fbx
-  artifactKey: Guid(f34a4e9b86005de4da2625205407868e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_wagon_01.fbx using Guid(f34a4e9b86005de4da2625205407868e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f238f90781db3cc76f93fa3fb117da3') in 0.032512 seconds 
-  Import took 0.036853 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000454 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_package_01.fbx
-  artifactKey: Guid(4a9eb490516647a4d8765165bfb9cf47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_package_01.fbx using Guid(4a9eb490516647a4d8765165bfb9cf47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc21fe64784e9a419225f5415280afb4') in 0.032800 seconds 
-  Import took 0.036868 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000443 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_rake_01.fbx
-  artifactKey: Guid(7deee4ad3618a17429fa704cea48558c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_rake_01.fbx using Guid(7deee4ad3618a17429fa704cea48558c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f7c6157a0e9659174bf37ccb71b8a5ef') in 0.031716 seconds 
-  Import took 0.036359 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000305 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_well_01.fbx
-  artifactKey: Guid(54708add4b909204cb861ed2bd2cfcdf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_well_01.fbx using Guid(54708add4b909204cb861ed2bd2cfcdf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2fecc79d3d5df1cc58d430e9a2c7e867') in 0.034017 seconds 
-  Import took 0.038976 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000330 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_vase_02.fbx
-  artifactKey: Guid(65a171ea06543b04fa7aa086cd66702d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_vase_02.fbx using Guid(65a171ea06543b04fa7aa086cd66702d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16cb6627596878045c8226e3b59b2de6') in 0.032343 seconds 
-  Import took 0.036883 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000336 seconds.
-  path: Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_small_02.fbx
-  artifactKey: Guid(7110966a22a1bd74c894def7bbb4b8cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Nature/rpgpp_lt_rock_small_02.fbx using Guid(7110966a22a1bd74c894def7bbb4b8cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2231c29f87b14a768af985201376d93') in 0.032702 seconds 
-  Import took 0.036477 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000323 seconds.
-  path: Assets/RPGPP_LT/Models/Props/rpgpp_lt_shield_wall_01a.fbx
-  artifactKey: Guid(6db1e633533718d49bd0b8329bc37412) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPGPP_LT/Models/Props/rpgpp_lt_shield_wall_01a.fbx using Guid(6db1e633533718d49bd0b8329bc37412) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '266ddf4d8a6d7fb3b0c63b0110d99756') in 0.076488 seconds 
-  Import took 0.080311 seconds .
-
-========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.004420 seconds.
+Registered in 0.005740 seconds.
 Begin MonoManager ReloadAssembly
+Symbol file data-0000020A07BD1010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Services.Core.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0E417320 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07F4C020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0E4092B0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0DB1B020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A08EEE010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A088A6010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02F0E020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0915A010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A090C6020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07200E90 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A08CF8030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A078AC030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B9E4020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.48 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.419 seconds
+- Completed reload, in  1.392 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1420ms)
-		BeginReloadAssembly (141ms)
+	ReloadAssembly (1392ms)
+		BeginReloadAssembly (153ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (5ms)
+			DisableScriptedObjects (6ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (42ms)
-		EndReloadAssembly (1195ms)
-			LoadAssemblies (110ms)
+			CreateAndSetChildDomain (47ms)
+		EndReloadAssembly (1142ms)
+			LoadAssemblies (120ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
 			SetupTypeCache (424ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (64ms)
-			SetupLoadedEditorAssemblies (434ms)
+			RebuildScriptCaches (60ms)
+			SetupLoadedEditorAssemblies (396ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (122ms)
+				ProcessInitializeOnLoadAttributes (245ms)
+				ProcessInitializeOnLoadMethodAttributes (13ms)
+				AfterProcessingInitializeOnLoad (9ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (9ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.57 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1498 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 80.9 MB.
+System memory in use after: 81.0 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1961.
+Total: 3.804000 ms (FindLiveObjects: 0.209500 ms CreateObjectMapping: 0.075900 ms MarkObjects: 3.490500 ms  DeleteObjects: 0.026400 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005673 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file data-0000020A08DF8FB0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Services.Core.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0E476E50 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07706020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A08DF8FB0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0915A010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A03160E30 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07706020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A02F0E020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B0E3010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A090C6020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07200E90 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A072AC010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A078AC030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A08CF8030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.56 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.399 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1400ms)
+		BeginReloadAssembly (150ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (42ms)
+		EndReloadAssembly (1156ms)
+			LoadAssemblies (120ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (433ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (54ms)
+			SetupLoadedEditorAssemblies (405ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (8ms)
 				SetLoadedEditorAssemblies (1ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (82ms)
-				ProcessInitializeOnLoadAttributes (319ms)
-				ProcessInitializeOnLoadMethodAttributes (17ms)
-				AfterProcessingInitializeOnLoad (6ms)
+				BeforeProcessingInitializeOnLoad (121ms)
+				ProcessInitializeOnLoadAttributes (252ms)
+				ProcessInitializeOnLoadMethodAttributes (13ms)
+				AfterProcessingInitializeOnLoad (9ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
+			AwakeInstancesAfterBackupRestoration (9ms)
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.54 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.48 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1498 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 84.4 MB.
-System memory in use after: 84.5 MB.
+System memory in use before: 80.9 MB.
+System memory in use after: 81.0 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 1971.
-Total: 4.244200 ms (FindLiveObjects: 0.239500 ms CreateObjectMapping: 0.048300 ms MarkObjects: 3.915900 ms  DeleteObjects: 0.038400 ms)
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1963.
+Total: 3.967000 ms (FindLiveObjects: 0.200400 ms CreateObjectMapping: 0.073700 ms MarkObjects: 3.670300 ms  DeleteObjects: 0.021400 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005920 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file data-0000020A07BD1010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Services.Core.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A08119010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A08AE2020 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0E4092B0 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B0E3010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A03160E30 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0AC21010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0F49B030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0B0E3010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07F6E010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A07200E90 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A072AC010 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A078AC030 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000020A0F50DA30 doesn't match image C:\Users\elepu\Desktop\progetti VGD\ProgettoVGD\ProgettoVGD\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.52 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.396 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1397ms)
+		BeginReloadAssembly (155ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (7ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (40ms)
+		EndReloadAssembly (1151ms)
+			LoadAssemblies (130ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (423ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (53ms)
+			SetupLoadedEditorAssemblies (406ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (7ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (123ms)
+				ProcessInitializeOnLoadAttributes (252ms)
+				ProcessInitializeOnLoadMethodAttributes (13ms)
+				AfterProcessingInitializeOnLoad (9ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (10ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.47 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1498 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 80.9 MB.
+System memory in use after: 81.0 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1965.
+Total: 3.785700 ms (FindLiveObjects: 0.208300 ms CreateObjectMapping: 0.071900 ms MarkObjects: 3.479700 ms  DeleteObjects: 0.023800 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
