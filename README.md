@@ -1,3 +1,0 @@
-# progettoVGD
-
-ciao buonasera
