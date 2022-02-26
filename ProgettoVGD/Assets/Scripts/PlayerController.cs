@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("turn", horizontal);
 
 
-        controller.SimpleMove(transform.forward * velocity * 5.0f);
+        controller.SimpleMove(transform.forward * velocity * 10.0f);
         transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
     }
 }
