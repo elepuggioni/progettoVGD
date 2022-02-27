@@ -5,20 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
-    private float velocity = 5.0f;
+    private float velocity = 0.0f;
     public float rotationSpeed;
     private Animator animator;
+    private PauseMenu pm;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        pm = GetComponent<PauseMenu>();
     }
 
     // Update is called once per frame
-    /*void Update()
+    void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+            pm.Pause();
 
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
@@ -40,12 +44,12 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("turn", horizontal);
 
 
-        controller.SimpleMove(transform.forward * velocity * 10.0f);
+        controller.SimpleMove(transform.forward * velocity * 7.0f);
         transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
 
-    }*/
+    }
 
-    void Update()
+    /*void Update()
     {
 
         float vertical = Input.GetAxis("Vertical");
@@ -62,5 +66,5 @@ public class PlayerController : MonoBehaviour
     
         // Setto i parameters dell'animator del Player
         animator.SetFloat("velocity", velocity);
-    }
+    }*/
 }
