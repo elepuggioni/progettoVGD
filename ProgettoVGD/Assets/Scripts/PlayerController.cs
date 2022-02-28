@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Variables
     private CharacterController controller;
     private float velocity = 0.0f;
     public float rotationSpeed;
     private Animator animator;
     private PauseMenu pm;
+
+    [SerializeField] AnimationCurve dodgeCurve;
+    bool isDodging;
+    float dodgeTimer;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -16,17 +22,47 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-            pm.Pause();
 
+        StartPause();
+        if (!isDodging) PlayerMovement();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (velocity > 0)
+                StartCoroutine(Dodge());
+        } 
+
+    }
+
+    public IEnumerator Dodge()
+    {
+        animator.SetTrigger("Rolling");
+        isDodging = true;
+        float timer = 0;
+        controller.center = new Vector3(0, 0.5f, 0);
+        controller.height = 1;
+        while (timer < dodgeTimer) {
+            float speed = dodgeCurve.Evaluate(timer);
+            Vector3 dir = (transform.forward * speed) +
+                          (Vector3.up * velocity);
+            controller.Move(dir * Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        isDodging = false;
+        controller.center = new Vector3(0, 1.04f, 0);
+        controller.height = 2;
+    }
+
+    public void PlayerMovement()
+    {
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
-        
 
         if (vertical > 0)
         {
@@ -44,11 +80,15 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("turn", horizontal);
 
 
-        controller.SimpleMove(transform.forward * velocity * 7.0f);
+        controller.SimpleMove(transform.forward * velocity * 5.0f);
         transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
-
     }
 
+    public void StartPause() {
+        if (Input.GetKeyDown(KeyCode.R))
+            pm.Pause();
+    }
+}
     /*void Update()
     {
 
@@ -67,4 +107,4 @@ public class PlayerController : MonoBehaviour
         // Setto i parameters dell'animator del Player
         animator.SetFloat("velocity", velocity);
     }*/
-}
+

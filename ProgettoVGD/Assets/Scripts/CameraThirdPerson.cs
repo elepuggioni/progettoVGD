@@ -6,43 +6,46 @@ using UnityEngine;
 
 public class CameraThirdPerson : MonoBehaviour
 {
-    public bool lockCursor;
-    public float mouseSensitivity = 10;
-    public Transform target;
-    public float dstFromTarget = 2;
-    public Vector2 pitchMinMax = new Vector2(-40, 85);
+    public bool lockCursore; //bloccare il cursore
+    public float mouseSensitivity = 10; 
+    public Transform obiettivo;     // obiettivo che la camera deve puntare
+    private float dstFromTarget = 3.5f; // distanza dall'obiettivo
+    public Vector2 pitchMinMax = new Vector2(-40, 85); //valore minimo e massimo per il beccheggio
 
-    public float rotationSmoothTime = .12f;
+    public float rotationSmoothTime = 0.12f;
     Vector3 rotationSmoothVelocity;
     Vector3 currentRotation;
 
-    float yaw;
-    float pitch;
-    public bool exec = true;
+    float yaw; //imbardata (asse verticale)
+    float pitch; //beccheggio (asse trasversale)
 
     void Start()
     {
-        if (lockCursor)
+        if (lockCursore)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked; //cursore bloccato al centro dello schermo
+            Cursor.visible = false; // cursore invisibile
         }
     }
 
     void LateUpdate()
     {
         
-            yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
-            pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
-            pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
+            yaw += Input.GetAxis("Mouse X") * mouseSensitivity; // aumento il valore dell'imbardata 
+            pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity; // decremento il valore del beccheggio
+            pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y); //blocco il valore del beccheggio tra il minimo e il massimo
 
+            // Muove la camera verso la posizione dell'obiettivo
             currentRotation = Vector3.SmoothDamp(currentRotation,
                                                 new Vector3(pitch, yaw),
                                                 ref rotationSmoothVelocity,
                                                 rotationSmoothTime);
-            transform.eulerAngles = currentRotation;
 
-            transform.position = target.position - transform.forward * dstFromTarget;
+            // Applica una rotazione 3D con gli angoli di Eulero
+            transform.eulerAngles = currentRotation;
+            
+            // Cambia la posizione del transform
+            transform.position = obiettivo.position - transform.forward * dstFromTarget;
         }
     
 
