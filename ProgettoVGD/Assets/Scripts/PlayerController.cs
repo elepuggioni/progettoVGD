@@ -66,11 +66,28 @@ public class PlayerController : MonoBehaviour
 
         if (vertical > 0)
         {
-            velocity += Time.deltaTime * 0.3f;
+            /* La variabile velocity in realtà rappresenta l'accellerazione del player,
+             * più è alta e prima il player raggiunge la velocità massima. Evita quindi
+             * quella lenta risposta del player alla pressione dei tasti, in cui parte
+             * piano e lentamente raggiunge la massima velocità */
+            velocity += Time.deltaTime * 4.0f;
+            
+            /* Facendo muovere il player dentro questo ciclo if, che controlla quando un
+             * tasto che permette di muovere il player è premuto, si evita che il player
+             * continui a muoversi per inerzia dopo aver rilasciato il tasto */
+            //TODO: E comunque da risolvere un leggero delay quando viene rilasciato il tasto
+            controller.SimpleMove(transform.forward * velocity * 7.0f);
+            
+            //TODO: Alla pressione del tasto 's' il player deve indietreggiare
+            /* In un gioco in cui si combatte corpo a corpo è impensabile che non si possa
+             * indietreggiare per schivare o allontanarsi dal nemico */
         }
         else
         {
-            velocity -= Time.deltaTime * 2.0f;
+            /* Chiamando la SimpleMove nel ciclo if, decrementare la velocità gradualmente
+             * non serve per il movimento del personaggio. In questo caso però è utile in
+             * quanto rende l'animazione da corsa e idle più fluida */
+            velocity -= Time.deltaTime * 4.0f;
         }
         //  Funzione che blocca il valore di velocity tra 0 e 1
         velocity = Mathf.Clamp01(velocity);
@@ -78,9 +95,18 @@ public class PlayerController : MonoBehaviour
         // Setto i parameters dell'animator del Player
         animator.SetFloat("velocity", velocity);
         animator.SetFloat("turn", horizontal);
+<<<<<<< HEAD
 
 
         controller.SimpleMove(transform.forward * velocity * 5.0f);
+=======
+        
+        //TODO: Movimento laterale per i tasti 'a' e 'd'
+        /* Premendo i tasti 'a' e 'd' il player non deve ruotare su se stesso, in quanto
+         * inutile e molto fastidioso, ma deve spostarsi lateralmente. Se viene premuto
+         * un tasto tra 'w' o 's' in contemporanea a un tasto tra 'a' o 'd', il player
+         * dovrebbe muoversi in diagonale */
+>>>>>>> bc3a19cc924f2c08d10782d2a62140dc04327ee1
         transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
     }
 
