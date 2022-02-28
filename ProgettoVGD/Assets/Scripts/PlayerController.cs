@@ -95,18 +95,12 @@ public class PlayerController : MonoBehaviour
         // Setto i parameters dell'animator del Player
         animator.SetFloat("velocity", velocity);
         animator.SetFloat("turn", horizontal);
-<<<<<<< HEAD
-
-
-        controller.SimpleMove(transform.forward * velocity * 5.0f);
-=======
         
         //TODO: Movimento laterale per i tasti 'a' e 'd'
         /* Premendo i tasti 'a' e 'd' il player non deve ruotare su se stesso, in quanto
          * inutile e molto fastidioso, ma deve spostarsi lateralmente. Se viene premuto
          * un tasto tra 'w' o 's' in contemporanea a un tasto tra 'a' o 'd', il player
          * dovrebbe muoversi in diagonale */
->>>>>>> bc3a19cc924f2c08d10782d2a62140dc04327ee1
         transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
     }
 
