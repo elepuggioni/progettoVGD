@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
         StartPause();
         if (!isDodging) PlayerMovement();
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (velocity > 0)
@@ -70,13 +71,13 @@ public class PlayerController : MonoBehaviour
              * più è alta e prima il player raggiunge la velocità massima. Evita quindi
              * quella lenta risposta del player alla pressione dei tasti, in cui parte
              * piano e lentamente raggiunge la massima velocità */
-            velocity += Time.deltaTime * 4.0f;
+            velocity += Time.deltaTime * 0.3f;
             
             /* Facendo muovere il player dentro questo ciclo if, che controlla quando un
              * tasto che permette di muovere il player è premuto, si evita che il player
              * continui a muoversi per inerzia dopo aver rilasciato il tasto */
             //TODO: E comunque da risolvere un leggero delay quando viene rilasciato il tasto
-            controller.SimpleMove(transform.forward * velocity * 7.0f);
+            controller.SimpleMove(transform.forward * velocity * 5.0f);
             
             //TODO: Alla pressione del tasto 's' il player deve indietreggiare
             /* In un gioco in cui si combatte corpo a corpo è impensabile che non si possa
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour
             /* Chiamando la SimpleMove nel ciclo if, decrementare la velocità gradualmente
              * non serve per il movimento del personaggio. In questo caso però è utile in
              * quanto rende l'animazione da corsa e idle più fluida */
-            velocity -= Time.deltaTime * 4.0f;
+            velocity -= Time.deltaTime * 2.0f;
         }
         //  Funzione che blocca il valore di velocity tra 0 e 1
         velocity = Mathf.Clamp01(velocity);
