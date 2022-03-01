@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Variables
-    private CharacterController controller;
+    public CharacterController controller;
     private float velocity = 0.0f;
+    public float speed = 7.0f;
+    private float gravity = 20.0f;
     public float rotationSpeed;
-    private Animator animator;
+    public Animator animator;
     private PauseMenu pm;
 
     [SerializeField] AnimationCurve dodgeCurve;
@@ -24,9 +26,8 @@ public class PlayerController : MonoBehaviour
         pm = GetComponent<PauseMenu>();
 
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    /*void Update()
     {
 
         StartPause();
@@ -38,6 +39,37 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(Dodge());
         } 
 
+    }*/
+
+    // Update is called once per frame
+    void Update()
+    {
+        StartPause();
+
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        direction += Physics.gravity * Time.deltaTime;
+
+        if (vertical != 0 || horizontal != 0)
+        {
+            velocity += Time.deltaTime * 4f;
+        }
+        else
+        {
+            velocity -= Time.deltaTime * 4f;
+        }
+
+        velocity = Mathf.Clamp01(velocity);
+        
+        // Setto i parameters dell'animator del Player
+        animator.SetFloat("velocity", velocity);
+        animator.SetFloat("turn", horizontal);
+
+        if (direction.magnitude >= 0.1f)
+        {
+            controller.SimpleMove(direction * velocity * speed);
+        }
     }
 
     public IEnumerator Dodge()
@@ -62,16 +94,16 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerMovement()
     {
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
+       float vertical = Input.GetAxis("Vertical");
+       float horizontal = Input.GetAxis("Horizontal");
 
-        if (vertical > 0)
-        {
-            /* La variabile velocity in realtà rappresenta l'accellerazione del player,
-             * più è alta e prima il player raggiunge la velocità massima. Evita quindi
-             * quella lenta risposta del player alla pressione dei tasti, in cui parte
-             * piano e lentamente raggiunge la massima velocità */
-            velocity += Time.deltaTime * 0.3f;
+       if (vertical > 0)
+       {
+           /* La variabile velocity in realtà rappresenta l'accellerazione del player,
+            * più è alta e prima il player raggiunge la velocità massima. Evita quindi
+            * quella lenta risposta del player alla pressione dei tasti, in cui parte
+            * piano e lentamente raggiunge la massima velocità */
+           velocity += Time.deltaTime * 4.0f;
             
             /* Facendo muovere il player dentro questo ciclo if, che controlla quando un
              * tasto che permette di muovere il player è premuto, si evita che il player
@@ -82,27 +114,27 @@ public class PlayerController : MonoBehaviour
             //TODO: Alla pressione del tasto 's' il player deve indietreggiare
             /* In un gioco in cui si combatte corpo a corpo è impensabile che non si possa
              * indietreggiare per schivare o allontanarsi dal nemico */
-        }
-        else
-        {
-            /* Chiamando la SimpleMove nel ciclo if, decrementare la velocità gradualmente
-             * non serve per il movimento del personaggio. In questo caso però è utile in
-             * quanto rende l'animazione da corsa e idle più fluida */
-            velocity -= Time.deltaTime * 2.0f;
-        }
-        //  Funzione che blocca il valore di velocity tra 0 e 1
-        velocity = Mathf.Clamp01(velocity);
+       }
+       else
+       {
+           /* Chiamando la SimpleMove nel ciclo if, decrementare la velocità gradualmente
+            * non serve per il movimento del personaggio. In questo caso però è utile in
+            * quanto rende l'animazione da corsa e idle più fluida */
+           velocity -= Time.deltaTime * 4.0f;
+       }
+       //  Funzione che blocca il valore di velocity tra 0 e 1
+       velocity = Mathf.Clamp01(velocity);
 
-        // Setto i parameters dell'animator del Player
-        animator.SetFloat("velocity", velocity);
-        animator.SetFloat("turn", horizontal);
+       // Setto i parameters dell'animator del Player
+       animator.SetFloat("velocity", velocity);
+       animator.SetFloat("turn", horizontal);
         
-        //TODO: Movimento laterale per i tasti 'a' e 'd'
-        /* Premendo i tasti 'a' e 'd' il player non deve ruotare su se stesso, in quanto
-         * inutile e molto fastidioso, ma deve spostarsi lateralmente. Se viene premuto
-         * un tasto tra 'w' o 's' in contemporanea a un tasto tra 'a' o 'd', il player
-         * dovrebbe muoversi in diagonale */
-        transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
+       //TODO: Movimento laterale per i tasti 'a' e 'd'
+       /* Premendo i tasti 'a' e 'd' il player non deve ruotare su se stesso, in quanto
+        * inutile e molto fastidioso, ma deve spostarsi lateralmente. Se viene premuto
+        * un tasto tra 'w' o 's' in contemporanea a un tasto tra 'a' o 'd', il player
+        * dovrebbe muoversi in diagonale */
+       transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
     }
 
     public void StartPause() {
