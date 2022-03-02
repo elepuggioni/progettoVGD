@@ -6,44 +6,114 @@ public class PlayerController : MonoBehaviour
 {
     #region Variables
 
-    public CharacterController controller;
     private float velocity = 6.0f;
-    public Animator animator;
-    private PauseMenu pm;
 
     [SerializeField] AnimationCurve dodgeCurve;
-    
-    bool isDodging;
     float dodgeTimer;
+    private bool isDodging;
+
+
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float walkSpeed;
+    [SerializeField] private float runSpeed;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private float groundCheckDistance;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private float gravity;
+
+    private Vector3 moveDirection;
+    private Vector3 speed;
 
     #endregion
+
+
+    #region Referecense
+    private CharacterController controller;
+    private Animator animator;
+    private PauseMenu pm;
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
 
+        
     }
 
     void Update()
      {
 
          StartPause();
-
-         if (!isDodging) 
-             PlayerMovement();
+         Move();
 
          if (Input.GetKeyDown(KeyCode.Space))
          {
-             if (velocity > 0)
-                 StartCoroutine(Dodge());
+           StartCoroutine(Dodge());
          } 
 
      }
 
-    
+    public void Move()
+    {
+        // passo la posizione del player, il raggio della sfera, layer da controllare
+        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
+
+        if(isGrounded && speed.y < 0)
+        {
+            speed.y = -2f;
+        }
+
+        float vertical = Input.GetAxis("Vertical");
+        moveDirection = new Vector3(0, 0, vertical);
+        moveDirection = transform.TransformDirection(moveDirection);
+
+        if (isGrounded)
+        {
+            if (moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
+            {
+                Walk();
+            }
+            else if (moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+            {
+                Run();
+            }
+            else if (moveDirection == Vector3.zero)
+            {
+                Idle();
+            }
+
+            moveDirection *= moveSpeed;
+        }
+
+
+
+        controller.Move(moveDirection * Time.deltaTime);
+        
+        speed.y += gravity * Time.deltaTime; // calcolo la gravità
+        controller.Move(speed * Time.deltaTime); // applico la gravità
+    }
+
+    private void Idle()
+    {
+        animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
+    }
+
+    private void Walk()
+    {
+        moveSpeed = walkSpeed;
+        animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
+    }
+
+    private void Run()
+    {
+        moveSpeed = runSpeed;
+        animator.SetFloat("Speed", 1, 0.1f, Time.deltaTime);
+    }
+
 
 
     public IEnumerator Dodge()
@@ -67,37 +137,37 @@ public class PlayerController : MonoBehaviour
     }
 
     
-    public void PlayerMovement()
-    {
-       float vertical = Input.GetAxis("Vertical");
-       float horizontal = Input.GetAxis("Horizontal");
-
-       if (vertical > 0)
-       {
-           
-           velocity += Time.deltaTime * 0.3f;            
-       }
-       else
-       {
-           velocity -= Time.deltaTime * 2.0f;
-       }
-       //  Funzione che blocca il valore di velocity tra 0 e 1
-       velocity = Mathf.Clamp01(velocity);
-
-       // Setto i parameters dell'animator del Player
-       animator.SetFloat("velocity", velocity);
-       animator.SetFloat("turn", horizontal);
-
-        controller.SimpleMove(transform.forward * velocity * 5.0f);
-        transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
-    } 
-
     public void StartPause() {
         if (Input.GetKeyDown(KeyCode.R))
             pm.Pause();
     }
 
-} 
+}
+/*public void PlayerMovement()
+   {
+      float vertical = Input.GetAxis("Vertical");
+      float horizontal = Input.GetAxis("Horizontal");
+
+      if (vertical > 0)
+      {
+
+          velocity += Time.deltaTime * 0.3f;            
+      }
+      else
+      {
+          velocity -= Time.deltaTime * 2.0f;
+      }
+      //  Funzione che blocca il valore di velocity tra 0 e 1
+      velocity = Mathf.Clamp01(velocity);
+
+      // Setto i parameters dell'animator del Player
+      animator.SetFloat("velocity", velocity);
+      animator.SetFloat("turn", horizontal);
+
+       controller.SimpleMove(transform.forward * velocity * 5.0f);
+       transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
+   } */
+
 /*// Update is called once per frame
     void Update()
     {

@@ -6,7 +6,33 @@ using UnityEngine;
 
 public class CameraThirdPerson : MonoBehaviour
 {
-    public bool lockCursore; //bloccare il cursore
+    [SerializeField] private float mouseSensitivity;
+
+    private Transform parent;
+
+
+    private void Start()
+    {
+        parent = transform.parent;
+        Cursor.lockState = CursorLockMode.Locked; //cursore bloccato al centro dello schermo
+        Cursor.visible = false; // cursore invisibile
+    }
+
+    private void Update()
+    {
+        Rotate();
+    }
+
+    private void Rotate()
+    {
+        //mouse sinistra e destra
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        parent.Rotate(Vector3.up, mouseX);
+    }
+
+    /* CAMERA MOBILE CON IL MOUSE
+     * 
+     * public bool lockCursore; //bloccare il cursore
     public float mouseSensitivity = 10; 
     public Transform obiettivo;     // obiettivo che la camera deve puntare
     private float dstFromTarget = 3.5f; // distanza dall'obiettivo
@@ -48,5 +74,5 @@ public class CameraThirdPerson : MonoBehaviour
             transform.position = obiettivo.position - transform.forward * dstFromTarget;
         }
     
-
+    */
 }
