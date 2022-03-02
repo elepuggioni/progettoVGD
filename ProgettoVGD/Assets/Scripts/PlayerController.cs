@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     private float velocity = 6.0f;
 
     [SerializeField] AnimationCurve dodgeCurve;
+    bool isDodging;
     float dodgeTimer;
-    private bool isDodging;
 
 
     [SerializeField] private float moveSpeed;
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
-    #region Referecense
+    #region Refers 
     private CharacterController controller;
     private Animator animator;
     private PauseMenu pm;
@@ -48,11 +48,13 @@ public class PlayerController : MonoBehaviour
      {
 
          StartPause();
-         Move();
+
+         if (!isDodging) 
+             Move();
 
          if (Input.GetKeyDown(KeyCode.Space))
          {
-           StartCoroutine(Dodge());
+                 StartCoroutine(Dodge());
          } 
 
      }
@@ -90,7 +92,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
+        
         controller.Move(moveDirection * Time.deltaTime);
         
         speed.y += gravity * Time.deltaTime; // calcolo la gravità
@@ -105,16 +107,28 @@ public class PlayerController : MonoBehaviour
     private void Walk()
     {
         moveSpeed = walkSpeed;
-        animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
+        if (Input.GetKey(KeyCode.S))
+        {
+            animator.SetFloat("Speed", -0.5f, 0.1f, Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
+        }
     }
 
     private void Run()
     {
         moveSpeed = runSpeed;
-        animator.SetFloat("Speed", 1, 0.1f, Time.deltaTime);
+        if (Input.GetKey(KeyCode.S))
+        {
+            animator.SetFloat("Speed", -0.5f, 0.1f, Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
+        }
     }
-
-
 
     public IEnumerator Dodge()
     {
