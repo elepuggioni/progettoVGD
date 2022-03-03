@@ -95,8 +95,8 @@ public class PlayerController : MonoBehaviour
         
         controller.Move(moveDirection * Time.deltaTime);
         
-        speed.y += gravity * Time.deltaTime; // calcolo la gravità
-        controller.Move(speed * Time.deltaTime); // applico la gravità
+        speed.y += gravity * Time.deltaTime; // calcolo la gravitï¿½
+        controller.Move(speed * Time.deltaTime); // applico la gravitï¿½
     }
 
     private void Idle()
@@ -107,11 +107,11 @@ public class PlayerController : MonoBehaviour
     private void Walk()
     {
         moveSpeed = walkSpeed;
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             animator.SetFloat("Speed", -0.5f, 0.1f, Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
         }
@@ -120,11 +120,11 @@ public class PlayerController : MonoBehaviour
     private void Run()
     {
         moveSpeed = runSpeed;
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S)  || Input.GetKey(KeyCode.DownArrow))
         {
             animator.SetFloat("Speed", -0.5f, 0.1f, Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
         }

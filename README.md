@@ -1,5 +1,13 @@
 # progettoVGD
 
+Elena update 03/03/2022
+Ho fatto un dialogue system rudimentale, è bruttino ma funziona :)
+premi F quando sei vicino a un NPC per parlare, premi F di nuovo per avanzare il dialogo, quando finisce la conversazione si chiude
+per ora c'è erika in T-pose davanti al cavaliere se volete provarlo (non è la stessa erika che passeggia nel villaggio)
+potete cambiare le frasi dall'editor sul npc nei campi del dialogue trigger
+ho seguito questo tutorial https://www.youtube.com/watch?v=_nRzoTzeyxU
+c'è solo il testo ed è bruttino da vedere per adesso, bisogna mettere il testo dentro un box bianco magari
+
 Alessio update 01/03/22
 Ho cambiato molte cose nel playerController.. sto cercando di rendere il movimento del player fluido e 
 godibile il più possibile. Non ho commentato il codice che ho scritto perché non ho fatto in tempo. 
