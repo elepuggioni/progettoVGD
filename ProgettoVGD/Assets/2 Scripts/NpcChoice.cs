@@ -12,6 +12,9 @@ public class NpcChoice : MonoBehaviour
     public GameObject subText;
     public GameObject subBox;
 
+    public Dialogue dialogue;
+    private Queue<string> sentences = new Queue<string>();
+    private bool isTalking;
 
     // Update is called once per frame
     void Update()
@@ -21,7 +24,7 @@ public class NpcChoice : MonoBehaviour
 
     void OnMouseOver()
     {
-        if(distance <= 3)
+        if (distance <= 3)
         {
             ActionDisplay.SetActive(true);
             ActionText.GetComponent<Text>().text = "Talk";
@@ -35,10 +38,19 @@ public class NpcChoice : MonoBehaviour
 
         if (Input.GetKey(KeyCode.E))
         {
-            if(distance <= 3)
+            if (distance <= 3)
             {
                 subBox.SetActive(true);
-                subText.GetComponent<Text>().text = "Prova 1 2 3";
+                subText.SetActive(true);
+
+                sentences.Clear();
+                foreach (string sent in dialogue.sentences)
+                {
+                    sentences.Enqueue(sent);
+
+                }
+                DisplayNextSentence();
+
                 ActionDisplay.SetActive(false);
                 ActionText.SetActive(false);
                 StartCoroutine(ResetChat());
@@ -59,4 +71,43 @@ public class NpcChoice : MonoBehaviour
         subBox.SetActive(false);
         subText.GetComponent<Text>().text = "";
     }
+
+    public void DisplayNextSentence()
+    {
+        isTalking = true;
+        if (sentences.Count == 0)
+        {
+            StartCoroutine(ResetChat());
+            return;
+        }
+        string sentence = sentences.Dequeue();
+        Debug.Log(sentence);
+        StopAllCoroutines();
+        StartCoroutine (Aspetta(sentence));
+
+    }
+
+    IEnumerator Aspetta(string frase)
+    {
+
+        if (isTalking) subText.GetComponent<Text>().text = frase;
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            isTalking = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && isTalking)
+        {
+            DisplayNextSentence();
+            isTalking = false;
+            yield return null;
+        }
+
+    }
 }
+
+
+/* subText.GetComponent<Text>().text = frase;
+yield return new WaitForSeconds(2.5f);
+if (Input.GetKey(KeyCode.E)) DisplayNextSentence(); */
