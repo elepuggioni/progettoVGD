@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
-        cameraTransform = Camera.main.transform;
+        //cameraTransform = Camera.main.transform;
     }
 
     void Update()
@@ -69,12 +69,12 @@ public class PlayerController : MonoBehaviour
         }
 
         float vertical = Input.GetAxisRaw("Vertical");
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        moveDirection = new Vector3(horizontal, 0, vertical);
-        moveDirection = moveDirection.x * cameraTransform.right.normalized + moveDirection.z * cameraTransform.forward.normalized;
-        moveDirection.y = 0f;
-        moveDirection = moveDirection.normalized;
-        //moveDirection = transform.TransformDirection(moveDirection);
+        //float horizontal = Input.GetAxisRaw("Horizontal");
+        moveDirection = new Vector3(0, 0, vertical);
+        //moveDirection = moveDirection.x * cameraTransform.right.normalized + moveDirection.z * cameraTransform.forward.normalized;
+        //moveDirection.y = 0f;
+        //moveDirection = moveDirection.normalized;
+        moveDirection = transform.TransformDirection(moveDirection);
 
         if (isGrounded)
         {
@@ -101,8 +101,8 @@ public class PlayerController : MonoBehaviour
         speed.y += gravity; // * Time.deltaTime; // calcolo la gravità
         controller.Move(speed * Time.deltaTime); // applico la gravità
         
-        Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        //Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+        //ransform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void Idle()
