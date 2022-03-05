@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float gravity;
+    [SerializeField] private float rotationSpeed;
 
     private Vector3 moveDirection;
     private Vector3 speed;
@@ -27,10 +28,11 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
-    #region Refers 
+    #region Refers
     private CharacterController controller;
     private Animator animator;
     private PauseMenu pm;
+    private Transform cameraTransform;
     #endregion
 
 
@@ -40,13 +42,11 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
-
-        
+        cameraTransform = Camera.main.transform;
     }
 
     void Update()
      {
-
          StartPause();
 
          if (!isDodging) 
@@ -55,8 +55,7 @@ public class PlayerController : MonoBehaviour
          if (Input.GetKeyDown(KeyCode.Space))
          {
                  StartCoroutine(Dodge());
-         } 
-
+         }
      }
 
     public void Move()
@@ -69,9 +68,13 @@ public class PlayerController : MonoBehaviour
             speed.y = -2f;
         }
 
-        float vertical = Input.GetAxis("Vertical");
-        moveDirection = new Vector3(0, 0, vertical);
-        moveDirection = transform.TransformDirection(moveDirection);
+        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        moveDirection = new Vector3(horizontal, 0, vertical);
+        moveDirection = moveDirection.x * cameraTransform.right.normalized + moveDirection.z * cameraTransform.forward.normalized;
+        moveDirection.y = 0f;
+        moveDirection = moveDirection.normalized;
+        //moveDirection = transform.TransformDirection(moveDirection);
 
         if (isGrounded)
         {
@@ -94,9 +97,12 @@ public class PlayerController : MonoBehaviour
 
         
         controller.Move(moveDirection * Time.deltaTime);
+
+        speed.y += gravity; // * Time.deltaTime; // calcolo la gravità
+        controller.Move(speed * Time.deltaTime); // applico la gravità
         
-        speed.y += gravity * Time.deltaTime; // calcolo la gravity
-        controller.Move(speed * Time.deltaTime); // applico la gravity
+        Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void Idle()
@@ -119,13 +125,14 @@ public class PlayerController : MonoBehaviour
 
     private void Run()
     {
-        moveSpeed = runSpeed;
         if (Input.GetKey(KeyCode.S)  || Input.GetKey(KeyCode.DownArrow))
         {
+            moveSpeed = walkSpeed;
             animator.SetFloat("Speed", -0.5f, 0.1f, Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
+            moveSpeed = runSpeed;
             animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
         }
     }
@@ -230,4 +237,3 @@ public class PlayerController : MonoBehaviour
         // Setto i parameters dell'animator del Player
         animator.SetFloat("velocity", velocity);
     }*/
-
