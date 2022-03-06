@@ -1,5 +1,10 @@
 # progettoVGD
 
+Andrea update 06/03/22
+Quando ci si avvicina ad un NPC si può inziare a parlare con E. Lo script si chiama NpcDialogue e le frasi possono essere inserite direttamente dall'inspector. Quando si avvia un discorso non si può andare avanti, bisogna ascolatrlo tutto, non è frustrante ed è la soluzione migliore io che abbia trovato.
+Il discorso viene avviato quando si è abbastanza vicini e il puntatore del mouse (che viene messo al centro dello schermo in automatico se si clicca) punta all'NPC, la camera è sistemata per permettere questo.
+Sono presenti due NPC, uno all'inzio e uno alla casa sulla destra.  
+
 Alessio update 05/03/22 Commit: "Third person camera e movimento laterale"
 Ho aggiunto il movimento laterale tramite tasti a e s. Mancano però le animazioni per la camminata laterale
 e il controllo sul movimento obliquo, cioé quando si ha sia input verticale che orizzontale. 

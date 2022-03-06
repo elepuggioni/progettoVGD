@@ -1,0 +1,111 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class NpcDialogue : MonoBehaviour
+{
+
+    public float distance;
+    public GameObject ActionDisplay;
+    public GameObject ActionText;
+    public GameObject subText;
+    public GameObject subBox;
+
+    public GameObject thePlayer;
+    public GameObject theCamera;
+
+    public Dialogue dialogue;
+    private Queue<string> sentences = new Queue<string>();
+
+    private void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        distance = DistanceFromObject.DistanceFromTarget;
+    }
+
+    void OnMouseOver()
+    {
+        if (distance <= 3)
+        {
+            ActionDisplay.SetActive(true);
+            ActionText.GetComponent<Text>().text = "Talk";
+            ActionText.SetActive(true);
+        }
+        else
+        {
+            ActionDisplay.SetActive(false);
+            ActionText.SetActive(false);
+        }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            if (distance <= 3)
+            {
+                thePlayer.GetComponent<PlayerController>().enabled = false;
+                theCamera.GetComponent<CameraThirdPerson>().enabled = false;
+
+                this.transform.LookAt(new Vector3(thePlayer.transform.position.x, this.transform.position.y, thePlayer.transform.position.z));
+                subBox.SetActive(true);
+                subText.SetActive(true);
+
+                sentences.Clear();
+                foreach (string sent in dialogue.sentences)
+                {
+                    sentences.Enqueue(sent);
+
+                }
+
+                DisplayNextSentence();
+                ActionDisplay.SetActive(false);
+                ActionText.SetActive(false);  
+            }
+        }
+
+    }
+
+    private void OnMouseExit()
+    {
+        ActionDisplay.SetActive(false);
+        ActionText.SetActive(false);
+    }
+
+    IEnumerator ResetChat()
+    {
+        yield return new WaitForSeconds(1.5f);
+        theCamera.GetComponent<CameraThirdPerson>().enabled = true;
+        thePlayer.GetComponent<PlayerController>().enabled = true;
+        
+
+        subBox.SetActive(false);
+        subText.GetComponent<Text>().text = "";
+        subText.SetActive(false);
+    }
+
+    public void DisplayNextSentence()
+    {
+        if (sentences.Count == 0)
+        {
+            StartCoroutine(ResetChat());
+            return;
+        }
+        string sentence = sentences.Dequeue();
+        StopAllCoroutines();
+        StartCoroutine (WaitAndRead(sentence));
+
+    }
+
+    IEnumerator WaitAndRead(string frase)
+    {
+        subText.GetComponent<Text>().text = frase;
+        yield return new WaitForSeconds(2.5f);
+        DisplayNextSentence(); 
+    }
+
+}
+
+

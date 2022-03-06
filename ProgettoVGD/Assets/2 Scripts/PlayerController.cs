@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         
         controller.Move(moveDirection * Time.deltaTime);
 
-        speed.y += gravity; // * Time.deltaTime; // calcolo la gravità
+        speed.y += gravity  * Time.deltaTime; // calcolo la gravità
         controller.Move(speed * Time.deltaTime); // applico la gravità
         
         //Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
