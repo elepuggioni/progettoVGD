@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float gravity;
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] 
+    [Tooltip("Velocità di rotazione dell'object")]
+    private float rotationSpeed;
 
     private Vector3 moveDirection;
     private Vector3 speed;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
     private PauseMenu pm;
+    //riferimento al transform della main camera 
     private Transform cameraTransform;
     #endregion
 
@@ -42,7 +45,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
-        //cameraTransform = Camera.main.transform;
+        //Accede al transform della main camera
+        cameraTransform = Camera.main.transform;
     }
 
     void Update()
@@ -69,12 +73,22 @@ public class PlayerController : MonoBehaviour
         }
 
         float vertical = Input.GetAxisRaw("Vertical");
-        //float horizontal = Input.GetAxisRaw("Horizontal");
-        moveDirection = new Vector3(0, 0, vertical);
-        //moveDirection = moveDirection.x * cameraTransform.right.normalized + moveDirection.z * cameraTransform.forward.normalized;
-        //moveDirection.y = 0f;
-        //moveDirection = moveDirection.normalized;
-        moveDirection = transform.TransformDirection(moveDirection);
+        //Asse che permette gli spostamenti laterali del player, cioe sull'asse x
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        moveDirection = new Vector3(horizontal, 0, vertical);
+        
+        /* Corregge la direzione del movimento del player in modo da seguire la rotazione
+         * della camera, gestita dal mouse. Quindi quando l'utente muove la visuale, il
+         * player segue anche questo movimento*/
+        moveDirection = moveDirection.x * cameraTransform.right.normalized + moveDirection.z * cameraTransform.forward.normalized;
+        
+        //Evita movimenti indesiderati sull'asse y
+        moveDirection.y = 0f; 
+        
+        //Normalizza il vettore per evitare che in movimento diagonale il player raddoppi la distanza percorsa
+        moveDirection = moveDirection.normalized;
+        
+        //moveDirection = transform.TransformDirection(moveDirection);
 
         if (isGrounded)
         {
@@ -98,11 +112,38 @@ public class PlayerController : MonoBehaviour
         
         controller.Move(moveDirection * Time.deltaTime);
 
-        speed.y += gravity  * Time.deltaTime; // calcolo la gravità
+        speed.y += gravity; // calcolo la gravità
         controller.Move(speed * Time.deltaTime); // applico la gravità
         
-        //Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
-        //ransform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        /* Istruzioni che gestiscono la rotazione del personaggio dovuta dal movimento della camera
+         * e dal movimento congiunto sull'asse orizzontale (x) e verticale (z).
+         * La rotazione del personaggio avviene solo quando il player si sta muovendo*/
+        if (moveDirection != Vector3.zero)
+        { 
+            //Genera un quaternione che rappresenta la rotazione del player sull'asse y, dovuto al movimento della visuale
+            Quaternion targetRotation = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
+            
+            /* Effettua la rotazione del player interpolando tra a = transform.rotation, che indica in che modo è
+             * orientato il player attualmente, e b = targetRotation che indica l'orientamento che il player deve avere,
+             * con velocità t = rotationSpeed * Time.deltaTime */
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            
+            /* Se il player si deve muovere in avanti e in orizzontale, quindi diagonalmente
+             * a destra o a sisnistra ma solo in avanti, il player viene ruotato in quella direzione*/
+            if (horizontal != 0 && vertical > 0)
+            {
+                //Calcola l'angolo di cui il player deve essere ruotato
+                float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
+                
+                //Genera un quaternione che rappresenta la rotazione del player sull'asse y, dovuto al vector3 moveDirection
+                Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
+                
+                /* Effettua la rotazione del player interpolando tra a = transform.rotation, che indica in che modo è
+                 * orientato il player attualmente, e b = targetRotation che indica l'orientamento che il player deve avere,
+                 * con velocità t = rotationSpeed * Time.deltaTime */
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+            } 
+        }
     }
 
     private void Idle()

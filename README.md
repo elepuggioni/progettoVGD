@@ -1,5 +1,7 @@
 # progettoVGD
 
+Alessio update 07/03/22 commit "work in progress" Aggiunte alcune cose sul player controller ma ancora da terminare. Aggiunto il campo visivo sul player ma ancora inutilizzato. 
+
 Andrea update 06/03/22
 Quando ci si avvicina ad un NPC si può inziare a parlare con E. Lo script si chiama NpcDialogue e le frasi possono essere inserite direttamente dall'inspector. Quando si avvia un discorso non si può andare avanti, bisogna ascolatrlo tutto, non è frustrante ed è la soluzione migliore io che abbia trovato.
 Il discorso viene avviato quando si è abbastanza vicini e il puntatore del mouse (che viene messo al centro dello schermo in automatico se si clicca) punta all'NPC, la camera è sistemata per permettere questo.
