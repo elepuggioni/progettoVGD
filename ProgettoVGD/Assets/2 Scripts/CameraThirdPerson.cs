@@ -26,8 +26,8 @@ public class CameraThirdPerson : MonoBehaviour
     private void Rotate()
     {
         //mouse sinistra e destra
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        parent.Rotate(Vector3.up, mouseX);
+   //     float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+   //     parent.Rotate(Vector3.up, mouseX);
     }
 
     /* CAMERA MOBILE CON IL MOUSE

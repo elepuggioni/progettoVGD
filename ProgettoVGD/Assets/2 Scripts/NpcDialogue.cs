@@ -11,15 +11,19 @@ public class NpcDialogue : MonoBehaviour
     public GameObject ActionText;
     public GameObject subText;
     public GameObject subBox;
+    private Quaternion rotazioneNPC;
 
     public GameObject thePlayer;
-    public GameObject theCamera;
+    private Animator animator;
 
     public Dialogue dialogue;
+    
     private Queue<string> sentences = new Queue<string>();
 
     private void Start()
     {
+        rotazioneNPC = new Quaternion(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z, this.transform.rotation.w);
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -47,11 +51,13 @@ public class NpcDialogue : MonoBehaviour
             if (distance <= 3)
             {
                 thePlayer.GetComponent<PlayerController>().enabled = false;
-                theCamera.GetComponent<CameraThirdPerson>().enabled = false;
 
                 this.transform.LookAt(new Vector3(thePlayer.transform.position.x, this.transform.position.y, thePlayer.transform.position.z));
                 subBox.SetActive(true);
                 subText.SetActive(true);
+
+                if (this.tag == "Cognata")
+                    animator.SetBool("Stendere", false);
 
                 sentences.Clear();
                 foreach (string sent in dialogue.sentences)
@@ -77,10 +83,12 @@ public class NpcDialogue : MonoBehaviour
     IEnumerator ResetChat()
     {
         yield return new WaitForSeconds(1.5f);
-        theCamera.GetComponent<CameraThirdPerson>().enabled = true;
         thePlayer.GetComponent<PlayerController>().enabled = true;
-        
 
+        if(this.tag == "Cognata")
+            animator.SetBool("Stendere", true);
+
+        this.transform.rotation = rotazioneNPC;
         subBox.SetActive(false);
         subText.GetComponent<Text>().text = "";
         subText.SetActive(false);
