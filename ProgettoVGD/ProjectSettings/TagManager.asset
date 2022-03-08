@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NPC
   - Cognata
+  - Collectable
   layers:
   - Default
   - TransparentFX

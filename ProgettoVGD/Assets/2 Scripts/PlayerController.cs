@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AnimationCurve dodgeCurve;
     bool isDodging;
     float dodgeTimer;
-
+    private int meleRaccolte = 0;
+    public Text meleText;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
+        meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
+        
         //Accede al transform della main camera
         cameraTransform = Camera.main.transform;
     }
@@ -202,6 +206,18 @@ public class PlayerController : MonoBehaviour
     public void StartPause() {
         if (Input.GetKeyDown(KeyCode.R))
             pm.Pause();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+
+        if (other.CompareTag("Collectable"))
+        {
+            other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
+            meleRaccolte++;
+            meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
+        }
+
     }
 
 }

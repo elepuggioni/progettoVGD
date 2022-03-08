@@ -37,7 +37,7 @@ public class NpcDialogue : MonoBehaviour
         if (distance <= 3)
         {
             ActionDisplay.SetActive(true);
-            ActionText.GetComponent<Text>().text = "Talk";
+            ActionText.GetComponent<Text>().text = "Parla [E]";
             ActionText.SetActive(true);
         }
         else
