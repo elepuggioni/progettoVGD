@@ -208,18 +208,19 @@ public class PlayerController : MonoBehaviour
             pm.Pause();
     }
 
-    void OnTriggerEnter(Collider other)
-    {
 
-        if (other.CompareTag("Collectable"))
+  void OnTriggerEnter(Collider other)
         {
-            other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
-            meleRaccolte++;
-            meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
-        }
 
+            if (other.CompareTag("Collectable"))
+            {
+                other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
+                meleRaccolte++;
+                meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
+            }
+
+        
     }
-
 }
 /*public void PlayerMovement()
    {
