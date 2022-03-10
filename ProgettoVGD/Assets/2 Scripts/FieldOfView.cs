@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * Controlla se un ogject target è presente nel campo
+ * Controlla se un object target è presente nel campo
  * visivo dell'object a cui è assegnato questro script
  */
 public class FieldOfView : MonoBehaviour
@@ -59,26 +59,30 @@ public class FieldOfView : MonoBehaviour
             
             //Direzione in cui si trova il target rispetto al object che lo ha nel campo visivo
             Vector3 directionToTarget = (target.position - transform.position).normalized;
-
+            
             /* Se l'angolo tra l'asse in cui è indirizzato il campo visivo e la
-             * direzione del target è compreso nel campo visivo effettivo*/ 
+             * direzione del target è compreso nel campo visivo effettivo*/
             if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
             {
                 //Calcola la distanza tra questo object e il target
-                float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
+                //float distanceToTarget = Vector3.Distance(transform.position, target.position);
+                
                 //Se il target è realmente nel campo visivo dell'object setta il boolean a true, altrimento a false
-                if (Physics.Raycast(transform.position, directionToTarget, distanceToTarget))
+                if (Physics.Raycast(transform.position, directionToTarget, radius))
                 {
                     targetTransform = target;
                     isVisible = true;
                 }
                 else
-                    isVisible = false; 
+                {
+                    isVisible = false;
+                }
             }
             //Se l'angolo invece è tale che il target è fuori dal campo visivo reale setta il boolean a false
             else
+            {
                 isVisible = false;
+            }
         }
         //Se il boolean è rimasto a true da un controllo precedente e il target è fuori dal campo visivo, lo setta a false
         else if (isVisible)

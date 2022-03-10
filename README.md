@@ -1,5 +1,7 @@
 # progettoVGD
 
+Alessio update 09/03/22 commit "work in progress 2" Fix di un bug strano nel FieldOfView e altre piccole correzioni.. 
+
 Alessio update 07/03/22 commit "work in progress" Aggiunte alcune cose sul player controller ma ancora da terminare. Aggiunto il campo visivo sul player ma ancora inutilizzato. 
 
 Andrea update 06/03/22
