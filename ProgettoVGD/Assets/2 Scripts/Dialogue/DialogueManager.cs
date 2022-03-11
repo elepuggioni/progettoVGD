@@ -35,7 +35,9 @@ public class DialogueManager : MonoBehaviour
 
         _npc = npc;
         rotazioneNPC = npc.transform.rotation;
-        _npc.transform.LookAt(_player.transform.position);
+
+        if(!(_npc.CompareTag("Prete")))
+            _npc.transform.LookAt(_player.transform.position);
 
         _animator = npc.GetComponent<Animator>();
         

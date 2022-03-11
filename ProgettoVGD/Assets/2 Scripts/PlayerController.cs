@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -9,13 +10,13 @@ public class PlayerController : MonoBehaviour
     #region Variables
 
     private float velocity = 6.0f;
-
-    [SerializeField] AnimationCurve dodgeCurve;
     bool isDodging;
     float dodgeTimer;
     private int meleRaccolte = 0;
+    private int life = 10;
     public Text meleText;
 
+    [SerializeField] AnimationCurve dodgeCurve;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
@@ -25,8 +26,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity;
     [SerializeField] 
     [Tooltip("Velocità di rotazione dell'object")]
-    private float rotationSpeed;
 
+
+    private float rotationSpeed;
+    private bool isImmune = false;
     private FieldOfView _fieldOfView;
 
     private Vector3 moveDirection;
@@ -41,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
     private PauseMenu pm;
+    private Heart cuori;
     //riferimento al transform della main camera 
     private Transform cameraTransform;
     #endregion
@@ -52,6 +56,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
+        cuori = GetComponent<Heart>();
         meleText.text = "Mele raccolte: " + meleRaccolte + "/10";
         
         //Accede al transform della main camera
@@ -68,9 +73,8 @@ public class PlayerController : MonoBehaviour
              Move();
 
          if (Input.GetKeyDown(KeyCode.Space))
-         {
              StartCoroutine(Dodge());
-         }
+        
 
          if (_fieldOfView.isVisible)
          {
@@ -91,6 +95,19 @@ public class PlayerController : MonoBehaviour
              ActionText.SetActive(false);
          }
      }
+
+    void OnTriggerEnter(Collider other)
+    {
+
+        if (other.CompareTag("Collectable"))
+        {
+            other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
+            meleRaccolte++;
+            meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
+        }
+
+
+    }
 
     public void Move()
     {
@@ -208,6 +225,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
+    public void StartPause() {
+        if (Input.GetKeyDown(KeyCode.R))
+            pm.Pause();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (!isImmune)
+        {
+            isImmune = true;
+            life -= damage;
+            cuori.numOfHearts -= damage;
+            if (life <= 0)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                SceneManager.LoadScene(0);
+            }
+            StartCoroutine(Immunity());
+        }
+    }
+
+    #region Coroutine
     public IEnumerator Dodge()
     {
         animator.SetTrigger("Rolling");
@@ -215,7 +256,8 @@ public class PlayerController : MonoBehaviour
         float timer = 0;
         controller.center = new Vector3(0, 0.5f, 0);
         controller.height = 1;
-        while (timer < dodgeTimer) {
+        while (timer < dodgeTimer)
+        {
             float speed = dodgeCurve.Evaluate(timer);
             Vector3 dir = (transform.forward * speed) +
                           (Vector3.up * velocity);
@@ -228,26 +270,15 @@ public class PlayerController : MonoBehaviour
         controller.height = 2;
     }
 
-    
-    public void StartPause() {
-        if (Input.GetKeyDown(KeyCode.R))
-            pm.Pause();
+    public IEnumerator Immunity()
+    {
+        yield return new WaitForSeconds(1.5f);
+        isImmune = false;
     }
-
-
-  void OnTriggerEnter(Collider other)
-        {
-
-            if (other.CompareTag("Collectable"))
-            {
-                other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
-                meleRaccolte++;
-                meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
-            }
-
-        
-    }
+    #endregion
 }
+
+
 /*public void PlayerMovement()
    {
       float vertical = Input.GetAxis("Vertical");
