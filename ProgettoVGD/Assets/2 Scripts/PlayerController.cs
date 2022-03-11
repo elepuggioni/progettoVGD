@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,8 +27,12 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Velocità di rotazione dell'object")]
     private float rotationSpeed;
 
+    private FieldOfView _fieldOfView;
+
     private Vector3 moveDirection;
     private Vector3 speed;
+    public GameObject ActionDisplay;
+    public GameObject ActionText;
 
     #endregion
 
@@ -47,10 +52,12 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
-        meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
+        meleText.text = "Mele raccolte: " + meleRaccolte + "/10";
         
         //Accede al transform della main camera
         cameraTransform = Camera.main.transform;
+
+        _fieldOfView = GetComponentInChildren<FieldOfView>();
     }
 
     void Update()
@@ -62,7 +69,26 @@ public class PlayerController : MonoBehaviour
 
          if (Input.GetKeyDown(KeyCode.Space))
          {
-                 StartCoroutine(Dodge());
+             StartCoroutine(Dodge());
+         }
+
+         if (_fieldOfView.isVisible)
+         {
+             DialogueTrigger dialogueTrigger = _fieldOfView.targetTransform.GetComponent<DialogueTrigger>();
+             if (dialogueTrigger != null)
+             {
+                 dialogueTrigger.TurnOnGameObjects();
+             }
+             
+             if (Input.GetKeyDown(KeyCode.E) && dialogueTrigger != null)
+             {
+                 dialogueTrigger.TriggerDialogue();
+             }
+         }
+         else
+         {
+             ActionDisplay.SetActive(false);
+             ActionText.SetActive(false);
          }
      }
 

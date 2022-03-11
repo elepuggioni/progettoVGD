@@ -23,7 +23,7 @@ public class FieldOfView : MonoBehaviour
     [Tooltip("Boolean che indica se il target è nel campo visivo")]
     public bool isVisible;
     
-    [Tooltip("Transform del object target")]
+    [Tooltip("Transform dell' object target")]
     public Transform targetTransform;
     
     private void Start()
@@ -73,16 +73,12 @@ public class FieldOfView : MonoBehaviour
                     targetTransform = target;
                     isVisible = true;
                 }
-                else
-                {
+                else 
                     isVisible = false;
-                }
             }
             //Se l'angolo invece è tale che il target è fuori dal campo visivo reale setta il boolean a false
             else
-            {
                 isVisible = false;
-            }
         }
         //Se il boolean è rimasto a true da un controllo precedente e il target è fuori dal campo visivo, lo setta a false
         else if (isVisible)

@@ -33,44 +33,6 @@ public class NpcDialogue : MonoBehaviour
     void Update()
     {
         distance = DistanceFromObject.DistanceFromTarget;
-        
-        /*
-        if (fov.isVisible)
-        {
-            ActionDisplay.SetActive(true);
-            ActionText.GetComponent<Text>().text = "Parla [E]";
-            ActionText.SetActive(true);
-        }
-        else
-        {
-            ActionDisplay.SetActive(false);
-            ActionText.SetActive(false);
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            thePlayer.GetComponent<PlayerController>().enabled = false;
-
-            this.transform.LookAt(new Vector3(thePlayer.transform.position.x, this.transform.position.y,
-                thePlayer.transform.position.z));
-            subBox.SetActive(true);
-            subText.SetActive(true);
-
-            if (this.tag == "Cognata")
-                animator.SetBool("Stendere", false);
-
-            sentences.Clear();
-            foreach (string sent in dialogue.sentences)
-            {
-                sentences.Enqueue(sent);
-
-            }
-
-            DisplayNextSentence();
-            ActionDisplay.SetActive(false);
-            ActionText.SetActive(false);
-        }
-        */
     }
 
     
