@@ -23,14 +23,14 @@ public class NPCbehaviour : MonoBehaviour
     void Update()
     {
         
-        if(proximity && !(dialogueManager.dialogueStarted) && Input.GetKeyDown(KeyCode.F)){ 
+        if(proximity && !(dialogueManager.isDialogueStarted) && Input.GetKeyDown(KeyCode.F)){ 
            dialogueTrigger.TriggerDialogue();
            canAdvanceText = false;
         }
         if(Input.GetKeyUp(KeyCode.F)){
             canAdvanceText = true;
         }
-        if(Input.GetKeyDown(KeyCode.F) && dialogueManager.dialogueStarted && canAdvanceText){
+        if(Input.GetKeyDown(KeyCode.F) && dialogueManager.isDialogueStarted && canAdvanceText){
                dialogueManager.DisplayNextSentence();
                canAdvanceText = false;
            }

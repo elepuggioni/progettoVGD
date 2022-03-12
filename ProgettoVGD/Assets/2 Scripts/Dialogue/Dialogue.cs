@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// Classe per inserire le frasi dei dialoghi dall'inspector di unity
 [System.Serializable]
 public class Dialogue
 { 

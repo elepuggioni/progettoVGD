@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private float velocity = 6.0f;
     bool isDodging;
+    public bool lockMovment = false;
     float dodgeTimer;
     private int meleRaccolte = 0;
     private int life = 10;
@@ -20,15 +21,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private float groundCheckDistance;
-    [SerializeField] private LayerMask groundMask;
     [SerializeField] private float gravity;
-    [SerializeField] 
-    [Tooltip("Velocità di rotazione dell'object")]
-
-
+    [SerializeField] [Tooltip("Velocità di rotazione dell'object")]
     private float rotationSpeed;
+    
+    [Header("Player Grounded")]
+    [SerializeField] [Tooltip("indica se il player è a terra o no")]
+    private bool isGrounded;
+    [SerializeField] 
+    private float groundCheckDistance = -0.12f;
+    [SerializeField] [Tooltip("Raggio per il controllo")]
+    private float groundedRadius = 0.24f;
+    [SerializeField] [Tooltip("Quale layer viene usato come piano di appoggio")]
+    private LayerMask groundMask;
+    
     private bool isImmune = false;
     private FieldOfView _fieldOfView;
 
@@ -69,10 +75,14 @@ public class PlayerController : MonoBehaviour
      {
          StartPause();
 
-         if (!isDodging) 
+         if (!isDodging && !lockMovment) 
              Move();
+          
+         //Attiva l'animazione di idle quando i comandi sono bloccati
+         if (lockMovment)
+             Idle();
 
-         if (Input.GetKeyDown(KeyCode.Space))
+         if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
              StartCoroutine(Dodge());
         
 
@@ -111,9 +121,12 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
-        // passo la posizione del player, il raggio della sfera, layer da controllare
-        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
-
+        //Genera la posizione della sfera per controllare se il player è a terra
+        Vector3 sphere = new Vector3(transform.position.x, transform.position.y - groundCheckDistance, transform.position.z);
+        
+        //Controlla se il player è a terra, ignorando la collisioni con i trigger
+        isGrounded = Physics.CheckSphere(sphere, groundedRadius, groundMask, QueryTriggerInteraction.Ignore);
+        
         if(isGrounded && speed.y < 0)
         {
             speed.y = -2f;
@@ -193,9 +206,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Idle()
+    public void Idle()
     {
-        animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
+        //animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
+        animator.SetFloat("Speed", 0f);
     }
 
     private void Walk()
@@ -276,79 +290,18 @@ public class PlayerController : MonoBehaviour
         isImmune = false;
     }
     #endregion
-}
-
-
-/*public void PlayerMovement()
-   {
-      float vertical = Input.GetAxis("Vertical");
-      float horizontal = Input.GetAxis("Horizontal");
-
-      if (vertical > 0)
-      {
-
-          velocity += Time.deltaTime * 0.3f;            
-      }
-      else
-      {
-          velocity -= Time.deltaTime * 2.0f;
-      }
-      //  Funzione che blocca il valore di velocity tra 0 e 1
-      velocity = Mathf.Clamp01(velocity);
-
-      // Setto i parameters dell'animator del Player
-      animator.SetFloat("velocity", velocity);
-      animator.SetFloat("turn", horizontal);
-
-       controller.SimpleMove(transform.forward * velocity * 5.0f);
-       transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
-   } */
-
-/*// Update is called once per frame
-    void Update()
-    {
-        StartPause();
-
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, irection += Physics.gravity * Time.deltaTim0f, vertical).normalized;
-        de;
-
-        if (vertical != 0 || horizontal != 0)
-        {
-            velocity += Time.deltaTime * 4f;
-        }
-        else
-        {
-            velocity -= Time.deltaTime * 4f;
-        }
-
-        velocity = Mathf.Clamp01(velocity);
-        
-        // Setto i parameters dell'animator del Player
-        animator.SetFloat("velocity", velocity);
-        animator.SetFloat("turn", horizontal);
-
-        if (direction.magnitude >= 0.1f)
-        {
-            controller.SimpleMove(direction * velocity * speed);
-        }
-    }*/
-/*void Update()
-    {
-
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
-
-        Vector3 movementDirection = new Vector3(horizontal, 0, vertical);
-        movementDirection.Normalize();
-        transform.Translate(movementDirection * velocity * Time.deltaTime, Space.World);
-
-        if(movementDirection != Vector3.zero){
-                Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-            }
     
-        // Setto i parameters dell'animator del Player
-        animator.SetFloat("velocity", velocity);
-    }*/
+    /* Disegna sulla scena di unity la sfera con cui controlla se il player è a terra.
+     * Sfera di colore verde in caso affermativo, rossa in caso non lo sia.
+     * Metodo preso dal pacchetto Starter Assets presente nell'assets store di unity */
+    private void OnDrawGizmosSelected()
+    {
+        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+        if (isGrounded) Gizmos.color = transparentGreen;
+        else Gizmos.color = transparentRed;
+			
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundCheckDistance, transform.position.z), groundedRadius);
+    }
+}

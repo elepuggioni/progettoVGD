@@ -1,100 +1,153 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* Script che gestisce i dialoghi in game. E' inserito */
 public class DialogueManager : MonoBehaviour
 {
-    private Queue<string> sentences;
-    public bool dialogueStarted;
+    [Tooltip("Indica se è in corso un dialogo")]
+    public bool isDialogueStarted;
     
-    public GameObject subText;
-    public GameObject subBox;
-    public GameObject ActionDisplay;
-    public GameObject ActionText;
-    private Quaternion rotazioneNPC;
-    private Animator _animator;
-    private GameObject _npc;
+    [SerializeField] [Tooltip("Game Object \"Sub Text\"")]
+    private GameObject subText;
     
+    [SerializeField] [Tooltip("Game Object \"Sub Box\"")]
+    private GameObject subBox;
+    
+    [SerializeField] [Tooltip("Game Object \"Action Display\"")]
+    private GameObject ActionDisplay;
+    
+    [SerializeField] [Tooltip("Game Object \"Action Text\"")]
+    private GameObject ActionText;
 
-    public GameObject _player;
+    [SerializeField] [Tooltip("Game Object del player")]
+    private GameObject _player;
+
+    /* Variabili locali */
+    private GameObject _npc;                //Game Object del npc
+    private Quaternion rotazioneNPC;        //rotazione del npc 
+    private Animator _animator;             //animator del npc
+    private Queue<string> sentences;        //Coda per le frasi del npc
     
 
     // Start is called before the first frame update
     void Start()
     {
+        //Inizializza la coda che conterrà le frasi dette dal npc
         sentences = new Queue<string>();
+        _player = GameObject.Find("Player");
     }
+    
+    /* Metodo che permette di iniziare la sequenza di dialogo.
+     * Prende in input il box dialogue che contiene le frasi, e
+     * il Game Object del npc con cui fare il dialogo*/
     public void StartDialogue(Dialogue dialogue, GameObject npc){
-        dialogueStarted = true;
+        //Setta il Boolean che indica che è in corso un dialogo a true
+        isDialogueStarted = true;
         
-        _player.GetComponent<PlayerController>().enabled = false;
+        //Disattiva il movimento del player
+        _player.GetComponent<PlayerController>().lockMovment = true;
 
         _npc = npc;
+        
+        //Salva la rotazione originaria del npc
         rotazioneNPC = npc.transform.rotation;
 
+        //Fa girare l'npc verso il player 
         if(!(_npc.CompareTag("Prete")))
             _npc.transform.LookAt(_player.transform.position);
 
+        //Riferimento all'animator del npc
         _animator = npc.GetComponent<Animator>();
         
+        //Disattiva l'animazione del npc
         if (_npc.CompareTag("Cognata"))
             _animator.SetBool("Stendere", false);
         
+        //Attiva i Game Objects per visualizzare le frasi dei dialoghi
         subBox.SetActive(true);
         subText.SetActive(true);
         
+        //Svuota la coda
         sentences.Clear();
+        
+        //Riempie la coda con tutte le frasi presenti nel dialogue del npc
         foreach (string sentence in dialogue.sentences){
             sentences.Enqueue(sentence);
         }
         
+        //Stampa a schermo la frase del dialogo
         DisplayNextSentence();
+        
+        //Disattiva i Game Objects per il comando di attivazione del dialogo
         ActionDisplay.SetActive(false);
         ActionText.SetActive(false); 
     }
     
+    // Metodo che stampa a schermo le frasi dei dialoghi
     public void DisplayNextSentence(){
+        //Se non ci sono più frasi nella coda, termina il dialogo
         if(sentences.Count == 0 )
         {
             EndDialogue();
             return;
         }
 
+        //Estrae una frase dalla coda
         string sentence = sentences.Dequeue();
-        //se si avanza il testo prima che finisca l'animazione si interrompe l'animazione
-        StopAllCoroutines(); 
+        
+        //Avvia la coroutine che digiti la frase
         StartCoroutine(TypeSentence(sentence));
     }
 
+    // Coroutine che digita a schermo la frase 
     IEnumerator TypeSentence(string sentence){
+        //Assegna una stringa vuota al box in cui digitare la frase
         subText.GetComponent<Text>().text = "";
+        
+        //Digita la frase aggiungiendo un carattere a ogni frame
         foreach(char letter in sentence){
             subText.GetComponent<Text>().text += letter;
             //aspetta 1 frame
             yield return null;
-            if (Input.anyKey)
+            /* Se viene premuto un qualsiasi tasto durante la digitazione,
+             * stampa tutta la frase in un frame ed esce dal ciclo */
+            if (Input.anyKeyDown)
             {
                 subText.GetComponent<Text>().text = sentence;
                 break;
             }
         }
         
+        //Aspetta due decimi di secondo
         yield return new WaitForSeconds(0.2f);
-        yield return new WaitUntil(() => Input.anyKey); //.GetKeyDown(KeyCode.E)); // new WaitForSeconds(2.5f);
+        
+        //Aspetta finché non viene premuto un qualsiasi tasto
+        yield return new WaitUntil(() => Input.anyKeyDown);
+        
+        //Avvia la coroutine che digiti la frase
         DisplayNextSentence();
     }
     
+    // Metodo che gestisce la conclusione del dialogo 
     public void EndDialogue(){
+        //Disattiva i Game Objects per visualizzare le frasi dei dialoghi
         subBox.SetActive(false);
         subText.GetComponent<Text>().text = "";
         subText.SetActive(false);
-        dialogueStarted = false;
-        _player.GetComponent<PlayerController>().enabled = true;
+        
+        //Setta il Boolean che indica che è in corso un dialogo a false
+        isDialogueStarted = false;
+        
+        //Riattiva il movimento del player 
+        _player.GetComponent<PlayerController>().lockMovment = false;
+        
+        //Resetta la rotazione del npc a quella iniziale
         _npc.transform.rotation = rotazioneNPC;
+        
+        //Riattiva l'animazione del npc
         if (_npc.CompareTag("Cognata"))
             _animator.SetBool("Stendere", true);
     }
