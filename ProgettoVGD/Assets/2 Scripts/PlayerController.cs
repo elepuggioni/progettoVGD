@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mAnimator = GetComponent<Animator>();
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
@@ -78,23 +77,20 @@ public class PlayerController : MonoBehaviour
      {
          StartPause();
 
-        if (!isAttacking)
-        {
-            if (!isDodging && !lockMovment)
+         if (!isDodging && !lockMovment)
                 Move();
 
-            //Attiva l'animazione di idle quando i comandi sono bloccati
-            if (lockMovment)
+         if (lockMovment)
                 Idle();
 
-            if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
+         if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
                 StartCoroutine(Dodge());
 
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)))
-            {
-                StartCoroutine(Attack());
-            }
-        }    
+         if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)))
+         {
+            StartCoroutine(AttackAnimation());  
+         }
+         
         
 
          if (_fieldOfView.isVisible)
@@ -119,7 +115,6 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
         if (other.CompareTag("Collectable"))
         {
             other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
@@ -127,9 +122,16 @@ public class PlayerController : MonoBehaviour
             meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
         }
 
-
+        if(other.CompareTag("Enemy") && isAttacking)
+        {
+            other.gameObject.GetComponent<EnemyController>().TakeDamage(1);
+            isAttacking = false;
+        }
     }
 
+
+
+    #region Movement functions
     public void Move()
     {
         //Genera la posizione della sfera per controllare se il player è a terra
@@ -216,13 +218,11 @@ public class PlayerController : MonoBehaviour
             } 
         }
     }
-
     public void Idle()
     {
         //animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
         animator.SetFloat("Speed", 0f);
     }
-
     private void Walk()
     {
         moveSpeed = walkSpeed;
@@ -235,7 +235,6 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
         }
     }
-
     private void Run()
     {
         if (Input.GetKey(KeyCode.S)  || Input.GetKey(KeyCode.DownArrow))
@@ -249,8 +248,9 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
         }
     }
+    #endregion
 
-    
+
     public void StartPause() {
         if (Input.GetKeyDown(KeyCode.R))
             pm.Pause();
@@ -273,7 +273,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Attack()
+    {
+        //Ray ray = new Ray(transform.position + new Vector3(0, 0.5f, 0), transform.forward);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.5f))
+        {
+            if (hit.transform.CompareTag("Enemy"))
+            {
+                hit.transform.gameObject.GetComponent<EnemyController>().TakeDamage(1);
+            }
+        }
+    }
+
     #region Coroutine
+
+    public IEnumerator AttackAnimation()
+    {
+        isAttacking = true;
+        animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 1);
+        animator.SetTrigger("Attack");
+        this.GetComponent<BoxCollider>().isTrigger = true;
+
+        yield return new WaitForSeconds(1.333f);
+        animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 0);
+        isAttacking = false;
+        this.GetComponent<BoxCollider>().isTrigger = true;
+    }
+
     public IEnumerator Dodge()
     {
         animator.SetTrigger("Rolling");
@@ -295,20 +323,9 @@ public class PlayerController : MonoBehaviour
         controller.height = 2;
     }
 
-    public IEnumerator Attack()
-    {
-        animator.SetTrigger("Attack");
-        isAttacking = true;
-        if (!mAnimator.GetCurrentAnimatorStateInfo(animator.GetLayerIndex("Player")).IsName("Attack"))
-        {
-            isAttacking = false;
-            yield return null;
-        }
-    }
-
     public IEnumerator Immunity()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.7f);
         isImmune = false;
     }
     #endregion

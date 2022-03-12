@@ -6,23 +6,21 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    private int life = 3;
-    private bool followPlayer = false;
+    private int life = 2;
     private float speedAnimator = 0.0f;
     private float velocity;
     public float wanderTime;
     public float movementSpeed;
+    private bool followPlayer = true;
 
     public LayerMask playerLayer;
     private NavMeshAgent agent;
     public TextMeshProUGUI lifeText;
     private Animator animator;
-    private Transform player;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").transform;
         lifeText.SetText(life.ToString());
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -32,6 +30,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         FollowOrNot();
+        
     }
 
     private void FixedUpdate()
@@ -43,8 +42,9 @@ public class EnemyController : MonoBehaviour
             if (hit.transform.CompareTag("Player")) 
             {
                 animator.SetTrigger("Attack");
-                if (hit.distance < 0.5f)
+                if (hit.distance < 1f)
                 {
+                    followPlayer = false;
                     hit.transform.GetComponent<PlayerController>().TakeDamage(2);
                 }
             }
@@ -57,23 +57,30 @@ public class EnemyController : MonoBehaviour
         animator.SetFloat("Speed", speedAnimator);
         if (Physics.CheckSphere(transform.position, 10.0f, playerLayer))
         {
-            speedAnimator = 0.5f;
+            speedAnimator = 1f;
             ChasePlayer();
         }
         else
         {
+            speedAnimator = 0.5f;
             agent.ResetPath();
-            speedAnimator = 0f;
             Patrol();
         }
     }
     void ChasePlayer()
     {
-        agent.SetDestination(player.position);
+        float distance = Vector3.Distance(GameObject.FindWithTag("Player").transform.position,
+                                          this.transform.position);
+        if (followPlayer)
+            agent.SetDestination(GameObject.FindWithTag("Player").transform.position);
+        else if (distance > 2f)
+            followPlayer = true;
+
     }
     void Patrol()
     {
-        if(wanderTime > 0)
+        followPlayer = true;
+        if (wanderTime > 0)
         {
             
             transform.Translate(Vector3.forward * movementSpeed);
@@ -87,5 +94,14 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    public void TakeDamage(int damage)
+    {
+        life -= damage;
+        lifeText.SetText(life.ToString());
+        if (life <= 0)
+        {
+            Destroy(agent.gameObject);
+        }
 
+    }
 }

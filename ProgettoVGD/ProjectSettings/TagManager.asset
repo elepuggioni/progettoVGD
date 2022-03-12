@@ -8,6 +8,7 @@ TagManager:
   - Cognata
   - Collectable
   - Prete
+  - Enemy
   layers:
   - Default
   - TransparentFX

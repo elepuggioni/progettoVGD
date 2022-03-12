@@ -96,27 +96,27 @@ BlendTree:
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 8bd4946eb8dcf0e48b1beb2706d55d7d, type: 3}
-    m_Threshold: 0
-    m_Position: {x: 0, y: 0}
+    m_Threshold: 0.5
+    m_Position: {x: 0.5, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
-    m_DirectBlendParameter: Movement
+    m_DirectBlendParameter: Speed
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 2b82cff40945eec4fae2977e4c77f2d8, type: 3}
-    m_Threshold: 0.5
-    m_Position: {x: 0.5, y: 0}
+    m_Threshold: 1
+    m_Position: {x: 1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Movement
     m_Mirror: 0
   m_BlendParameter: Speed
   m_BlendParameterY: Speed
-  m_MinThreshold: 0
-  m_MaxThreshold: 0.5
+  m_MinThreshold: 0.5
+  m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 0
+  m_BlendType: 3
 --- !u!1107 &2096449751251312106
 AnimatorStateMachine:
   serializedVersion: 6
@@ -128,10 +128,10 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 2609218437311664642}
-    m_Position: {x: 170, y: 190, z: 0}
+    m_Position: {x: 70, y: 190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6062803246591456963}
-    m_Position: {x: 310, y: 320, z: 0}
+    m_Position: {x: 430, y: 200, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
