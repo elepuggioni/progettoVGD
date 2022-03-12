@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     float dodgeTimer;
     private int meleRaccolte = 0;
     private int life = 10;
+    private bool isAttacking = false;
     public Text meleText;
 
     [SerializeField] AnimationCurve dodgeCurve;
@@ -53,12 +54,14 @@ public class PlayerController : MonoBehaviour
     private Heart cuori;
     //riferimento al transform della main camera 
     private Transform cameraTransform;
+    private Animator mAnimator;
     #endregion
 
 
     // Start is called before the first frame update
     void Start()
     {
+        mAnimator = GetComponent<Animator>();
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         pm = GetComponent<PauseMenu>();
@@ -75,15 +78,23 @@ public class PlayerController : MonoBehaviour
      {
          StartPause();
 
-         if (!isDodging && !lockMovment) 
-             Move();
-          
-         //Attiva l'animazione di idle quando i comandi sono bloccati
-         if (lockMovment)
-             Idle();
+        if (!isAttacking)
+        {
+            if (!isDodging && !lockMovment)
+                Move();
 
-         if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
-             StartCoroutine(Dodge());
+            //Attiva l'animazione di idle quando i comandi sono bloccati
+            if (lockMovment)
+                Idle();
+
+            if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
+                StartCoroutine(Dodge());
+
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)))
+            {
+                StartCoroutine(Attack());
+            }
+        }    
         
 
          if (_fieldOfView.isVisible)
@@ -282,6 +293,17 @@ public class PlayerController : MonoBehaviour
         isDodging = false;
         controller.center = new Vector3(0, 0.99f, 0);
         controller.height = 2;
+    }
+
+    public IEnumerator Attack()
+    {
+        animator.SetTrigger("Attack");
+        isAttacking = true;
+        if (!mAnimator.GetCurrentAnimatorStateInfo(animator.GetLayerIndex("Player")).IsName("Attack"))
+        {
+            isAttacking = false;
+            yield return null;
+        }
     }
 
     public IEnumerator Immunity()
