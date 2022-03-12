@@ -30,6 +30,9 @@ public class DialogueManager : MonoBehaviour
     private Quaternion rotazioneNPC;        //rotazione del npc 
     private Animator _animator;             //animator del npc
     private Queue<string> sentences;        //Coda per le frasi del npc
+    public GameObject ButtonYes;
+    public GameObject ButtonNo;
+
     
 
     // Start is called before the first frame update
@@ -90,15 +93,18 @@ public class DialogueManager : MonoBehaviour
     public void DisplayNextSentence(){
         //Se non ci sono più frasi nella coda, termina il dialogo
         if(sentences.Count == 0 )
-        {
+        {   
             EndDialogue();
             return;
+            
         }
 
         //Estrae una frase dalla coda
         string sentence = sentences.Dequeue();
         
         //Avvia la coroutine che digiti la frase
+        //se si avanza il testo prima che finisca l'animazione si interrompe l'animazione
+        StopAllCoroutines(); 
         StartCoroutine(TypeSentence(sentence));
     }
 
@@ -108,7 +114,7 @@ public class DialogueManager : MonoBehaviour
         subText.GetComponent<Text>().text = "";
         
         //Digita la frase aggiungiendo un carattere a ogni frame
-        foreach(char letter in sentence){
+        foreach(char letter in sentence.ToCharArray()){
             subText.GetComponent<Text>().text += letter;
             //aspetta 1 frame
             yield return null;
@@ -120,20 +126,22 @@ public class DialogueManager : MonoBehaviour
                 break;
             }
         }
-        
-        //Aspetta due decimi di secondo
-        yield return new WaitForSeconds(0.2f);
-        
-        //Aspetta finché non viene premuto un qualsiasi tasto
-        yield return new WaitUntil(() => Input.anyKeyDown);
-        
-        //Avvia la coroutine che digiti la frase
-        DisplayNextSentence();
     }
     
     // Metodo che gestisce la conclusione del dialogo 
     public void EndDialogue(){
         //Disattiva i Game Objects per visualizzare le frasi dei dialoghi
+
+        if(_npc.CompareTag("SignoraDelleMele")){
+                ButtonYes.SetActive(true);
+                ButtonNo.SetActive(true);
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                
+                
+            }
+
         subBox.SetActive(false);
         subText.GetComponent<Text>().text = "";
         subText.SetActive(false);
@@ -150,5 +158,10 @@ public class DialogueManager : MonoBehaviour
         //Riattiva l'animazione del npc
         if (_npc.CompareTag("Cognata"))
             _animator.SetBool("Stendere", true);
+        
     }
+
+    public void Yes(){}
+    public void No(){}
+
 }

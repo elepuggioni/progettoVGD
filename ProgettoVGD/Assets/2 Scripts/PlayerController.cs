@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 speed;
     public GameObject ActionDisplay;
     public GameObject ActionText;
+    public DialogueManager dialogueManager;
+     private bool canAdvanceText;
 
     #endregion
 
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
         pm = GetComponent<PauseMenu>();
         cuori = GetComponent<Heart>();
         meleText.text = "Mele raccolte: " + meleRaccolte + "/10";
@@ -101,11 +104,19 @@ public class PlayerController : MonoBehaviour
                  dialogueTrigger.TurnOnGameObjects();
              }
              
-             if (Input.GetKeyDown(KeyCode.E) && dialogueTrigger != null)
+             if (Input.GetKeyDown(KeyCode.E) && dialogueTrigger != null && !(dialogueManager.isDialogueStarted))
              {
                  dialogueTrigger.TriggerDialogue();
+                 canAdvanceText = false;
              }
-         }
+             if(Input.GetKeyUp(KeyCode.E)){
+                canAdvanceText = true;
+            }
+            if(Input.GetKeyDown(KeyCode.E) && dialogueManager.isDialogueStarted && canAdvanceText){
+                dialogueManager.DisplayNextSentence();
+                canAdvanceText = false;
+            }
+        }
          else
          {
              ActionDisplay.SetActive(false);
