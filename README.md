@@ -12,8 +12,8 @@ Le frasi pronuciate dall' npc non si aggiornano da sole ma bisogna premere un ta
 Tutto viene gestito dal gameObject "DialogueManager", a cui è attaccato lo script "DialogueManager"
 Devo ancora ordinare e commentare il codice che ho scritto. 
 Per aggiungere npc con dialoghi bisogna:   
-- Attaccare al gameObject dell'npc lo script "DialogTrigger" presente in Assets -> 2 Scripts -> Dialogue, scritto da Elena e leggermente modificato da me.  
-- Assegnare nell'ispector del gameObject dell'npc le frasi e l'Action Display e l'Action Text, implementati, credo, da Andrea.   
+- - Attaccare al gameObject dell'npc lo script "DialogTrigger" presente in Assets -> 2 Scripts -> Dialogue, scritto da Elena e leggermente modificato da me.  
+-- Assegnare nell'ispector del gameObject dell'npc le frasi e l'Action Display e l'Action Text, implementati, credo, da Andrea.   
 - Assegnare al gameObject dell'npc il layer "Npc Layer"
 
 - **Alessio update 09/03/22 commit "work in progress 2"**  
