@@ -1,7 +1,6 @@
 # progettoVGD
 
 Alessio update 12/03/22 commit "Small Update" 
-
 Piccolo aggiornamento in cui ho ordinato e commentato gli script che gestiscono il dialog system, e qualche parte dello script "PlayerController".
 Corretti un paio di bug, aggiustata la capsula del character controller e modificato il sistema di ground check del player. In particolare adesso viene controllata solo una parte
 della capsula, precisamente un area intorno ai piedi. Si può capire bene selezionando il player nel motore grafico, in cui si puo notare una sfera intorno ai piedi, che puo essere di 
