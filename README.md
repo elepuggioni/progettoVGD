@@ -1,12 +1,12 @@
 # progettoVGD
 
-### Alessio update 12/03/22 commit "**Small Update**" <br>
+### Alessio update 12/03/22 commit "**Small Update**" 
 Piccolo aggiornamento in cui ho ordinato e commentato gli script che gestiscono il dialog system, e qualche parte dello script "PlayerController".
 Corretti un paio di bug, aggiustata la capsula del character controller e modificato il sistema di ground check del player. In particolare adesso viene controllata solo una parte
 della capsula, precisamente un area intorno ai piedi. Si può capire bene selezionando il player nel motore grafico, in cui si puo notare una sfera intorno ai piedi, che puo essere di 
 colore verde trasparente o rossa trasparente, a seconda del risultato del check a runtime.
 
-### Alessio Update 11/03/22 commit "**Dialog system**"<br>
+### Alessio Update 11/03/22 commit "**Dialog system**"
 Adesso si può iniziare un dialogo con un npc quando questo entra nel field of view (script FieldOfView) del player.
 Le frasi pronuciate dall' npc non si aggiornano da sole ma bisogna premere un tasto qualsiasi, che permette anche di skippare "l'animazione" e terminare il dialogo. 
 Tutto viene gestito dal gameObject "DialogueManager", a cui è attaccato lo script "DialogueManager"
@@ -16,10 +16,10 @@ Per aggiungere npc con dialoghi bisogna:
 - Assegnare nell'ispector del gameObject dell'npc le frasi e l'Action Display e l'Action Text, implementati, credo, da Andrea.   
 - Assegnare al gameObject dell'npc il layer "Npc Layer"
 
-### Alessio update 09/03/22 commit "**work in progress 2**" \
+### Alessio update 09/03/22 commit "**work in progress 2**"
 Fix di un bug strano nel FieldOfView e altre piccole correzioni.. 
 
-### Alessio update 07/03/22 commit "**work in progress**"\
+### Alessio update 07/03/22 commit "**work in progress**"
 Aggiunte alcune cose sul player controller ma ancora da terminare. Aggiunto il campo visivo sul player ma ancora inutilizzato. 
 
 ### Andrea update 06/03/22 
