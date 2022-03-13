@@ -43,8 +43,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 speed;
     public GameObject ActionDisplay;
     public GameObject ActionText;
-    public DialogueManager dialogueManager;
-     private bool canAdvanceText;
+    public DialogueManager dialogueManager;  
 
     #endregion
 
@@ -88,15 +87,13 @@ public class PlayerController : MonoBehaviour
 
          if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
                 StartCoroutine(Dodge());
-
+         
          if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)))
          {
             StartCoroutine(AttackAnimation());  
          }
          
-        
-
-         if (_fieldOfView.isVisible)
+         if (_fieldOfView.isVisible && !dialogueManager.isDialogueStarted)
          {
              DialogueTrigger dialogueTrigger = _fieldOfView.targetTransform.GetComponent<DialogueTrigger>();
              if (dialogueTrigger != null)
@@ -104,19 +101,11 @@ public class PlayerController : MonoBehaviour
                  dialogueTrigger.TurnOnGameObjects();
              }
              
-             if (Input.GetKeyDown(KeyCode.E) && dialogueTrigger != null && !(dialogueManager.isDialogueStarted))
+             if (Input.GetKeyDown(KeyCode.E) && dialogueTrigger != null)
              {
                  dialogueTrigger.TriggerDialogue();
-                 canAdvanceText = false;
              }
-             if(Input.GetKeyUp(KeyCode.E)){
-                canAdvanceText = true;
-            }
-            if(Input.GetKeyDown(KeyCode.E) && dialogueManager.isDialogueStarted && canAdvanceText){
-                dialogueManager.DisplayNextSentence();
-                canAdvanceText = false;
-            }
-        }
+         }
          else
          {
              ActionDisplay.SetActive(false);

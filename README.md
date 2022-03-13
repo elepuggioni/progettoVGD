@@ -1,4 +1,6 @@
 # progettoVGD
+- **Alessio update 13/03/22 commit "fix dialog system"**  
+Semplice fix del sistema di dialogo riguardo al fatto che delle volte lo stesso dialogo veniva avviato più volte in contemporanea
 
 - **Alessio update 12/03/22 commit "Small Update"**  
 Piccolo aggiornamento in cui ho ordinato e commentato gli script che gestiscono il dialog system, e qualche parte dello script "PlayerController".
