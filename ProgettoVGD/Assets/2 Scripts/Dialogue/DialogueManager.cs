@@ -30,8 +30,8 @@ public class DialogueManager : MonoBehaviour
     private Quaternion rotazioneNPC;        //rotazione del npc 
     private Animator _animator;             //animator del npc
     private Queue<string> sentences;        //Coda per le frasi del npc
-    public GameObject ButtonYes;
-    public GameObject ButtonNo;
+    public GameObject buttonYes;
+    public GameObject buttonNo;
 
     
 
@@ -93,9 +93,18 @@ public class DialogueManager : MonoBehaviour
     public void DisplayNextSentence(){
         //Se non ci sono più frasi nella coda, termina il dialogo
         if(sentences.Count == 0 )
-        {   
-            EndDialogue();
-            return;
+        {
+            if (_npc.CompareTag("SignoraDelleMele")){
+                buttonNo.SetActive(true);
+                buttonYes.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                return;
+            }
+            else {
+                EndDialogue();
+                return;
+            }
         }
 
         //Estrae una frase dalla coda
@@ -140,7 +149,12 @@ public class DialogueManager : MonoBehaviour
         subBox.SetActive(false);
         subText.GetComponent<Text>().text = "";
         subText.SetActive(false);
-        
+
+        buttonNo.SetActive(false);
+        buttonYes.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         //Setta il Boolean che indica che è in corso un dialogo a false
         isDialogueStarted = false;
         
@@ -156,7 +170,13 @@ public class DialogueManager : MonoBehaviour
         
     }
 
-    public void Yes(){}
-    public void No(){}
+    public void Yes()
+    {
+        EndDialogue();
+    }
+    public void No()
+    {
+        EndDialogue();
+    }
 
 }
