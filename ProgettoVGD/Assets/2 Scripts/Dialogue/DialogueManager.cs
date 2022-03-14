@@ -30,17 +30,29 @@ public class DialogueManager : MonoBehaviour
     private Quaternion rotazioneNPC;        //rotazione del npc 
     private Animator _animator;             //animator del npc
     private Queue<string> sentences;        //Coda per le frasi del npc
+    private GameManager gameManager;
     public GameObject buttonYes;
     public GameObject buttonNo;
 
+    //controlla se bisogna mostrare i bottoni si/no quando parli con la signora delle mele
+    public bool displayButtons;
     
+    //frase che dice la signora delle mele se non hai abbastanza mele
+    public string questMeleNonBastano; 
 
+    //frasi che dice la signora delle mele se hai abbastanza mele
+    public string[] questMeleBastano = new string[2]; 
+    
     // Start is called before the first frame update
     void Start()
     {
         //Inizializza la coda che conterrà le frasi dette dal npc
         sentences = new Queue<string>();
         _player = GameObject.Find("Player");
+        gameManager = FindObjectOfType<GameManager>();
+        questMeleNonBastano = "Non hai abbastanza mele... me ne servono almeno dieci.";
+        questMeleBastano = new string[]{"Grazie! Adesso mio figlio starà sicuramente meglio...", 
+    "Come ti ho promesso, ecco la spada."}; 
     }
     
     /* Metodo che permette di iniziare la sequenza di dialogo.
@@ -49,7 +61,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue, GameObject npc){
         //Setta il Boolean che indica che è in corso un dialogo a true
         isDialogueStarted = true;
-        
+        displayButtons = true;
         //Disattiva il movimento del player
         _player.GetComponent<PlayerController>().lockMovment = true;
 
@@ -75,12 +87,27 @@ public class DialogueManager : MonoBehaviour
         
         //Svuota la coda
         sentences.Clear();
-        
-        //Riempie la coda con tutte le frasi presenti nel dialogue del npc
-        foreach (string sentence in dialogue.sentences){
-            sentences.Enqueue(sentence);
+
+        //se parli con la signora delle mele dopo che hai iniziato la quest
+        if(_npc.CompareTag("SignoraDelleMele") && gameManager.questMeleIniziata){
+            //se hai abbastanza mele (controlla nel gameManager)
+            if(gameManager.nMele >= 10){
+                foreach (string sentence in questMeleBastano){
+                    sentences.Enqueue(sentence);
+                }
+                gameManager.questMeleTerminata = true;
+            }
+            //se non hai abbastanza mele
+            else{
+                sentences.Enqueue(questMeleNonBastano);
+            }
         }
-        
+        else{
+            //Riempie la coda con tutte le frasi presenti nel dialogue del npc
+            foreach (string sentence in dialogue.sentences){
+                sentences.Enqueue(sentence);
+            }
+        }
         //Stampa a schermo la frase del dialogo
         DisplayNextSentence();
         
@@ -94,7 +121,7 @@ public class DialogueManager : MonoBehaviour
         //Se non ci sono più frasi nella coda, termina il dialogo
         if(sentences.Count == 0 )
         {
-            if (_npc.CompareTag("SignoraDelleMele")){
+            if (_npc.CompareTag("SignoraDelleMele") && displayButtons && !gameManager.questMeleIniziata){
                 buttonNo.SetActive(true);
                 buttonYes.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
@@ -106,6 +133,7 @@ public class DialogueManager : MonoBehaviour
                 return;
             }
         }
+
 
         //Estrae una frase dalla coda
         string sentence = sentences.Dequeue();
@@ -170,13 +198,29 @@ public class DialogueManager : MonoBehaviour
         
     }
 
+    //chiama questa funzione se accetti la quest della signora delle mele
     public void Yes()
     {
-        EndDialogue();
+        string sentenceYes = "Grazie! Allora aspetto il tuo ritorno.";
+        sentences.Clear();
+        sentences.Enqueue(sentenceYes);
+        displayButtons = false;
+        buttonNo.SetActive(false);
+        buttonYes.SetActive(false);
+        gameManager.questMeleIniziata = true; //segna nel gameManager se hai iniziato la quest delle mele
+        DisplayNextSentence();
     }
+
+    //chiama questa funzione se non accetti la quest della signora delle mele
     public void No()
     {
-        EndDialogue();
+        string sentenceNo = "Oh no... E allora come faremo..."; 
+        sentences.Clear();
+        sentences.Enqueue(sentenceNo);
+        displayButtons = false;
+        buttonNo.SetActive(false);
+        buttonYes.SetActive(false);
+        DisplayNextSentence();
     }
 
 }

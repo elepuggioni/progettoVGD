@@ -1,4 +1,7 @@
 # progettoVGD
+Elena update 14/03/22
+Creato un game manager dove tenere traccia delle info del player, tipo lo status delle quest e il numero di mele. Iniziato a implementare i bottoni si/no della signora delle mele. A seconda di quale premi cambia il dialogo, controlla anche se hai abbastanza mele, e segna i flag del progresso della quest nel game manager. Manca 1) spawnare le mele (e implementare le funzioni per raccoglierle?) 2) dare la spada quando completi la quest. Comunque tutta sta roba della quest delle mele sta nel dialogue manager, che è molto brutto ma onestamente non so come gestirlo da file esterno e non ho sbatti, se qualcuno vuole provare e ci riesce sarebbe meglio :D
+
 - **Alessio update 13/03/22 commit "fix dialog system"**  
 Semplice fix del sistema di dialogo riguardo al fatto che delle volte lo stesso dialogo veniva avviato più volte in contemporanea
 
