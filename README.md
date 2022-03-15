@@ -1,5 +1,13 @@
 # progettoVGD
-Elena update 14/03/22
+
+- **Alessio update 15/03/22 commit "Animator humanoid per il player"**  
+Creato un nuovo animator per il player con rig di tipo humanoid e un blend tree 2D. Tutte le animazioni
+ora sono per rig di tipo humanoid. Ci sono le animazioni per ogni direzione di movimento e per il roll,
+manca l'animazione di attacco che aggiungerò presto. Avvolte il player sbarella, tipo quando scavalca un
+ostacolo o è in pendenze ripide. Ciò è dovuto alla capsula del character controller troppo grande, per i 
+problemi con gli scheletri. Fixerò questo problema appena finisco il player.
+
+- **Elena update 14/03/22**  
 Creato un game manager dove tenere traccia delle info del player, tipo lo status delle quest e il numero di mele. Iniziato a implementare i bottoni si/no della signora delle mele. A seconda di quale premi cambia il dialogo, controlla anche se hai abbastanza mele, e segna i flag del progresso della quest nel game manager. Manca 1) spawnare le mele (e implementare le funzioni per raccoglierle?) 2) dare la spada quando completi la quest. Comunque tutta sta roba della quest delle mele sta nel dialogue manager, che è molto brutto ma onestamente non so come gestirlo da file esterno e non ho sbatti, se qualcuno vuole provare e ci riesce sarebbe meglio :D
 
 - **Alessio update 13/03/22 commit "fix dialog system"**  

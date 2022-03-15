@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -36,6 +34,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Tooltip("Quale layer viene usato come piano di appoggio")]
     private LayerMask groundMask;
     
+    [Header("Animator fields")]
+    [SerializeField]
+    [Tooltip("Rapidità di incremento o decremento dei parametri dell'animator")]
+    private float animationSmoothTime = 0.1f;
+    
     private bool isImmune = false;
     private FieldOfView _fieldOfView;
 
@@ -44,7 +47,17 @@ public class PlayerController : MonoBehaviour
     public GameObject ActionDisplay;
     public GameObject ActionText;
     public DialogueManager dialogueManager;  
+    
+    //Riferimento ai parametri degll'animator
+    private int _VerticalAnimatorID;
+    private int _HorizontalAnimatorID;
+    private int _isRunningAnimatorId;
+    private int _RollTriggerAnimatorId;
 
+    //Variabili per gestire i passaggi di parametri all'animator
+    private Vector2 currentAnimationBlendVector;
+    private Vector2 animationVelocity;
+    private Vector2 movementVector2;
     #endregion
 
 
@@ -55,12 +68,9 @@ public class PlayerController : MonoBehaviour
     private Heart cuori;
     //riferimento al transform della main camera 
     private Transform cameraTransform;
-    private Animator mAnimator;
     #endregion
-
-
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
@@ -73,6 +83,18 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
 
         _fieldOfView = GetComponentInChildren<FieldOfView>();
+        
+        //Assegna alle variabili l'id di riferimento dei parametri dell'animator
+        _VerticalAnimatorID = Animator.StringToHash("Vertical");
+        _HorizontalAnimatorID = Animator.StringToHash("Horizontal");
+        _isRunningAnimatorId = Animator.StringToHash("isRunning");
+        _RollTriggerAnimatorId = Animator.StringToHash("Roll");
+    }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+       
     }
 
     void Update()
@@ -80,17 +102,17 @@ public class PlayerController : MonoBehaviour
          StartPause();
 
          if (!isDodging && !lockMovment)
-                Move();
+             Move();
 
          if (lockMovment)
-                Idle();
+             Idle(); 
 
          if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
-                StartCoroutine(Dodge());
+             StartCoroutine(Dodge());
          
          if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)))
          {
-            StartCoroutine(AttackAnimation());  
+             StartCoroutine(AttackAnimation());  
          }
          
          if (_fieldOfView.isVisible && !dialogueManager.isDialogueStarted)
@@ -99,11 +121,8 @@ public class PlayerController : MonoBehaviour
              if (dialogueTrigger != null)
              {
                  dialogueTrigger.TurnOnGameObjects();
-             }
-             
-             if (Input.GetKeyDown(KeyCode.E) && dialogueTrigger != null)
-             {
-                 dialogueTrigger.TriggerDialogue();
+                 if (Input.GetKeyDown(KeyCode.E))
+                     dialogueTrigger.TriggerDialogue();
              }
          }
          else
@@ -128,13 +147,11 @@ public class PlayerController : MonoBehaviour
             isAttacking = false;
         }
     }
-
-
-
+    
     #region Movement functions
     public void Move()
     {
-        //Genera la posizione della sfera per controllare se il player è a terra
+         //Genera la posizione della sfera per controllare se il player è a terra
         Vector3 sphere = new Vector3(transform.position.x, transform.position.y - groundCheckDistance, transform.position.z);
         
         //Controlla se il player è a terra, ignorando la collisioni con i trigger
@@ -148,7 +165,18 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         //Asse che permette gli spostamenti laterali del player, cioe sull'asse x
         float horizontal = Input.GetAxisRaw("Horizontal");
-        moveDirection = new Vector3(horizontal, 0, vertical);
+
+        //Vettore con i valori di input dagli assi
+        movementVector2 = new Vector2(horizontal, vertical);
+        
+        //Permette di incrementare o decrementare i valori di input con un certo tasso stabilito da animationSmoothTime
+        currentAnimationBlendVector = Vector2.SmoothDamp(currentAnimationBlendVector, movementVector2, ref animationVelocity, animationSmoothTime);
+        
+        //Vettore con i valori di input per muovere il player
+        moveDirection = new Vector3(movementVector2.x, 0, movementVector2.y);
+
+        //Normalizza il vettore di movimento per non avere velocità incrementata in diagonale
+        moveDirection = moveDirection.normalized;
         
         /* Corregge la direzione del movimento del player in modo da seguire la rotazione
          * della camera, gestita dal mouse. Quindi quando l'utente muove la visuale, il
@@ -161,31 +189,37 @@ public class PlayerController : MonoBehaviour
         //Normalizza il vettore per evitare che in movimento diagonale il player raddoppi la distanza percorsa
         moveDirection = moveDirection.normalized;
         
-        //moveDirection = transform.TransformDirection(moveDirection);
-
+        //Setta i paramentri dell'animator se il player è poggiato a terra, se non lo è resetta i parametri
         if (isGrounded)
         {
-            if (moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
+            animator.SetFloat(_VerticalAnimatorID, currentAnimationBlendVector.y);
+            animator.SetFloat(_HorizontalAnimatorID, currentAnimationBlendVector.x);
+            
+            //Cambia il valore del parametro che attiva l'animazione di corsa 
+            if (vertical == 1f && Input.GetKey(KeyCode.LeftShift))
             {
-                Walk();
+                moveSpeed = runSpeed;
+                animator.SetBool(_isRunningAnimatorId, true);
             }
-            else if (moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+            else
             {
-                Run();
+                moveSpeed = walkSpeed;
+                animator.SetBool(_isRunningAnimatorId, false);
             }
-            else if (moveDirection == Vector3.zero)
-            {
-                Idle();
-            }
-
+            
+            //Imposta la velocità con cui si sposta il player
             moveDirection *= moveSpeed;
         }
-
-
+        else
+        {
+            animator.SetFloat(_VerticalAnimatorID, 0f);
+            animator.SetFloat(_HorizontalAnimatorID, 0f);
+            animator.SetBool(_isRunningAnimatorId, false);
+        }
         
         controller.Move(moveDirection * Time.deltaTime);
 
-        speed.y += gravity; // calcolo la gravità
+        speed.y += gravity * Time.deltaTime; // calcolo la gravità
         controller.Move(speed * Time.deltaTime); // applico la gravità
         
         /* Istruzioni che gestiscono la rotazione del personaggio dovuta dal movimento della camera
@@ -218,11 +252,14 @@ public class PlayerController : MonoBehaviour
             } 
         }
     }
+    
     public void Idle()
     {
-        //animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
-        animator.SetFloat("Speed", 0f);
+        animator.SetFloat(_VerticalAnimatorID, 0f, animationSmoothTime, Time.deltaTime);
+        animator.SetFloat(_HorizontalAnimatorID, 0f, animationSmoothTime, Time.deltaTime);
+        animator.SetBool(_isRunningAnimatorId, false);
     }
+    /*
     private void Walk()
     {
         moveSpeed = walkSpeed;
@@ -247,7 +284,7 @@ public class PlayerController : MonoBehaviour
             moveSpeed = runSpeed;
             animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
         }
-    }
+    }*/
     #endregion
 
 
@@ -304,7 +341,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Dodge()
     {
-        animator.SetTrigger("Rolling");
+        animator.SetTrigger(_RollTriggerAnimatorId);
         isDodging = true;
         float timer = 0;
         controller.center = new Vector3(0, 0.5f, 0);
