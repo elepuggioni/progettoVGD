@@ -33,6 +33,7 @@ public class DialogueManager : MonoBehaviour
     private GameManager gameManager;
     public GameObject buttonYes;
     public GameObject buttonNo;
+    public Heart numeroCuori;
 
     //controlla se bisogna mostrare i bottoni si/no quando parli con la signora delle mele
     public bool displayButtons;
@@ -129,6 +130,11 @@ public class DialogueManager : MonoBehaviour
                 return;
             }
             else {
+                if (_npc.CompareTag("Prete"))
+                {
+                    numeroCuori.numOfHearts = 10;
+                    numeroCuori.health = 10;
+                }
                 EndDialogue();
                 return;
             }

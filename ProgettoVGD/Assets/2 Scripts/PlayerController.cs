@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
          if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
              StartCoroutine(Dodge());
          
-         if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)))
+         if ( (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)) && !isAttacking && !isDodging)
          {
              StartCoroutine(AttackAnimation());  
          }
@@ -141,10 +141,9 @@ public class PlayerController : MonoBehaviour
             meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
         }
 
-        if(other.CompareTag("Enemy") && isAttacking)
+        if( other.CompareTag("Enemy") && isAttacking && !Input.GetKeyDown(KeyCode.W))
         {
             other.gameObject.GetComponent<EnemyController>().TakeDamage(1);
-            isAttacking = false;
         }
     }
     
@@ -336,7 +335,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1.333f);
         animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 0);
         isAttacking = false;
-        this.GetComponent<BoxCollider>().isTrigger = true;
+        this.GetComponent<BoxCollider>().isTrigger = false;
     }
 
     public IEnumerator Dodge()
