@@ -10,6 +10,7 @@ TagManager:
   - Prete
   - Enemy
   - SignoraDelleMele
+  - ArciereInfo
   layers:
   - Default
   - TransparentFX

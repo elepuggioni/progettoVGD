@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
 {
     [Tooltip("Indica se è in corso un dialogo")]
     public bool isDialogueStarted;
+    private bool infoAreDisplayed = false; //indica se l'arciere sta parlando e quando deve uscire
     
     [SerializeField] [Tooltip("Game Object \"Sub Text\"")]
     private GameObject subText;
@@ -32,8 +33,14 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> sentences;        //Coda per le frasi del npc
     private GameManager gameManager;
     public GameObject buttonYes;
+    public GameObject buttonInfoYes;
+    public GameObject buttonInfoNo;
     public GameObject buttonNo;
     public Heart numeroCuori;
+
+    public GameObject[] mele; // raccoglitore per le mele 
+    public Text meleDaRaccogliereText;  //mele da raccogliere
+    public GameObject[] scheletri; //raccoglitore per gli scheletri
 
     //controlla se bisogna mostrare i bottoni si/no quando parli con la signora delle mele
     public bool displayButtons;
@@ -97,6 +104,7 @@ public class DialogueManager : MonoBehaviour
                     sentences.Enqueue(sentence);
                 }
                 gameManager.questMeleTerminata = true;
+                DisableQuestObject();
             }
             //se non hai abbastanza mele
             else{
@@ -125,6 +133,21 @@ public class DialogueManager : MonoBehaviour
             if (_npc.CompareTag("SignoraDelleMele") && displayButtons && !gameManager.questMeleIniziata){
                 buttonNo.SetActive(true);
                 buttonYes.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                return;
+            }
+            else if (_npc.CompareTag("ArciereInfo"))
+            {
+                if (infoAreDisplayed)
+                {
+                    infoAreDisplayed = false;
+                    EndDialogue();
+                    return;
+                }
+
+                buttonInfoNo.SetActive(true);
+                buttonInfoYes.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 return;
@@ -215,6 +238,17 @@ public class DialogueManager : MonoBehaviour
         buttonYes.SetActive(false);
         gameManager.questMeleIniziata = true; //segna nel gameManager se hai iniziato la quest delle mele
         DisplayNextSentence();
+
+        meleDaRaccogliereText.gameObject.SetActive(true);
+        for(int i = 0; i < mele.Length; i++)//attiva le mele
+        {
+            mele[i].SetActive(true);
+        } 
+
+        for (int i = 0; i < scheletri.Length; i++) //attiva gli scheletri
+        {
+            scheletri[i].SetActive(true);
+        } 
     }
 
     //chiama questa funzione se non accetti la quest della signora delle mele
@@ -229,4 +263,39 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
+    public void YesInfo()
+    {
+        sentences.Clear();
+        sentences.Enqueue("Per prima qui vicino c'è una signora che ha bisogno di aiuto per suo figlio malato, parlaci e vedi cosa ha da dirti. " +
+                           "Sicuramente ti può ricompensare per bene");
+        sentences.Enqueue("Dopo vai a sfidare una delle guardie dello stregone, facendo così sicuramente ti rafforzerai.");
+        sentences.Enqueue("Alla fine sarai sicurmente pronto per affrontare il nostro capo e liberarci. Grazie straniero");
+        buttonInfoNo.SetActive(false);
+        buttonInfoYes.SetActive(false);
+        infoAreDisplayed = true;
+        DisplayNextSentence();
+    }
+
+    public void NoInfo()
+    {
+        sentences.Clear();
+        sentences.Enqueue("In bocca al lupo straniero, ne avrai bisogno");
+        buttonNo.SetActive(false);
+        buttonYes.SetActive(false);
+        DisplayNextSentence();
+    }
+
+    public void DisableQuestObject()
+    {
+        buttonNo.SetActive(false);
+        buttonYes.SetActive(false);
+
+        meleDaRaccogliereText.gameObject.SetActive(false);
+
+        for (int i = 0; i < scheletri.Length; i++) //attiva gli scheletri
+        {
+            if(scheletri[i].activeSelf)
+                scheletri[i].SetActive(false);
+        }
+    }
 }

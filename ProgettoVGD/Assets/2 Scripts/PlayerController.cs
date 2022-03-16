@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     bool isDodging;
     public bool lockMovment = false;
     float dodgeTimer;
-    private int meleRaccolte = 0;
+    public int meleRaccolte = 0;
     private int life = 10;
     private bool isAttacking = false;
     public Text meleText;
@@ -25,14 +25,10 @@ public class PlayerController : MonoBehaviour
     private float rotationSpeed;
     
     [Header("Player Grounded")]
-    [SerializeField] [Tooltip("indica se il player è a terra o no")]
-    private bool isGrounded;
-    [SerializeField] 
-    private float groundCheckDistance = -0.12f;
-    [SerializeField] [Tooltip("Raggio per il controllo")]
-    private float groundedRadius = 0.24f;
-    [SerializeField] [Tooltip("Quale layer viene usato come piano di appoggio")]
-    private LayerMask groundMask;
+    [SerializeField] [Tooltip("indica se il player è a terra o no")] private bool isGrounded;
+    [SerializeField] private float groundCheckDistance = -0.12f;
+    [SerializeField] [Tooltip("Raggio per il controllo")] private float groundedRadius = 0.24f;
+    [SerializeField] [Tooltip("Quale layer viene usato come piano di appoggio")] private LayerMask groundMask;
     
     [Header("Animator fields")]
     [SerializeField]
@@ -66,10 +62,10 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private PauseMenu pm;
     private Heart cuori;
-    //riferimento al transform della main camera 
-    private Transform cameraTransform;
+    private Transform cameraTransform;     //riferimento al transform della main camera 
+
     #endregion
-    
+
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -114,7 +110,12 @@ public class PlayerController : MonoBehaviour
          {
              StartCoroutine(AttackAnimation());  
          }
-         
+
+        if (this.transform.position.y <= -10)
+        {
+            TakeDamage(20);
+        }
+
          if (_fieldOfView.isVisible && !dialogueManager.isDialogueStarted)
          {
              DialogueTrigger dialogueTrigger = _fieldOfView.targetTransform.GetComponent<DialogueTrigger>();

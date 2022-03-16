@@ -100,7 +100,7 @@ public class EnemyController : MonoBehaviour
         lifeText.SetText(life.ToString());
         if (life <= 0)
         {
-            Destroy(agent.gameObject);
+           agent.gameObject.SetActive(false);
         }
 
     }
