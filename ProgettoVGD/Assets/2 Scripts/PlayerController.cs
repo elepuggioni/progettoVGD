@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     private int life = 10;
     private bool isAttacking = false;
     public Text meleText;
+    private float _vertical;
+    private float _horizontal;
+    private Vector3 cameraForward; 
+    private Vector3 cameraRight; 
 
     [SerializeField] AnimationCurve dodgeCurve;
     [SerializeField] private float moveSpeed;
@@ -39,7 +43,6 @@ public class PlayerController : MonoBehaviour
     private FieldOfView _fieldOfView;
 
     private Vector3 moveDirection;
-    private Vector3 speed;
     public GameObject ActionDisplay;
     public GameObject ActionText;
     public DialogueManager dialogueManager;  
@@ -90,7 +93,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Keyframe dodge_lastFrame = dodgeCurve[dodgeCurve.length - 1];
+        dodgeTimer = dodge_lastFrame.time;
     }
 
     void Update()
@@ -101,11 +105,17 @@ public class PlayerController : MonoBehaviour
              Move();
 
          if (lockMovment)
-             Idle(); 
+             Idle();
 
          if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
+         {
+             _vertical = Input.GetAxisRaw("Vertical");
+             _horizontal = Input.GetAxisRaw("Horizontal");
+             cameraForward = cameraTransform.forward;
+             cameraRight = cameraTransform.right;
              StartCoroutine(Dodge());
-         
+         }
+
          if ( (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)) && !isAttacking && !isDodging)
          {
              StartCoroutine(AttackAnimation());  
@@ -157,11 +167,6 @@ public class PlayerController : MonoBehaviour
         //Controlla se il player è a terra, ignorando la collisioni con i trigger
         isGrounded = Physics.CheckSphere(sphere, groundedRadius, groundMask, QueryTriggerInteraction.Ignore);
         
-        if(isGrounded && speed.y < 0)
-        {
-            speed.y = -2f;
-        }
-
         float vertical = Input.GetAxisRaw("Vertical");
         //Asse che permette gli spostamenti laterali del player, cioe sull'asse x
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -217,10 +222,13 @@ public class PlayerController : MonoBehaviour
             animator.SetBool(_isRunningAnimatorId, false);
         }
         
+        /*
         controller.Move(moveDirection * Time.deltaTime);
 
         speed.y += gravity * Time.deltaTime; // calcolo la gravità
         controller.Move(speed * Time.deltaTime); // applico la gravità
+        */
+        
         
         /* Istruzioni che gestiscono la rotazione del personaggio dovuta dal movimento della camera
          * e dal movimento congiunto sull'asse orizzontale (x) e verticale (z).
@@ -251,6 +259,9 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
             } 
         }
+        
+        moveDirection.y += gravity;
+        controller.Move(moveDirection * Time.deltaTime);
     }
     
     public void Idle()
@@ -259,32 +270,6 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat(_HorizontalAnimatorID, 0f, animationSmoothTime, Time.deltaTime);
         animator.SetBool(_isRunningAnimatorId, false);
     }
-    /*
-    private void Walk()
-    {
-        moveSpeed = walkSpeed;
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            animator.SetFloat("Speed", -0.5f, 0.1f, Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
-        }
-    }
-    private void Run()
-    {
-        if (Input.GetKey(KeyCode.S)  || Input.GetKey(KeyCode.DownArrow))
-        {
-            moveSpeed = walkSpeed;
-            animator.SetFloat("Speed", -0.5f, 0.1f, Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            moveSpeed = runSpeed;
-            animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
-        }
-    }*/
     #endregion
 
 
@@ -343,21 +328,23 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger(_RollTriggerAnimatorId);
         isDodging = true;
-        float timer = 0;
-        controller.center = new Vector3(0, 0.5f, 0);
-        controller.height = 1;
+        float timer = 0f;
+        Vector3 direction = new Vector3(_horizontal, 0f, _vertical);
+        direction = direction.x * cameraRight + direction.z * cameraForward;
+        direction.y = 0f;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        transform.rotation = rotation;
         while (timer < dodgeTimer)
         {
             float speed = dodgeCurve.Evaluate(timer);
-            Vector3 dir = (transform.forward * speed) +
-                          (Vector3.up * velocity);
-            controller.Move(dir * Time.deltaTime);
+            direction = _horizontal * cameraRight + _vertical * cameraForward;
+            direction.y = 0;
+            direction *= speed;
+            controller.Move(direction * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
         }
         isDodging = false;
-        controller.center = new Vector3(0, 0.99f, 0);
-        controller.height = 2;
     }
 
     public IEnumerator Immunity()

@@ -1,4 +1,6 @@
 # progettoVGD
+- **Alessio update 17/03/22 commit "Roll quasi finito"**
+Ho quasi finito di implementare il roll con tutti i particolari
 
 - **Alessio update 15/03/22 commit "Animator humanoid per il player"**  
 Creato un nuovo animator per il player con rig di tipo humanoid e un blend tree 2D. Tutte le animazioni
