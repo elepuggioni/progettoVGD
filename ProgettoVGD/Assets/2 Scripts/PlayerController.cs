@@ -17,21 +17,23 @@ public class PlayerController : MonoBehaviour
     public Text meleText;
     private float vertical;
     private float horizontal;
+    public bool armaturaAcquisita = false;
+    public bool spadaAcquisita = false;
 
     [SerializeField] AnimationCurve dodgeCurve;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
     [SerializeField] private float gravity;
-    [SerializeField] [Tooltip("Velocità di rotazione dell'object")]
-    private float rotationSpeed;
-    
-    [Header("Player Grounded")]
-    [SerializeField] [Tooltip("indica se il player è a terra o no")] private bool isGrounded;
     [SerializeField] private float groundCheckDistance = -0.12f;
+
+    [SerializeField] [Tooltip("Velocità di rotazione dell'object")] private float rotationSpeed;
     [SerializeField] [Tooltip("Raggio per il controllo")] private float groundedRadius = 0.24f;
     [SerializeField] [Tooltip("Quale layer viene usato come piano di appoggio")] private LayerMask groundMask;
-    
+
+    [Header("Player Grounded")]
+    [SerializeField] [Tooltip("indica se il player è a terra o no")] private bool isGrounded;
+
     [Header("Animator fields")]
     [SerializeField]
     [Tooltip("Rapidità di incremento o decremento dei parametri dell'animator")]
@@ -226,6 +228,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // Mele da raccogliere
         if (other.CompareTag("Collectable"))
         {
             other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
@@ -233,12 +236,20 @@ public class PlayerController : MonoBehaviour
             meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
         }
 
+        // Attacco contro gli scheletri
         if( other.CompareTag("Enemy") && isAttacking && !Input.GetKeyDown(KeyCode.W))
         {
             other.gameObject.GetComponent<EnemyController>().TakeDamage(1);
         }
+
+        // Attacco contro il vice capo
+        if (other.CompareTag("ViceCapo") && isAttacking && !Input.GetKeyDown(KeyCode.W))
+        {
+            other.gameObject.GetComponent<ViceCapoController>().TakeDamage(1);
+        }
     }
-    
+
+
     public void Move()
     {
         CheckIsGrounded();
@@ -372,7 +383,8 @@ public class PlayerController : MonoBehaviour
         isImmune = false;
     }
     #endregion
-    
+
+
     /* Disegna sulla scena di unity la sfera con cui controlla se il player è a terra.
      * Sfera di colore verde in caso affermativo, rossa in caso non lo sia.
      * Metodo preso dal pacchetto Starter Assets presente nell'assets store di unity */

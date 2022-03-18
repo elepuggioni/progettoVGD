@@ -45,7 +45,11 @@ public class EnemyController : MonoBehaviour
                 if (hit.distance < 1f)
                 {
                     followPlayer = false;
-                    hit.transform.GetComponent<PlayerController>().TakeDamage(2);
+
+                    if(hit.transform.GetComponent<PlayerController>().armaturaAcquisita)
+                        hit.transform.GetComponent<PlayerController>().TakeDamage(1);
+                    else
+                        hit.transform.GetComponent<PlayerController>().TakeDamage(2);
                 }
             }
         }

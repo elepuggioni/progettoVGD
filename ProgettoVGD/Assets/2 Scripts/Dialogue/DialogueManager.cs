@@ -65,7 +65,7 @@ public class DialogueManager : MonoBehaviour
     
     /* Metodo che permette di iniziare la sequenza di dialogo.
      * Prende in input il box dialogue che contiene le frasi, e
-     * il Game Object del npc con cui fare il dialogo*/
+     * il Game Object del npc con cui fare il dialogo */
     public void StartDialogue(Dialogue dialogue, GameObject npc){
         //Setta il Boolean che indica che è in corso un dialogo a true
         isDialogueStarted = true;
@@ -104,6 +104,7 @@ public class DialogueManager : MonoBehaviour
                     sentences.Enqueue(sentence);
                 }
                 gameManager.questMeleTerminata = true;
+                _player.GetComponent<PlayerController>().armaturaAcquisita = true;
                 DisableQuestObject();
             }
             //se non hai abbastanza mele
@@ -227,6 +228,7 @@ public class DialogueManager : MonoBehaviour
         
     }
 
+
     //chiama questa funzione se accetti la quest della signora delle mele
     public void Yes()
     {
@@ -250,7 +252,6 @@ public class DialogueManager : MonoBehaviour
             scheletri[i].SetActive(true);
         } 
     }
-
     //chiama questa funzione se non accetti la quest della signora delle mele
     public void No()
     {
@@ -266,24 +267,25 @@ public class DialogueManager : MonoBehaviour
     public void YesInfo()
     {
         sentences.Clear();
-        sentences.Enqueue("Per prima qui vicino c'è una signora che ha bisogno di aiuto per suo figlio malato, parlaci e vedi cosa ha da dirti. " +
+        sentences.Enqueue("Per prima cosa verso est c'è una signora che ha bisogno di aiuto per suo figlio, parlaci e vedi cosa ha da dirti. " +
                            "Sicuramente ti può ricompensare per bene");
-        sentences.Enqueue("Dopo vai a sfidare una delle guardie dello stregone, facendo così sicuramente ti rafforzerai.");
+        sentences.Enqueue("Dopo potresti andare a sfidare la spalla destra dello stregone, facendo così sicuramente lo indebolirai.");
         sentences.Enqueue("Alla fine sarai sicurmente pronto per affrontare il nostro capo e liberarci. Grazie straniero");
         buttonInfoNo.SetActive(false);
         buttonInfoYes.SetActive(false);
         infoAreDisplayed = true;
         DisplayNextSentence();
     }
-
     public void NoInfo()
     {
         sentences.Clear();
         sentences.Enqueue("In bocca al lupo straniero, ne avrai bisogno");
-        buttonNo.SetActive(false);
-        buttonYes.SetActive(false);
+        buttonInfoNo.SetActive(false);
+        buttonInfoYes.SetActive(false);
+        infoAreDisplayed = true;
         DisplayNextSentence();
     }
+
 
     public void DisableQuestObject()
     {
