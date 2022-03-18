@@ -1,4 +1,8 @@
 # progettoVGD
+- **Alessio update 18/03/22 commit "Roll"**
+Il roll così dovrebbe andare bene.. mancherebbe solo da modificare la capsula del character controller durante
+l'animazione come faceva prima. Ho iniziato a ordinare un po lo script PlayerController che era molto incasinato.
+
 - **Alessio update 17/03/22 commit "Roll quasi finito"**
 Ho quasi finito di implementare il roll con tutti i particolari
 

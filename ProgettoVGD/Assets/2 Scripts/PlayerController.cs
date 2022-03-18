@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,19 +7,16 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     #region Variables
-
-    private float velocity = 6.0f;
-    bool isDodging;
-    public bool lockMovment = false;
+    
+    private bool isInteracting;
+    public bool lockMovment;
     float dodgeTimer;
     public int meleRaccolte = 0;
     private int life = 10;
-    private bool isAttacking = false;
+    private bool isAttacking;
     public Text meleText;
-    private float _vertical;
-    private float _horizontal;
-    private Vector3 cameraForward; 
-    private Vector3 cameraRight; 
+    private float vertical;
+    private float horizontal;
 
     [SerializeField] AnimationCurve dodgeCurve;
     [SerializeField] private float moveSpeed;
@@ -59,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 movementVector2;
     #endregion
 
+    
 
     #region Refers
     private CharacterController controller;
@@ -100,101 +99,45 @@ public class PlayerController : MonoBehaviour
     void Update()
      {
          StartPause();
+         CheckVoidFall();
+         Move();
+         HandleInput();
+         CheckDialog();
+     }
 
-         if (!isDodging && !lockMovment)
-             Move();
+    // Controlla se è disponibile un NPC con cui iniziare un dialogo
+    private void CheckDialog()
+    {
+        if (_fieldOfView.isVisible && !dialogueManager.isDialogueStarted)
+        {
+            DialogueTrigger dialogueTrigger = _fieldOfView.targetTransform.GetComponent<DialogueTrigger>();
+            if (dialogueTrigger != null)
+            {
+                dialogueTrigger.TurnOnGameObjects();
+                if (Input.GetKeyDown(KeyCode.E))
+                    dialogueTrigger.TriggerDialogue();
+            }
+        }
+        else
+        {
+            ActionDisplay.SetActive(false);
+            ActionText.SetActive(false);
+        }
+    }
 
-         if (lockMovment)
-             Idle();
-
-         if (Input.GetKeyDown(KeyCode.Space) && !lockMovment)
-         {
-             _vertical = Input.GetAxisRaw("Vertical");
-             _horizontal = Input.GetAxisRaw("Horizontal");
-             cameraForward = cameraTransform.forward;
-             cameraRight = cameraTransform.right;
-             StartCoroutine(Dodge());
-         }
-
-         if ( (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)) && !isAttacking && !isDodging)
-         {
-             StartCoroutine(AttackAnimation());  
-         }
-
+    private void CheckVoidFall()
+    {
         if (this.transform.position.y <= -10)
         {
             TakeDamage(20);
         }
-
-         if (_fieldOfView.isVisible && !dialogueManager.isDialogueStarted)
-         {
-             DialogueTrigger dialogueTrigger = _fieldOfView.targetTransform.GetComponent<DialogueTrigger>();
-             if (dialogueTrigger != null)
-             {
-                 dialogueTrigger.TurnOnGameObjects();
-                 if (Input.GetKeyDown(KeyCode.E))
-                     dialogueTrigger.TriggerDialogue();
-             }
-         }
-         else
-         {
-             ActionDisplay.SetActive(false);
-             ActionText.SetActive(false);
-         }
-     }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Collectable"))
-        {
-            other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
-            meleRaccolte++;
-            meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
-        }
-
-        if( other.CompareTag("Enemy") && isAttacking && !Input.GetKeyDown(KeyCode.W))
-        {
-            other.gameObject.GetComponent<EnemyController>().TakeDamage(1);
-        }
     }
-    
-    #region Movement functions
-    public void Move()
-    {
-         //Genera la posizione della sfera per controllare se il player è a terra
-        Vector3 sphere = new Vector3(transform.position.x, transform.position.y - groundCheckDistance, transform.position.z);
-        
-        //Controlla se il player è a terra, ignorando la collisioni con i trigger
-        isGrounded = Physics.CheckSphere(sphere, groundedRadius, groundMask, QueryTriggerInteraction.Ignore);
-        
-        float vertical = Input.GetAxisRaw("Vertical");
-        //Asse che permette gli spostamenti laterali del player, cioe sull'asse x
-        float horizontal = Input.GetAxisRaw("Horizontal");
 
-        //Vettore con i valori di input dagli assi
-        movementVector2 = new Vector2(horizontal, vertical);
-        
+    private void SetAnimatorandSpeed()
+    {
         //Permette di incrementare o decrementare i valori di input con un certo tasso stabilito da animationSmoothTime
         currentAnimationBlendVector = Vector2.SmoothDamp(currentAnimationBlendVector, movementVector2, ref animationVelocity, animationSmoothTime);
-        
-        //Vettore con i valori di input per muovere il player
-        moveDirection = new Vector3(movementVector2.x, 0, movementVector2.y);
 
-        //Normalizza il vettore di movimento per non avere velocità incrementata in diagonale
-        moveDirection = moveDirection.normalized;
-        
-        /* Corregge la direzione del movimento del player in modo da seguire la rotazione
-         * della camera, gestita dal mouse. Quindi quando l'utente muove la visuale, il
-         * player segue anche questo movimento*/
-        moveDirection = moveDirection.x * cameraTransform.right.normalized + moveDirection.z * cameraTransform.forward.normalized;
-        
-        //Evita movimenti indesiderati sull'asse y
-        moveDirection.y = 0f; 
-        
-        //Normalizza il vettore per evitare che in movimento diagonale il player raddoppi la distanza percorsa
-        moveDirection = moveDirection.normalized;
-        
-        //Setta i paramentri dell'animator se il player è poggiato a terra, se non lo è resetta i parametri
         if (isGrounded)
         {
             animator.SetFloat(_VerticalAnimatorID, currentAnimationBlendVector.y);
@@ -217,20 +160,13 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            animator.SetFloat(_VerticalAnimatorID, 0f);
-            animator.SetFloat(_HorizontalAnimatorID, 0f);
-            animator.SetBool(_isRunningAnimatorId, false);
+            Idle();
         }
-        
-        /*
-        controller.Move(moveDirection * Time.deltaTime);
+    }
 
-        speed.y += gravity * Time.deltaTime; // calcolo la gravità
-        controller.Move(speed * Time.deltaTime); // applico la gravità
-        */
-        
-        
-        /* Istruzioni che gestiscono la rotazione del personaggio dovuta dal movimento della camera
+    private void HandleRotation()
+    {
+         /* Istruzioni che gestiscono la rotazione del personaggio dovuta dal movimento della camera
          * e dal movimento congiunto sull'asse orizzontale (x) e verticale (z).
          * La rotazione del personaggio avviene solo quando il player si sta muovendo*/
         if (moveDirection != Vector3.zero)
@@ -259,9 +195,94 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
             } 
         }
+    }
+
+    private void HandleInput()
+    {
+        if (!lockMovment && !isInteracting)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && movementVector2 != Vector2.zero)
+            {
+                StartCoroutine(Dodge(movementVector2, cameraTransform));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q))
+            {
+                StartCoroutine(AttackAnimation());
+            }
+        }
+
+
+    }
+
+    private void CheckIsGrounded()
+    {
+        //Genera la posizione della sfera per controllare se il player è a terra
+        Vector3 sphere = new Vector3(transform.position.x, transform.position.y - groundCheckDistance, transform.position.z);
         
-        moveDirection.y += gravity;
+        //Controlla se il player è a terra, ignorando la collisioni con i trigger
+        isGrounded = Physics.CheckSphere(sphere, groundedRadius, groundMask, QueryTriggerInteraction.Ignore);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Collectable"))
+        {
+            other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
+            meleRaccolte++;
+            meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
+        }
+
+        if( other.CompareTag("Enemy") && isAttacking && !Input.GetKeyDown(KeyCode.W))
+        {
+            other.gameObject.GetComponent<EnemyController>().TakeDamage(1);
+        }
+    }
+    
+    public void Move()
+    {
+        CheckIsGrounded();
+        
+        if (!lockMovment && !isInteracting) {
+            vertical = Input.GetAxisRaw("Vertical");
+            //Asse che permette gli spostamenti laterali del player, cioe sull'asse x
+            horizontal = Input.GetAxisRaw("Horizontal");
+        
+            //Vettore con i valori di input dagli assi
+            movementVector2 = new Vector2(horizontal, vertical);
+            
+            //Vettore con i valori di input per muovere il player
+            moveDirection = new Vector3(movementVector2.x, 0, movementVector2.y);
+
+             //Normalizza il vettore di movimento per non avere velocità incrementata in diagonale
+            moveDirection = moveDirection.normalized;
+
+            /* Corregge la direzione del movimento del player in modo da seguire la rotazione
+             * della camera, gestita dal mouse. Quindi quando l'utente muove la visuale, il
+             * player segue anche questo movimento*/
+            moveDirection = moveDirection.x * cameraTransform.right.normalized +
+                            moveDirection.z * cameraTransform.forward.normalized;
+
+            //Evita movimenti indesiderati sull'asse y
+            moveDirection.y = 0f;
+
+            //Normalizza il vettore per evitare che in movimento diagonale il player raddoppi la distanza percorsa
+            moveDirection = moveDirection.normalized;
+            
+            //Setta i paramentri dell'animator se il player è poggiato a terra, se non lo è resetta i parametri
+            SetAnimatorandSpeed();
+            HandleRotation();
+        }
+        else
+        {
+            if(lockMovment) 
+                Idle();
+            moveDirection = Vector3.zero;
+        }
+        
+        moveDirection.y = gravity;
         controller.Move(moveDirection * Time.deltaTime);
+        
     }
     
     public void Idle()
@@ -270,8 +291,6 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat(_HorizontalAnimatorID, 0f, animationSmoothTime, Time.deltaTime);
         animator.SetBool(_isRunningAnimatorId, false);
     }
-    #endregion
-
 
     public void StartPause() {
         if (Input.GetKeyDown(KeyCode.R))
@@ -314,6 +333,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator AttackAnimation()
     {
         isAttacking = true;
+        isInteracting = true;
         animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 1);
         animator.SetTrigger("Attack");
         this.GetComponent<BoxCollider>().isTrigger = true;
@@ -321,30 +341,29 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1.333f);
         animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 0);
         isAttacking = false;
+        isInteracting = false;
         this.GetComponent<BoxCollider>().isTrigger = false;
     }
 
-    public IEnumerator Dodge()
+    public IEnumerator Dodge(Vector2 input, Transform camera)
     {
         animator.SetTrigger(_RollTriggerAnimatorId);
-        isDodging = true;
-        float timer = 0f;
-        Vector3 direction = new Vector3(_horizontal, 0f, _vertical);
-        direction = direction.x * cameraRight + direction.z * cameraForward;
-        direction.y = 0f;
+        isInteracting = true;
+        float timer = 0f; 
+        Vector3 direction = new Vector3(input.x, 0f, input.y);
+        direction = direction.x * camera.right + direction.z * camera.forward;
         Quaternion rotation = Quaternion.LookRotation(direction);
         transform.rotation = rotation;
         while (timer < dodgeTimer)
         {
             float speed = dodgeCurve.Evaluate(timer);
-            direction = _horizontal * cameraRight + _vertical * cameraForward;
-            direction.y = 0;
-            direction *= speed;
-            controller.Move(direction * Time.deltaTime);
+            Vector3 movement = direction;
+            movement *= speed;
+            controller.Move(movement * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
         }
-        isDodging = false;
+        isInteracting = false;
     }
 
     public IEnumerator Immunity()
