@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class SaveLoad : MonoBehaviour
 {
     public float x,y,z;
-    public PlayerController pc;
+    string filepath; 
+
     public CharacterController cc;
     public PauseMenu pm;
+    private PlayerController player;
+    public GameManager gameManager;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        gameManager = gameManager.GetComponent<GameManager>();
+        filepath = Path.Combine(Application.dataPath, "playerData.dat");
     }
 
     // Update is called once per frame
@@ -21,29 +30,41 @@ public class SaveLoad : MonoBehaviour
     }
 
     public void Save(){
-        x = transform.position.x;
-        y = transform.position.y;
-        z = transform.position.z;
+        PlayerData data = new PlayerData();
 
+        data.setX(transform.position.x);
+        data.setY(transform.position.y);
+        data.setZ(transform.position.z);
+        data.SetArmor(player.armaturaAcquisita);
+        data.SetSpada(player.spadaAcquisita);
+        data.SetQuestMeleT(gameManager.questMeleTerminata);
 
-
-        PlayerPrefs.SetFloat("x", x);
-        PlayerPrefs.SetFloat("y", y);
-        PlayerPrefs.SetFloat("z", z);
+        Stream stream = new FileStream(filepath, FileMode.Create);
+        BinaryFormatter bf = new BinaryFormatter();
+        bf.Serialize(stream, data);
+        stream.Close();
+        
     }
 
     public void Load(){
-        x = PlayerPrefs.GetFloat("x");
-        y = PlayerPrefs.GetFloat("y");
-        z = PlayerPrefs.GetFloat("z");
 
-        pc.enabled = false;
-        cc.enabled = false;
-        transform.position = new Vector3(x,y,z);
-        pc.enabled = true;
-        cc.enabled = true;
-        
-        pm.Resume();
+        if (File.Exists(filepath))
+        {
+            Stream stream = new FileStream(filepath, FileMode.Open);
+            BinaryFormatter bf = new BinaryFormatter();
+            PlayerData data = (PlayerData)bf.Deserialize(stream);
+            stream.Close();
 
+            cc.enabled = false;
+            
+            transform.position = new Vector3(data.GetX(), data.GetY(), data.GetZ());
+            gameManager.questMeleTerminata = data.GetQuestMeleT();
+            player.armaturaAcquisita = data.GetArmor();
+            player.spadaAcquisita = data.GetSpada();
+            
+            cc.enabled = true;
+
+            pm.Resume();
+        }
     }
 }

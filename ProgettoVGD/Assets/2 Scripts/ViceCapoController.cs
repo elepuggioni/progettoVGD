@@ -140,7 +140,7 @@ public class ViceCapoController : MonoBehaviour
         animator.SetLayerWeight(animator.GetLayerIndex("Die Layer"), 1);
         animator.SetTrigger("Die");
         lifeText.SetText("");
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(6f);
         FindObjectOfType<PlayerController>().spadaAcquisita = true;
         agent.gameObject.SetActive(false);
         
