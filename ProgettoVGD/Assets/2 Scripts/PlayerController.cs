@@ -57,11 +57,12 @@ public class PlayerController : MonoBehaviour
     private Vector2 currentAnimationBlendVector;
     private Vector2 animationVelocity;
     private Vector2 movementVector2;
+
     #endregion
 
     
-
     #region Refers
+
     private CharacterController controller;
     private Animator animator;
     private PauseMenu pm;
@@ -101,10 +102,15 @@ public class PlayerController : MonoBehaviour
     void Update()
      {
          StartPause();
+
          CheckVoidFall();
+
          Move();
+
          HandleInput();
+
          CheckDialog();
+
      }
 
     // Controlla se è disponibile un NPC con cui iniziare un dialogo
@@ -113,7 +119,7 @@ public class PlayerController : MonoBehaviour
         if (_fieldOfView.isVisible && !dialogueManager.isDialogueStarted)
         {
             DialogueTrigger dialogueTrigger = _fieldOfView.targetTransform.GetComponent<DialogueTrigger>();
-            if (dialogueTrigger != null)
+            if (dialogueTrigger != null && !dialogueTrigger.dialogueManager.alreadyTalk)
             {
                 dialogueTrigger.TurnOnGameObjects();
                 if (Input.GetKeyDown(KeyCode.E))

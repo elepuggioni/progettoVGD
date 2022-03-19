@@ -6,16 +6,19 @@ using UnityEngine.AI;
 
 public class ViceCapoController : MonoBehaviour
 {
-    private int life = 5;
+    private int life = 2;
     private float speedAnimator = 0.0f;
-    private float velocity;
+    private bool isDead = false;
     private bool followPlayer = true;
-    public bool isImmune = false;
+    private bool isImmune = false;
+
 
     public LayerMask playerLayer;
+    
     private NavMeshAgent agent;
     public TextMeshProUGUI lifeText;
     private Animator animator;
+    private DialogueManager dialogueManager;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,7 @@ public class ViceCapoController : MonoBehaviour
         lifeText.SetText(life.ToString());
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
     // Update is called once per frame
@@ -34,29 +38,31 @@ public class ViceCapoController : MonoBehaviour
     private void FixedUpdate()
     {
         RaycastHit hit;
+
+        // Ritorna true se il raggio intereseca un collider
         if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
         {
-            if (hit.transform.CompareTag("Player"))
+            if (hit.transform.CompareTag("Player")) // Entro se colpisco il Player
             {
-                animator.SetTrigger("Attack");
-                if (hit.distance < 1f)
+                if (hit.distance < 1f && !isDead) // Se sono molto vicino al player
                 {
-                    followPlayer = false;
+                    animator.SetTrigger("Attack");
+                    followPlayer = false; // Smette di seguire il player  
+                    hit.transform.GetComponent<PlayerController>().TakeDamage(1); // Il player prende danno
 
-                    if (hit.transform.GetComponent<PlayerController>().armaturaAcquisita)
-                            hit.transform.GetComponent<PlayerController>().TakeDamage(1);
-                    else
-                            hit.transform.GetComponent<PlayerController>().TakeDamage(2);
                 }
             }
+            //animator.SetBool("Attack", false);
         }
     }
 
+    // Funzione che permette al vice capo di seguire il player se nel suo raggio
+    // oppure di tornare alla sua posizione
     void FollowOrNot()
     {
         Mathf.Clamp01(speedAnimator);
         animator.SetFloat("Speed", speedAnimator);
-        if (Physics.CheckSphere(transform.position, 12.0f, playerLayer))
+        if (Physics.CheckSphere(transform.position, 20.0f, playerLayer))
         {
             speedAnimator = 1f;
             ChasePlayer();
@@ -67,6 +73,7 @@ public class ViceCapoController : MonoBehaviour
             Back();
         }
     }
+
     // Insegue il player
     void ChasePlayer()
     {
@@ -88,40 +95,54 @@ public class ViceCapoController : MonoBehaviour
 
         if (distance > 2f)
         {
-            
-            speedAnimator = 0.5f;
-            agent.SetDestination(new Vector3(43.824f, 22.44319f, 74.70712f)); //posizione iniziale del vice capo
+            speedAnimator = 0.5f; // Animazione di Walk
+            agent.SetDestination(new Vector3(43.824f, 22.44319f, 74.70712f)); // Torna alla posizione iniziale del vice capo
         }
         else
         {
-            speedAnimator = 0.0f;
+            speedAnimator = 0.0f; // Animazione di Idle
             agent.ResetPath();
         }
            
 
     }
 
+    // Chiamato quando il vice capo prende danno
     public void TakeDamage(int damage)
     {
         if (!isImmune)
         {
-            Debug.Log("Sono immune");
             isImmune = true;
             life -= damage;
             lifeText.SetText(life.ToString());
             if (life <= 0)
             {
-                agent.gameObject.SetActive(false);
+                StartCoroutine(Die());
+                dialogueManager.alreadyTalk = false;
             }
+
             if(this.gameObject.activeSelf)
                 StartCoroutine(Immunity());
         }    
     }
 
+    // Dopo aver preso danno il vice capo è immune per 1.2 secondi
     public IEnumerator Immunity()
     {
         yield return new WaitForSeconds(1.2f);
         isImmune = false;
-        Debug.Log("Non sono immune");
+    }
+
+    public IEnumerator Die()
+    {
+        speedAnimator = 0;
+        isDead = true;
+        animator.SetLayerWeight(animator.GetLayerIndex("Die Layer"), 1);
+        animator.SetTrigger("Die");
+        lifeText.SetText("");
+        yield return new WaitForSeconds(4f);
+        FindObjectOfType<PlayerController>().spadaAcquisita = true;
+        agent.gameObject.SetActive(false);
+        
     }
 }

@@ -7,40 +7,44 @@ using UnityEngine.UI;
 /* Script che gestisce i dialoghi in game. E' inserito */
 public class DialogueManager : MonoBehaviour
 {
-    [Tooltip("Indica se è in corso un dialogo")]
-    public bool isDialogueStarted;
-    private bool infoAreDisplayed = false; //indica se l'arciere sta parlando e quando deve uscire
-    
-    [SerializeField] [Tooltip("Game Object \"Sub Text\"")]
-    private GameObject subText;
-    
-    [SerializeField] [Tooltip("Game Object \"Sub Box\"")]
-    private GameObject subBox;
-    
-    [SerializeField] [Tooltip("Game Object \"Action Display\"")]
-    private GameObject ActionDisplay;
-    
-    [SerializeField] [Tooltip("Game Object \"Action Text\"")]
-    private GameObject ActionText;
+    [Tooltip("Indica se è in corso un dialogo")] public bool isDialogueStarted;
 
-    [SerializeField] [Tooltip("Game Object del player")]
-    private GameObject _player;
+    [SerializeField] [Tooltip("Game Object \"Sub Text\"")] private GameObject subText;
+    [SerializeField] [Tooltip("Game Object \"Sub Box\"")] private GameObject subBox;
+    [SerializeField] [Tooltip("Game Object \"Action Display\"")] private GameObject ActionDisplay;
+    [SerializeField] [Tooltip("Game Object \"Action Text\"")] private GameObject ActionText;
+    [SerializeField] [Tooltip("Game Object del player")] private GameObject _player;
+
+    
+
 
     /* Variabili locali */
-    private GameObject _npc;                //Game Object del npc
     private Quaternion rotazioneNPC;        //rotazione del npc 
     private Animator _animator;             //animator del npc
     private Queue<string> sentences;        //Coda per le frasi del npc
     private GameManager gameManager;
+
+    private GameObject _npc;                //Game Object del npc
+    public GameObject viceCapo;
     public GameObject buttonYes;
+    public GameObject buttonNo;
     public GameObject buttonInfoYes;
     public GameObject buttonInfoNo;
-    public GameObject buttonNo;
+    public GameObject buttonBattle;
+    public GameObject buttonGoAway;
+    
     public Heart numeroCuori;
+    private ViceCapoController viceCapoController;
 
-    public GameObject[] mele; // raccoglitore per le mele 
     public Text meleDaRaccogliereText;  //mele da raccogliere
+    public GameObject[] mele; // raccoglitore per le mele 
     public GameObject[] scheletri; //raccoglitore per gli scheletri
+
+    //indica se l'arciere sta parlando e quando deve uscire
+    private bool infoAreDisplayed = false;
+
+    // indica se un dialogo può essere ripetuto una volta averlo attivato
+    public bool alreadyTalk = false;
 
     //controlla se bisogna mostrare i bottoni si/no quando parli con la signora delle mele
     public bool displayButtons;
@@ -57,10 +61,11 @@ public class DialogueManager : MonoBehaviour
         //Inizializza la coda che conterrà le frasi dette dal npc
         sentences = new Queue<string>();
         _player = GameObject.Find("Player");
+        viceCapoController = viceCapo.GetComponent<ViceCapoController>();
         gameManager = FindObjectOfType<GameManager>();
         questMeleNonBastano = "Non hai abbastanza mele... me ne servono almeno dieci.";
         questMeleBastano = new string[]{"Grazie! Adesso mio figlio starà sicuramente meglio...", 
-    "Come ti ho promesso, ecco la spada."}; 
+                                        "Come ti ho promesso, ecco la tua nuova armatura."}; 
     }
     
     /* Metodo che permette di iniziare la sequenza di dialogo.
@@ -128,37 +133,39 @@ public class DialogueManager : MonoBehaviour
     
     // Metodo che stampa a schermo le frasi dei dialoghi
     public void DisplayNextSentence(){
+
         //Se non ci sono più frasi nella coda, termina il dialogo
         if(sentences.Count == 0 )
         {
             if (_npc.CompareTag("SignoraDelleMele") && displayButtons && !gameManager.questMeleIniziata){
                 buttonNo.SetActive(true);
                 buttonYes.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                ActiveCursor();
                 return;
             }
-            else if (_npc.CompareTag("ArciereInfo"))
+            else if (_npc.CompareTag("ArciereInfo") && !infoAreDisplayed)
             {
-                if (infoAreDisplayed)
+                /*if (infoAreDisplayed) // Se l'aricere ha finito di parlare
                 {
                     infoAreDisplayed = false;
                     EndDialogue();
                     return;
-                }
+                }*/
 
                 buttonInfoNo.SetActive(true);
                 buttonInfoYes.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                ActiveCursor();
+                return;
+            }
+            else if (_npc.CompareTag("ViceCapo") && _player.GetComponent<PlayerController>().armaturaAcquisita)
+            {
+                buttonBattle.SetActive(true);
+                buttonGoAway.SetActive(true);
+                ActiveCursor();
                 return;
             }
             else {
-                if (_npc.CompareTag("Prete"))
-                {
-                    numeroCuori.numOfHearts = 10;
-                    numeroCuori.health = 10;
-                }
+                PriestHelth();
                 EndDialogue();
                 return;
             }
@@ -264,18 +271,23 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
+    // Mostra le info dall'aricere inziale se decido di andare avanti col dialogo 
     public void YesInfo()
     {
         sentences.Clear();
         sentences.Enqueue("Per prima cosa verso est c'è una signora che ha bisogno di aiuto per suo figlio, parlaci e vedi cosa ha da dirti. " +
                            "Sicuramente ti può ricompensare per bene");
-        sentences.Enqueue("Dopo potresti andare a sfidare la spalla destra dello stregone, facendo così sicuramente lo indebolirai.");
+        sentences.Enqueue("Dopo potresti andare a sfidare la spalla destra dello stregone, facendo così sicuramente lo indebolirai e " +
+                          "portai rubare la sua affilatissima spada.");
+        sentences.Enqueue("Ricorda che se sei ferito puoi sempre andare verso il prete per poterti curare. Attualmente si trova in cima " +
+                          "alla montagna con la croce");
         sentences.Enqueue("Alla fine sarai sicurmente pronto per affrontare il nostro capo e liberarci. Grazie straniero");
         buttonInfoNo.SetActive(false);
         buttonInfoYes.SetActive(false);
         infoAreDisplayed = true;
         DisplayNextSentence();
     }
+    // Chiudo il dialogo dall'arciere iniziale se decido di non leggere le info
     public void NoInfo()
     {
         sentences.Clear();
@@ -286,6 +298,37 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
+    public void YesBattle()
+    {
+        sentences.Clear();
+        alreadyTalk = true;
+        viceCapoController.enabled = true;
+
+        EndDialogue();
+    }
+
+    public void NoGoAway()
+    {
+        sentences.Clear();
+        EndDialogue();
+    }
+
+
+    // Mostra il cursore sullo schermo
+    public void ActiveCursor() {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    } 
+
+    // Se parlo con il prete vengo curato
+    public void PriestHelth()
+    {
+        if (_npc.CompareTag("Prete")) // Se parli con il prete ti rida tutti i cuori
+        {
+            numeroCuori.numOfHearts = 10;
+            numeroCuori.health = 10;
+        }
+    }
 
     public void DisableQuestObject()
     {
