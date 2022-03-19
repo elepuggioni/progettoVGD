@@ -325,6 +325,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (_npc.CompareTag("Prete")) // Se parli con il prete ti rida tutti i cuori
         {
+            _player.GetComponent<PlayerController>().life = 10;
             numeroCuori.numOfHearts = 10;
             numeroCuori.health = 10;
         }

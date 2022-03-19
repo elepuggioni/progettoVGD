@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class ViceCapoController : MonoBehaviour
 {
-    private int life = 2;
+    private int life = 6;
     private float speedAnimator = 0.0f;
     private bool isDead = false;
     private bool followPlayer = true;
@@ -126,7 +126,7 @@ public class ViceCapoController : MonoBehaviour
         }    
     }
 
-    // Dopo aver preso danno il vice capo è immune per 1.2 secondi
+    // Dopo aver preso danno il vice capo ï¿½ immune per 1.2 secondi
     public IEnumerator Immunity()
     {
         yield return new WaitForSeconds(1.2f);

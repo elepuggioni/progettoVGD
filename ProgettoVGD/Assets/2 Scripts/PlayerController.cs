@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public bool lockMovment;
     float dodgeTimer;
     public int meleRaccolte = 0;
-    private int life = 10;
+    public int life = 10;
     private bool isAttacking;
     public Text meleText;
     private float vertical;
@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     public GameObject ActionDisplay;
     public GameObject ActionText;
     public DialogueManager dialogueManager;  
+    public GameManager gameManager;
     
     //Riferimento ai parametri degll'animator
     private int _VerticalAnimatorID;
@@ -110,7 +111,6 @@ public class PlayerController : MonoBehaviour
          HandleInput();
 
          CheckDialog();
-
      }
 
     // Controlla se è disponibile un NPC con cui iniziare un dialogo

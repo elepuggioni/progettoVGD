@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int nMele = 0; //numero delle mele raccolte 
     public PlayerController player;
 
+
     // Start is called before the first frame update
     void Start()
     {

@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         pauseMenu.SetActive(false);
-        Time.timeScale = 1f; // velocità normale
+        Time.timeScale = 1f; // velocitï¿½ normale
     }
 
     public void Home(int sceneID)
