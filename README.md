@@ -1,5 +1,5 @@
 # progettoVGD
-- **Alessio update 20/03/22 commit "Attacco semplice"
+- **Alessio update 20/03/22 commit "Attacco semplice"**
 Aggiustata la capsula del player. Migliorata notevolmente la meccanica di attacco, resa piu responsiva e coerente 
 con la sua animazione. Codice aggiunto da commentare e riordinare. Seguiranno altre animazioni di attacco e la
 possibilità di concatenazione di più attacchi. Successivamente sarà aggiornato il sistema di collision detection per
