@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerData
+public class PlayerData // Contenitore dei dati da salvare 
 {
-    private  float x, y, z;
+    private  float x, y, z; // posizione del player
     private bool armatura, spada, questMeleTerminata;
 
     public void setX(float x)

@@ -25,6 +25,7 @@ public class DialogueManager : MonoBehaviour
     private GameManager gameManager;
 
     private GameObject _npc;                //Game Object del npc
+
     public GameObject viceCapo;
     public GameObject buttonYes;
     public GameObject buttonNo;
@@ -39,6 +40,9 @@ public class DialogueManager : MonoBehaviour
     public Text meleDaRaccogliereText;  //mele da raccogliere
     public GameObject[] mele; // raccoglitore per le mele 
     public GameObject[] scheletri; //raccoglitore per gli scheletri
+
+    //indica se il viceCapo ha iniziato ad attaccare
+    private bool viceCapoIsAttacking = false;
 
     //indica se l'arciere sta parlando e quando deve uscire
     private bool infoAreDisplayed = false;
@@ -145,13 +149,6 @@ public class DialogueManager : MonoBehaviour
             }
             else if (_npc.CompareTag("ArciereInfo") && !infoAreDisplayed)
             {
-                /*if (infoAreDisplayed) // Se l'aricere ha finito di parlare
-                {
-                    infoAreDisplayed = false;
-                    EndDialogue();
-                    return;
-                }*/
-
                 buttonInfoNo.SetActive(true);
                 buttonInfoYes.SetActive(true);
                 ActiveCursor();
@@ -253,11 +250,6 @@ public class DialogueManager : MonoBehaviour
         {
             mele[i].SetActive(true);
         } 
-
-        for (int i = 0; i < scheletri.Length; i++) //attiva gli scheletri
-        {
-            scheletri[i].SetActive(true);
-        } 
     }
     //chiama questa funzione se non accetti la quest della signora delle mele
     public void No()
@@ -303,7 +295,7 @@ public class DialogueManager : MonoBehaviour
         sentences.Clear();
         alreadyTalk = true;
         viceCapoController.enabled = true;
-
+        viceCapoIsAttacking = true;
         EndDialogue();
     }
 
@@ -337,11 +329,10 @@ public class DialogueManager : MonoBehaviour
         buttonYes.SetActive(false);
 
         meleDaRaccogliereText.gameObject.SetActive(false);
+    }
 
-        for (int i = 0; i < scheletri.Length; i++) //attiva gli scheletri
-        {
-            if(scheletri[i].activeSelf)
-                scheletri[i].SetActive(false);
-        }
+    public bool getViceCapo()
+    {
+        return this.viceCapoIsAttacking;
     }
 }

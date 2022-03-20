@@ -9,18 +9,22 @@ public class PlayerController : MonoBehaviour
     #region Variables
     
     private bool isInteracting;
-    public bool lockMovment;
     private bool sprint;
-    float dodgeTimer;
-    public int meleRaccolte = 0;
-    public int life = 10;
     private bool isAttacking;
-    public Text meleText;
-    private float vertical;
-    private float horizontal;
+    private bool isImmune = false;
+
+    public bool isInTheMenu = false;
     public bool armaturaAcquisita = false;
     public bool spadaAcquisita = false;
+    public bool lockMovment;
 
+    private float dodgeTimer;
+    private float vertical;
+    private float horizontal;
+
+    public int meleRaccolte = 0;
+    public int life = 10;
+   
     [SerializeField] private AnimationCurve dodgeCurve;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
@@ -32,22 +36,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Tooltip("Raggio per il controllo")] private float groundedRadius = 0.24f;
     [SerializeField] [Tooltip("Quale layer viene usato come piano di appoggio")] private LayerMask groundMask;
 
-    [Header("Player Grounded")]
-    [SerializeField] [Tooltip("indica se il player è a terra o no")] private bool isGrounded;
+    [Header("Player Grounded")] [SerializeField] [Tooltip("indica se il player è a terra o no")] private bool isGrounded;
 
-    [Header("Animator fields")]
-    [SerializeField]
-    [Tooltip("Rapidità di incremento o decremento dei parametri dell'animator")]
-    private float animationSmoothTime = 0.1f;
-    
-    private bool isImmune = false;
-    private FieldOfView _fieldOfView;
-
-    private Vector3 moveDirection;
-    public GameObject ActionDisplay;
-    public GameObject ActionText;
-    public DialogueManager dialogueManager;  
-    public GameManager gameManager;
+    [Header("Animator fields")] [SerializeField] [Tooltip("Rapidità di incremento o decremento dei parametri dell'animator")] private float animationSmoothTime = 0.1f;
     
     //Riferimento ai parametri degll'animator
     private int _VerticalAnimatorID;
@@ -71,6 +62,18 @@ public class PlayerController : MonoBehaviour
     private PauseMenu pm;
     private Heart cuori;
     private Transform cameraTransform;     //riferimento al transform della main camera 
+    public Text meleText;
+    private FieldOfView _fieldOfView;
+    public DialogueManager dialogueManager;
+    public GameManager gameManager;
+    
+    private Vector3 moveDirection;
+
+    public GameObject ActionDisplay;
+    public GameObject ActionText;
+
+ 
+
 
     #endregion
 
@@ -116,6 +119,31 @@ public class PlayerController : MonoBehaviour
          CheckDialog();
      }
 
+    void OnTriggerEnter(Collider other)
+    {
+        // Mele da raccogliere
+        if (other.CompareTag("Collectable"))
+        {
+            other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
+            meleRaccolte++;
+            meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
+        }
+
+        // Attacco contro gli scheletri
+        if (other.CompareTag("Enemy") && isAttacking)
+        {
+            other.gameObject.GetComponent<EnemyController>().TakeDamage(1);
+        }
+
+        // Attacco contro il vice capo
+        if (other.CompareTag("ViceCapo") && isAttacking && dialogueManager.getViceCapo())
+        {
+            
+            other.gameObject.GetComponent<ViceCapoController>().TakeDamage(1);
+        }
+    }
+
+
     // Controlla se è disponibile un NPC con cui iniziare un dialogo
     private void CheckDialog()
     {
@@ -136,6 +164,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Controlla che il player non sia caduto nel vuoto
     private void CheckVoidFall()
     {
         if (this.transform.position.y <= -10)
@@ -143,6 +172,8 @@ public class PlayerController : MonoBehaviour
             TakeDamage(20);
         }
     }
+
+    #region Metodi per la gestione del moviemento
 
     private void SetAnimatoraParameters()
     {
@@ -232,13 +263,16 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q))
             {
                 //StartCoroutine(AttackAnimation());
-                animator.SetTrigger(_AttackTriggerAnimatorId);
-                isAttacking = true;
+                if (!isInTheMenu)
+                {
+                    animator.SetTrigger(_AttackTriggerAnimatorId);
+                    isAttacking = true;
+                }
             }
         }
 
 
-    }
+    } // roba da eliminare
 
     private void CheckIsGrounded()
     {
@@ -247,29 +281,6 @@ public class PlayerController : MonoBehaviour
         
         //Controlla se il player è a terra, ignorando la collisioni con i trigger
         isGrounded = Physics.CheckSphere(sphere, groundedRadius, groundMask, QueryTriggerInteraction.Ignore);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        // Mele da raccogliere
-        if (other.CompareTag("Collectable"))
-        {
-            other.gameObject.SetActive(false); //Attiva o disattiva l'oggetto
-            meleRaccolte++;
-            meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
-        }
-
-        // Attacco contro gli scheletri
-        if( other.CompareTag("Enemy") && isAttacking && !Input.GetKeyDown(KeyCode.W))
-        {
-            other.gameObject.GetComponent<EnemyController>().TakeDamage(1);
-        }
-
-        // Attacco contro il vice capo
-        if (other.CompareTag("ViceCapo") && isAttacking && !Input.GetKeyDown(KeyCode.W))
-        {
-            other.gameObject.GetComponent<ViceCapoController>().TakeDamage(1);
-        }
     }
 
     private void TakeInput()
@@ -290,7 +301,6 @@ public class PlayerController : MonoBehaviour
             sprint = false;
         }
     }
-
 
     public void Move()
     {
@@ -343,11 +353,15 @@ public class PlayerController : MonoBehaviour
         animator.SetBool(_isRunningAnimatorId, false);
     }
 
+    #endregion
+
+    // Controlla che il player abbia premuto il tasto per mettere in pausa
     public void StartPause() {
         if (Input.GetKeyDown(KeyCode.R))
             pm.Pause();
     }
 
+    #region Metodi per la gestione dell'attacco
     public void TakeDamage(int damage)
     {
         if (!isImmune)
@@ -388,6 +402,7 @@ public class PlayerController : MonoBehaviour
     {
         isAttacking = false;
     }
+    #endregion
 
     public void StopIsInteracting()
     {
@@ -396,21 +411,26 @@ public class PlayerController : MonoBehaviour
 
     #region Coroutine
 
-    public IEnumerator AttackAnimation()
+    // Permette l'animazione di attacco
+    public IEnumerator AttackAnimation() // DA ELIMINARE  (?)
     {
-        isAttacking = true;
-        isInteracting = true;
-        animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 1);
-        animator.SetTrigger("Attack");
-        this.GetComponent<BoxCollider>().isTrigger = true;
+        if (!isInTheMenu)
+        {
+            isAttacking = true;
+            isInteracting = true;
+            animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 1);
+            animator.SetTrigger("Attack");
+            this.GetComponent<BoxCollider>().isTrigger = true;
 
-        yield return new WaitForSeconds(1.333f);
-        animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 0);
-        isAttacking = false;
-        isInteracting = false;
-        this.GetComponent<BoxCollider>().isTrigger = false;
+            yield return new WaitForSeconds(1.333f);
+            animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 0);
+            isAttacking = false;
+            isInteracting = false;
+            this.GetComponent<BoxCollider>().isTrigger = false;
+        }
     }
 
+    // Permette l'animazione di schivata
     public IEnumerator Dodge(Vector2 input, Transform camera)
     {
         animator.SetTrigger(_RollTriggerAnimatorId);
@@ -432,6 +452,7 @@ public class PlayerController : MonoBehaviour
         isInteracting = false;
     }
 
+    // Permette al player di essere immune
     public IEnumerator Immunity()
     {
         yield return new WaitForSeconds(1.7f);

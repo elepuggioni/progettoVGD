@@ -52,7 +52,6 @@ public class ViceCapoController : MonoBehaviour
 
                 }
             }
-            //animator.SetBool("Attack", false);
         }
     }
 
@@ -69,7 +68,6 @@ public class ViceCapoController : MonoBehaviour
         }
         else
         {
-            agent.ResetPath();
             Back();
         }
     }
@@ -118,7 +116,6 @@ public class ViceCapoController : MonoBehaviour
             if (life <= 0)
             {
                 StartCoroutine(Die());
-                dialogueManager.alreadyTalk = false;
             }
 
             if(this.gameObject.activeSelf)
@@ -135,14 +132,19 @@ public class ViceCapoController : MonoBehaviour
 
     public IEnumerator Die()
     {
-        speedAnimator = 0;
+        animator.SetFloat("Speed", 0);
         isDead = true;
         animator.SetLayerWeight(animator.GetLayerIndex("Die Layer"), 1);
         animator.SetTrigger("Die");
         lifeText.SetText("");
+        
         yield return new WaitForSeconds(6f);
+
         FindObjectOfType<PlayerController>().spadaAcquisita = true;
         agent.gameObject.SetActive(false);
+        dialogueManager.alreadyTalk = false;
+        dialogueManager.buttonBattle.SetActive(false);
+        dialogueManager.buttonGoAway.SetActive(false);
         
     }
 }
