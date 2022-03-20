@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     
     private bool isInteracting;
     public bool lockMovment;
+    private bool sprint;
     float dodgeTimer;
     public int meleRaccolte = 0;
     public int life = 10;
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool armaturaAcquisita = false;
     public bool spadaAcquisita = false;
 
-    [SerializeField] AnimationCurve dodgeCurve;
+    [SerializeField] private AnimationCurve dodgeCurve;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
     private int _HorizontalAnimatorID;
     private int _isRunningAnimatorId;
     private int _RollTriggerAnimatorId;
+    private int _AttackTriggerAnimatorId;
 
     //Variabili per gestire i passaggi di parametri all'animator
     private Vector2 currentAnimationBlendVector;
@@ -91,6 +93,7 @@ public class PlayerController : MonoBehaviour
         _HorizontalAnimatorID = Animator.StringToHash("Horizontal");
         _isRunningAnimatorId = Animator.StringToHash("isRunning");
         _RollTriggerAnimatorId = Animator.StringToHash("Roll");
+        _AttackTriggerAnimatorId = Animator.StringToHash("Attack");
     }
     
     // Start is called before the first frame update
@@ -105,7 +108,7 @@ public class PlayerController : MonoBehaviour
          StartPause();
 
          CheckVoidFall();
-
+         
          Move();
 
          HandleInput();
@@ -141,7 +144,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SetAnimatorandSpeed()
+    private void SetAnimatoraParameters()
     {
         //Permette di incrementare o decrementare i valori di input con un certo tasso stabilito da animationSmoothTime
         currentAnimationBlendVector = Vector2.SmoothDamp(currentAnimationBlendVector, movementVector2, ref animationVelocity, animationSmoothTime);
@@ -152,19 +155,14 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat(_HorizontalAnimatorID, currentAnimationBlendVector.x);
             
             //Cambia il valore del parametro che attiva l'animazione di corsa 
-            if (vertical == 1f && Input.GetKey(KeyCode.LeftShift))
+            if (sprint)
             {
-                moveSpeed = runSpeed;
                 animator.SetBool(_isRunningAnimatorId, true);
             }
             else
             {
-                moveSpeed = walkSpeed;
                 animator.SetBool(_isRunningAnimatorId, false);
             }
-            
-            //Imposta la velocità con cui si sposta il player
-            moveDirection *= moveSpeed;
         }
         else
         {
@@ -172,12 +170,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void SetSpeedMovement()
+    {
+        if (isAttacking) {
+            moveSpeed = 2f;
+            moveDirection = transform.forward;
+        } else if (sprint)
+        {
+            moveSpeed = runSpeed;
+        }
+        else
+        {
+            moveSpeed = walkSpeed;
+        }
+        
+        moveDirection *= moveSpeed;
+    }
+
     private void HandleRotation()
     {
          /* Istruzioni che gestiscono la rotazione del personaggio dovuta dal movimento della camera
          * e dal movimento congiunto sull'asse orizzontale (x) e verticale (z).
          * La rotazione del personaggio avviene solo quando il player si sta muovendo*/
-        if (moveDirection != Vector3.zero)
+        if (moveDirection != Vector3.zero && !isAttacking)
         { 
             //Genera un quaternione che rappresenta la rotazione del player sull'asse y, dovuto al movimento della visuale
             Quaternion targetRotation = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
@@ -207,7 +222,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInput()
     {
-        if (!lockMovment && !isInteracting)
+        if (!lockMovment && !isInteracting) 
         {
             if (Input.GetKeyDown(KeyCode.Space) && movementVector2 != Vector2.zero)
             {
@@ -216,7 +231,9 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q))
             {
-                StartCoroutine(AttackAnimation());
+                //StartCoroutine(AttackAnimation());
+                animator.SetTrigger(_AttackTriggerAnimatorId);
+                isAttacking = true;
             }
         }
 
@@ -255,24 +272,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void TakeInput()
+    {
+        vertical = Input.GetAxisRaw("Vertical");
+        //Asse che permette gli spostamenti laterali del player, cioe sull'asse x
+        horizontal = Input.GetAxisRaw("Horizontal");
+        
+        //Vettore con i valori di input dagli assi
+        movementVector2 = new Vector2(horizontal, vertical);
+        
+        if (vertical == 1 && Input.GetKey(KeyCode.LeftShift))
+        {
+            sprint = true;
+        }
+        else
+        {
+            sprint = false;
+        }
+    }
+
 
     public void Move()
     {
         CheckIsGrounded();
         
         if (!lockMovment && !isInteracting) {
-            vertical = Input.GetAxisRaw("Vertical");
-            //Asse che permette gli spostamenti laterali del player, cioe sull'asse x
-            horizontal = Input.GetAxisRaw("Horizontal");
-        
-            //Vettore con i valori di input dagli assi
-            movementVector2 = new Vector2(horizontal, vertical);
+            TakeInput();
             
             //Vettore con i valori di input per muovere il player
             moveDirection = new Vector3(movementVector2.x, 0, movementVector2.y);
 
              //Normalizza il vettore di movimento per non avere velocità incrementata in diagonale
-            moveDirection = moveDirection.normalized;
+            //moveDirection = moveDirection.normalized;
 
             /* Corregge la direzione del movimento del player in modo da seguire la rotazione
              * della camera, gestita dal mouse. Quindi quando l'utente muove la visuale, il
@@ -287,8 +318,11 @@ public class PlayerController : MonoBehaviour
             moveDirection = moveDirection.normalized;
             
             //Setta i paramentri dell'animator se il player è poggiato a terra, se non lo è resetta i parametri
-            SetAnimatorandSpeed();
+            SetAnimatoraParameters();
+            
             HandleRotation();
+            
+            SetSpeedMovement();
         }
         else
         {
@@ -343,6 +377,21 @@ public class PlayerController : MonoBehaviour
                 hit.transform.gameObject.GetComponent<EnemyController>().TakeDamage(1);
             }
         }
+    }
+
+    public void startAttack()
+    {
+        isInteracting = true;
+    }
+
+    public void stopAttack()
+    {
+        isAttacking = false;
+    }
+
+    public void StopIsInteracting()
+    {
+        isInteracting = false;
     }
 
     #region Coroutine

@@ -1,4 +1,10 @@
 # progettoVGD
+- **Alessio update 20/03/22 commit "Attacco semplice"
+Aggiustata la capsula del player. Migliorata notevolmente la meccanica di attacco, resa piu responsiva e coerente 
+con la sua animazione. Codice aggiunto da commentare e riordinare. Seguiranno altre animazioni di attacco e la
+possibilità di concatenazione di più attacchi. Successivamente sarà aggiornato il sistema di collision detection per
+gli attacchi, e quindi il take damage.
+
 - **Alessio update 18/03/22 commit "Roll"**
 Il roll così dovrebbe andare bene.. mancherebbe solo da modificare la capsula del character controller durante
 l'animazione come faceva prima. Ho iniziato a ordinare un po lo script PlayerController che era molto incasinato.
