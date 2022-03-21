@@ -1,5 +1,5 @@
 # progettoVGD
-- **Alessio update 21/0./22 commit "Hitbox player-scheletri"**  
+- **Alessio update 21/03/22 commit "Hitbox player-scheletri"**  
 Perfezionato in modo sostanziale il meccanismo di collisione per gli attacchi del player. In particolare ci sono 3 box
 collider che complessivamente coprono il braccio destro e la spada sel player. Si possono vedere selezionando il
 player nella scena. Quando uno di quei 3 collider entra in contatto con la capsula di uno scheletro questo subirà danno.
