@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     public float wanderTime;
     public float movementSpeed;
     private bool followPlayer = true;
+    public bool AlreadyHitted;
 
     public LayerMask playerLayer;
     private NavMeshAgent agent;
@@ -30,7 +31,6 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         FollowOrNot();
-        
     }
 
     private void FixedUpdate()
@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
                 if (hit.distance < 1f)
                 {
                     followPlayer = false;
-
+                    
                     if(hit.transform.GetComponent<PlayerController>().armaturaAcquisita)
                         hit.transform.GetComponent<PlayerController>().TakeDamage(1);
                     else

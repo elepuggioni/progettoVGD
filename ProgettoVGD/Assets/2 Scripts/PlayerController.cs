@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     #region Variables
     
-    private bool isInteracting;
+    public bool isInteracting;
     private bool sprint;
-    private bool isAttacking;
+    public bool isAttacking;
     private bool isImmune = false;
 
     public bool isInTheMenu = false;
@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
     private FieldOfView _fieldOfView;
     public DialogueManager dialogueManager;
     public GameManager gameManager;
+    private AnimationsEvents AnimationsEvents;
     
     private Vector3 moveDirection;
 
@@ -82,6 +83,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         dialogueManager = FindObjectOfType<DialogueManager>();
+        AnimationsEvents = GetComponent<AnimationsEvents>();
         pm = GetComponent<PauseMenu>();
         cuori = GetComponent<Heart>();
         meleText.text = "Mele raccolte: " + meleRaccolte + "/10";
@@ -130,10 +132,11 @@ public class PlayerController : MonoBehaviour
         }
 
         // Attacco contro gli scheletri
+        /*
         if (other.CompareTag("Enemy") && isAttacking)
         {
             other.gameObject.GetComponent<EnemyController>().TakeDamage(1);
-        }
+        }*/
 
         // Attacco contro il vice capo
         if (other.CompareTag("ViceCapo") && isAttacking && dialogueManager.getViceCapo())
@@ -260,7 +263,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(Dodge(movementVector2, cameraTransform));
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q))
+            if (!isAttacking && (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)))
             {
                 //StartCoroutine(AttackAnimation());
                 if (!isInTheMenu)
@@ -360,8 +363,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
             pm.Pause();
     }
-
-    #region Metodi per la gestione dell'attacco
+    
     public void TakeDamage(int damage)
     {
         if (!isImmune)
@@ -391,22 +393,6 @@ public class PlayerController : MonoBehaviour
                 hit.transform.gameObject.GetComponent<EnemyController>().TakeDamage(1);
             }
         }
-    }
-
-    public void startAttack()
-    {
-        isInteracting = true;
-    }
-
-    public void stopAttack()
-    {
-        isAttacking = false;
-    }
-    #endregion
-
-    public void StopIsInteracting()
-    {
-        isInteracting = false;
     }
 
     #region Coroutine
