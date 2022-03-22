@@ -1,5 +1,11 @@
 # progettoVGD
-- **Alessio update 21/0./22 commit "Hitbox player-scheletri"**  
+- **Alessio update 22/03/22 commit "Hitbox scheletri-player"**  
+Gli scheletri hanno lo stesso meccanisco di collision detection del player per gli attacchi.
+Adesso attaccano e si comportano allo stesso modo di prima, con la differenza che il player il danno lo riceve quando
+effettivamente ha ricevuto il calcio da uno scheletro e non solo a stargli vicino. Seguirà lo sviluppo di una
+AI per i nemici.
+
+- **Alessio update 21/03/22 commit "Hitbox player-scheletri"**  
 Perfezionato in modo sostanziale il meccanismo di collisione per gli attacchi del player. In particolare ci sono 3 box
 collider che complessivamente coprono il braccio destro e la spada sel player. Si possono vedere selezionando il
 player nella scena. Quando uno di quei 3 collider entra in contatto con la capsula di uno scheletro questo subirà danno.

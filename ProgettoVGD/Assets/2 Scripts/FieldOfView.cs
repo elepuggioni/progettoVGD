@@ -64,9 +64,6 @@ public class FieldOfView : MonoBehaviour
              * direzione del target è compreso nel campo visivo effettivo*/
             if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
             {
-                //Calcola la distanza tra questo object e il target
-                //float distanceToTarget = Vector3.Distance(transform.position, target.position);
-                
                 //Se il target è realmente nel campo visivo dell'object setta il boolean a true, altrimento a false
                 if (Physics.Raycast(transform.position, directionToTarget, radius))
                 {
