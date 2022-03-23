@@ -6,16 +6,35 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField] GameObject buttons;
+    [SerializeField] GameObject comands;
+    [SerializeField] GameObject backButton;
+    [SerializeField] GameObject rules;
+    [SerializeField] GameObject textBox;
+
     public void NewGame()
     {
-
-        PlayerPrefs.DeleteAll();
         SceneManager.LoadScene("Villaggio");
     }
 
-    public void LoadGame()
+    public void Regole()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
+        buttons.SetActive(false);
+        textBox.SetActive(true);
+        rules.SetActive(true);
+        backButton.SetActive(true);
+    }
+
+    public void Comandi()
+    {
+        buttons.SetActive(false);
+        backButton.SetActive(true);
+        comands.SetActive(true);
+    }
+
+    public void Back()
+    {
+        SceneManager.LoadScene(0);
     }
 }
 
