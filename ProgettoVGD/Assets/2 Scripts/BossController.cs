@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
+    private float speed = 20f;
+
+    private Vector3 tp1 = new Vector3(276, 20, -156);
+    private Vector3 tp2 = new Vector3(327, 20, -99);
+    private Vector3 tp3 = new Vector3(328, 20, -143);
+    private Vector3 tp4 = new Vector3(275.5f, 20, -91.4f);
+
     private GameObject player;
     private Animator animator;
+
+    private Vector3 offset;
     [SerializeField] GameObject projectileDistance;
     [SerializeField] GameObject projectileNear;
     [SerializeField] GameObject spawnPointProjectile;
@@ -23,53 +32,65 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Attack();
     }
 
     void Attack()
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
         transform.LookAt(player.transform);
+
+        float distance = Vector3.Distance(transform.position, player.transform.position);
         if (distance > 4 && !isShooting)
         {
             StartCoroutine(ShootDistance());
         }
-        else if (distance < 2.5 && !isShooting)
+        else if(distance <= 4 && !isShooting)
         {
-            StartCoroutine(ShootNear());
+            StartCoroutine(Teleport());
         }
     }
 
     public IEnumerator ShootDistance()
     {
-
-        GameObject proj;
         animator.SetBool("DistanceAttack", true);
         isShooting = true;
-        proj = Instantiate(projectileDistance, spawnPointProjectile.transform.position, Quaternion.identity);
+
+        GameObject proj = Instantiate(projectileDistance, spawnPointProjectile.transform.position, Quaternion.identity);
         proj.transform.localRotation = transform.rotation;
         Destroy(proj, 2f);
+
         yield return new WaitForSeconds(2.5f);
         isShooting = false;
 
     }
 
-    public IEnumerator ShootNear()
+    public IEnumerator Teleport()
     {
-        GameObject proj;
+
         animator.SetBool("DistanceAttack", false);
         isShooting = true;
-        StartCoroutine(Wait());
-        proj = Instantiate(projectileNear, spawnPointProjectile.transform.position, Quaternion.identity);
-        proj.transform.localRotation = transform.rotation;
-        Destroy(proj, 1.8f);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.8f);
+
+        var r = Random.Range(1, 4);
+
+        if (r == 1 && transform.position != tp1)
+            this.transform.position = tp1;
+
+        else if (r == 2 && transform.position != tp2)
+            this.transform.position = tp2;
+
+        else if (r == 3 && transform.position != tp3)
+            this.transform.position = tp3;
+
+        else if (r == 4 && transform.position != tp4)
+            this.transform.position = tp4;
+
+        else
+            this.transform.position = new Vector3(314, 22, -114);
+
         isShooting = false;
 
     }
 
-    public IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(0.2f);
-    }
 }
