@@ -177,7 +177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4e9ab2c12f3f0ff4fbc631632edb623d, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player Variant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4e9ab2c12f3f0ff4fbc631632edb623d, type: 3}
       propertyPath: m_Layer
@@ -220,19 +220,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1991986818
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2255435517781893982}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &1991986819
 CharacterController:
   m_ObjectHideFlags: 0
@@ -320,12 +307,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69119e5165203214da94097518822458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: 10
+  isInteracting: 0
+  isAttacking: 0
+  isImmune: 0
+  lockMovment: 0
   isInTheMenu: 0
+  isGrounded: 0
+  groundCheckDistance: -0.14
+  groundedRadius: 0.24
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 65
+  vertical: 0
+  horizontal: 0
+  sprint: 0
+  moveSpeed: 0
+  walkSpeed: 5
+  runSpeed: 8
+  rotationSpeed: 5
+  gravity: -9.81
   armaturaAcquisita: 0
   spadaAcquisita: 0
-  lockMovment: 0
-  meleRaccolte: 0
-  life: 10
   dodgeCurve:
     serializedVersion: 2
     m_Curve:
@@ -359,23 +362,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  moveSpeed: 0
-  walkSpeed: 5
-  runSpeed: 8
-  gravity: -9.81
-  groundCheckDistance: -0.14
-  rotationSpeed: 5
-  groundedRadius: 0.24
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 65
-  isGrounded: 0
   animationSmoothTime: 0.1
-  meleText: {fileID: 0}
-  dialogueManager: {fileID: 0}
-  gameManager: {fileID: 0}
+  meleRaccolte: 0
   ActionDisplay: {fileID: 0}
   ActionText: {fileID: 0}
+  meleText: {fileID: 0}
 --- !u!114 &1991986823
 MonoBehaviour:
   m_ObjectHideFlags: 0

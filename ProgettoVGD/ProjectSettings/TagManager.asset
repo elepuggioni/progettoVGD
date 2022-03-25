@@ -12,6 +12,7 @@ TagManager:
   - SignoraDelleMele
   - ArciereInfo
   - ViceCapo
+  - Boss
   layers:
   - Default
   - TransparentFX

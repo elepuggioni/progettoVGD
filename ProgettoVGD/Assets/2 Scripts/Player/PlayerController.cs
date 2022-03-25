@@ -152,19 +152,19 @@ public class PlayerController : MonoBehaviour
             meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
         }
 
-        // Attacco contro gli scheletri
-        /*
-        if (other.CompareTag("Enemy") && isAttacking)
-        {
-            other.gameObject.GetComponent<EnemyController>().TakeDamage(1);
-        }*/
-
         // Attacco contro il vice capo
         if (other.CompareTag("ViceCapo") && isAttacking && dialogueManager.getViceCapo())
         {
             
             other.gameObject.GetComponent<ViceCapoController>().TakeDamage(1);
         }
+
+        if (other.CompareTag("Boss") && isAttacking)
+        {
+            other.gameObject.GetComponent<BossController>().TakeDamage(1);
+        }
+
+
     }
 
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
@@ -9,13 +10,20 @@ public class BossController : MonoBehaviour
     private Vector3 tp3 = new Vector3(328, 20, -143);
     private Vector3 tp4 = new Vector3(275.5f, 20, -91.4f);
 
+   
     private GameObject player;
     private Animator animator;
 
+    [SerializeField] GameObject boss;
     [SerializeField] GameObject projectileDistance;
     [SerializeField] GameObject spawnPointProjectile;
+    [SerializeField] GameObject bossHealthBar;
 
     private bool isShooting = false;
+    private bool isImmune = false;
+    private bool isDead = false;
+
+    public Slider slider;
 
 
     // Start is called before the first frame update
@@ -33,13 +41,15 @@ public class BossController : MonoBehaviour
 
     void Attack()
     {
-        transform.LookAt(player.transform);
+        if(!isDead)
+            transform.LookAt(player.transform);
+
         float distance = Vector3.Distance(transform.position, player.transform.position);
-        if (distance > 4 && !isShooting)
+        if (distance > 4 && !isShooting && !isDead)
         {
             StartCoroutine(ShootDistance());
         }
-        else if(distance <= 4 && !isShooting)
+        else if(distance <= 4 && !isShooting && !isDead)
         {
             StartCoroutine(Teleport());
         }
@@ -52,17 +62,16 @@ public class BossController : MonoBehaviour
         GameObject proj = Instantiate(projectileDistance, spawnPointProjectile.transform.position, Quaternion.identity);
         proj.transform.localRotation = transform.rotation;
         Destroy(proj, 2f);
-        yield return new WaitForSeconds(2.8f);
+        yield return new WaitForSeconds(2f);
         isShooting = false;
 
     }
 
     public IEnumerator Teleport()
     {
-
         animator.SetBool("DistanceAttack", false);
         isShooting = true;
-        yield return new WaitForSeconds(2.267f);
+        yield return new WaitForSeconds(1.2f);
 
         var r = Random.Range(1, 4);
 
@@ -85,5 +94,39 @@ public class BossController : MonoBehaviour
 
     }
 
+    public void TakeDamage(int damage)
+    {
+        if (!isImmune)
+        {
+            isImmune = true;
+            slider.value -= damage;
+            if (slider.value <= 0)
+            {
+                StopAllCoroutines();
+                StartCoroutine(Die());
+            }
 
+            if (this.gameObject.activeSelf)
+                StartCoroutine(Immunity());
+        }
+    }
+
+    // Dopo aver preso danno il boss rimane immune per 1.2 secondi
+    public IEnumerator Immunity()
+    {
+        yield return new WaitForSeconds(0.665f);
+        isImmune = false;
+    }
+
+    public IEnumerator Die()
+    {
+        animator.SetLayerWeight(animator.GetLayerIndex("Die Layer"), 1);
+        animator.SetTrigger("Die");
+        isDead = true;
+
+        yield return new WaitForSeconds(6f);
+
+        boss.gameObject.SetActive(false);
+        bossHealthBar.SetActive(false);
+    }
 }

@@ -123,7 +123,7 @@ public class ViceCapoController : MonoBehaviour
         }    
     }
 
-    // Dopo aver preso danno il vice capo � immune per 1.2 secondi
+    // Dopo aver preso danno il vice capo e immune per 1.2 secondi
     public IEnumerator Immunity()
     {
         yield return new WaitForSeconds(1.2f);
