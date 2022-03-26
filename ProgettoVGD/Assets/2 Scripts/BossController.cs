@@ -25,6 +25,8 @@ public class BossController : MonoBehaviour
 
     public Slider slider;
 
+    public GameManager gm;
+
 
     // Start is called before the first frame update
     void Start()
@@ -75,7 +77,7 @@ public class BossController : MonoBehaviour
 
         var r = Random.Range(1, 4);
 
-        if (r == 1 && transform.position != tp1) // Se è uscita la posizione tp1 e il boss non si trova gia li
+        if (r == 1 && transform.position != tp1) // Se ï¿½ uscita la posizione tp1 e il boss non si trova gia li
             this.transform.position = tp1; //Teleporta il boss nella posizione tp1
 
         else if (r == 2 && transform.position != tp2)
@@ -104,6 +106,7 @@ public class BossController : MonoBehaviour
             {
                 StopAllCoroutines();
                 StartCoroutine(Die());
+
             }
 
             if (this.gameObject.activeSelf)
@@ -125,8 +128,10 @@ public class BossController : MonoBehaviour
         isDead = true;
 
         yield return new WaitForSeconds(6f);
-
+    
         boss.gameObject.SetActive(false);
         bossHealthBar.SetActive(false);
+        gm.gianniSconfitto = true;
+
     }
 }
