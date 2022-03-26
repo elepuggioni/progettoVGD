@@ -9,7 +9,7 @@ public class TriggerHandler : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             EnemyController enemyController = other.GetComponent<EnemyController>();
-            PlayerController playerController = other.GetComponent<PlayerController>();
+            PlayerController playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
             //Esegue solo se il GameObject "other" possiede un Enemycontroller e se non sia gia stato colpito
             if (enemyController != null && !enemyController.AlreadyHitted)
