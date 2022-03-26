@@ -6,16 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class HaiVinto : MonoBehaviour
 {
-    public GameManager gm;
-    public GameObject testo;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    public GameManager gm; // riferimento al gameManager
+    public GameObject testo; // Scritta 'Hai vinto'
 
-    // Update is called once per frame
     void Update()
     {
+        //Se il boss viene sconfitto
          if(gm.gianniSconfitto){
             StartCoroutine(haiVinto());
         }  
@@ -23,10 +19,10 @@ public class HaiVinto : MonoBehaviour
     }
 
     public IEnumerator haiVinto(){
-        testo.SetActive(true);
-
-        yield return new WaitForSeconds(5f);
-        //riattiva cursore
-        SceneManager.LoadScene("Menu iniziale");
+        testo.SetActive(true); // mostra il testo 
+        yield return new WaitForSeconds(5f); //aspetta
+        Cursor.lockState = CursorLockMode.None; // rendi libero e visibile il cursore
+        Cursor.visible = true;
+        SceneManager.LoadScene("Menu iniziale"); //Torna al menu iniziale
     }
 }

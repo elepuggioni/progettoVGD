@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 {
     #region Variables
     
-    
     [Header("Conditions")]
     public int life = 10;
     public bool isInteracting;
@@ -95,7 +94,7 @@ public class PlayerController : MonoBehaviour
     private FieldOfView _fieldOfView;
     private DialogueManager dialogueManager;
     private PlayerAnimationsEvents _playerAnimationsEvents;
-   
+    private GameObject gm;
     
     #endregion
 
@@ -125,8 +124,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Keyframe dodge_lastFrame = dodgeCurve[dodgeCurve.length - 1];
-        dodgeTimer = dodge_lastFrame.time;
+        Keyframe dodge_lastFrame = dodgeCurve[dodgeCurve.length - 1]; // Prendo l'ultimo keyframe
+        dodgeTimer = dodge_lastFrame.time; // prendo il time del keyframe
+        gm = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     void Update()
@@ -155,35 +155,54 @@ public class PlayerController : MonoBehaviour
         // Attacco contro il vice capo
         if (other.CompareTag("ViceCapo") && isAttacking && dialogueManager.getViceCapo())
         {
-            
             other.gameObject.GetComponent<ViceCapoController>().TakeDamage(1);
         }
 
+        // Attacco contro il boss
         if (other.CompareTag("Boss") && isAttacking)
         {
             other.gameObject.GetComponent<BossController>().TakeDamage(1);
         }
 
+        // Quando si entra nell'arena dopo aver completato le missioni si attiva la boss battle
+        if(other.CompareTag("Muro") && spadaAcquisita && armaturaAcquisita)
+        {
+            gm.GetComponent<GameManager>().boss.SetActive(true); // attiva il boss
+            gm.GetComponent<GameManager>().bossHealtBar.SetActive(true); // attiva la health bar
+            gm.GetComponent<GameManager>().luce.color = Color.black; // cambio della luce
+        }
 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Una volta dentro la boss battle non si puo piu uscire
+        if (other.CompareTag("Muro") && spadaAcquisita && armaturaAcquisita)
+        {
+            gm.GetComponent<GameManager>().muro.GetComponent<BoxCollider>().isTrigger = false; 
+        }
     }
 
 
     // Controlla se è disponibile un NPC con cui iniziare un dialogo
     private void CheckDialog()
     {
+        // Se il campo visivo risulta visibile e il dialogo non e inziato
         if (_fieldOfView.isVisible && !dialogueManager.isDialogueStarted)
         {
             DialogueTrigger dialogueTrigger = _fieldOfView.targetTransform.GetComponent<DialogueTrigger>();
+            // Se ho trovato il component correttamente e non sto parlando
             if (dialogueTrigger != null && !dialogueTrigger.dialogueManager.alreadyTalk)
             {
-                dialogueTrigger.TurnOnGameObjects();
-                if (Input.GetKeyDown(KeyCode.E))
-                    dialogueTrigger.TriggerDialogue();
+                dialogueTrigger.TurnOnGameObjects(); // Attiva i gameObejcet
+                if (Input.GetKeyDown(KeyCode.E)) // Se premo E
+                    dialogueTrigger.TriggerDialogue(); // attivo il dialogo
             }
         }
         else
         {
-            ActionDisplay.SetActive(false);
+            // Disattivo i gameObject
+            ActionDisplay.SetActive(false); 
             ActionText.SetActive(false);
         }
     }
@@ -292,7 +311,6 @@ public class PlayerController : MonoBehaviour
 
             if (!isAttacking && (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)))
             {
-                //StartCoroutine(AttackAnimation());
                 if (!isInTheMenu)
                 {
                     animator.SetTrigger(_AttackTriggerAnimatorId);
@@ -302,7 +320,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-    } // roba da eliminare
+    } 
 
     private void CheckIsGrounded()
     {
@@ -410,8 +428,6 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        //Ray ray = new Ray(transform.position + new Vector3(0, 0.5f, 0), transform.forward);
-
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, 1.5f))
         {
@@ -424,55 +440,39 @@ public class PlayerController : MonoBehaviour
 
     #region Coroutine
 
-    // Permette l'animazione di attacco
-    public IEnumerator AttackAnimation() // DA ELIMINARE  (?)
-    {
-        if (!isInTheMenu)
-        {
-            isAttacking = true;
-            isInteracting = true;
-            animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 1);
-            animator.SetTrigger("Attack");
-            this.GetComponent<BoxCollider>().isTrigger = true;
-
-            yield return new WaitForSeconds(1.333f);
-            animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 0);
-            isAttacking = false;
-            isInteracting = false;
-            this.GetComponent<BoxCollider>().isTrigger = false;
-        }
-    }
-
     // Permette l'animazione di schivata
     public IEnumerator Dodge(Vector2 input, Transform camera)
     {
-         animator.SetTrigger(_RollTriggerAnimatorId);
-        isInteracting = true;
+        animator.SetTrigger(_RollTriggerAnimatorId); // Attiva il trigger
+        isInteracting = true; // sta schivando
+
         float timer = 0f; 
-        Vector3 direction = new Vector3(input.x, 0f, input.y);
+        Vector3 direction = new Vector3(input.x, 0f, input.y); // Prendo la direzione
         direction = direction.x * camera.right + direction.z * camera.forward;
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        transform.rotation = rotation;
+
+        Quaternion rotation = Quaternion.LookRotation(direction); // Prendo la rotazione
+        transform.rotation = rotation; // Applico la rotazione
+
         while (timer < dodgeTimer)
         {
-            float speed = dodgeCurve.Evaluate(timer);
+            float speed = dodgeCurve.Evaluate(timer); // Valuta la curva nel momento del timer
             Vector3 movement = direction;
             movement *= speed;
-            controller.Move(movement * Time.deltaTime);
+            controller.Move(movement * Time.deltaTime); // Applico il movimento
             timer += Time.deltaTime;
             yield return null;
         }
-        isInteracting = false;
+
+        isInteracting = false; // smette di fare la schivata
     }
 
     // Permette al player di essere immune
     public IEnumerator Immunity()
     {
-        yield return new WaitForSeconds(1.7f);
+        yield return new WaitForSeconds(1.5f);
         isImmune = false;
     }
     #endregion
-
 
     /* Disegna sulla scena di unity la sfera con cui controlla se il player è a terra.
      * Sfera di colore verde in caso affermativo, rossa in caso non lo sia.

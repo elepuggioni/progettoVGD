@@ -5,39 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] GameObject pauseMenu;
-    private PlayerController player;
-
+    [SerializeField] GameObject pauseMenu; // riferimento al menu di pausa
+    private PlayerController player; // riferimento al player
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();   
+        // Prendi il player
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(); 
     }
 
     public void Pause() 
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Confined; // Confina il cursore e lo rende visibile
         Cursor.visible = true;
         player.isInTheMenu = true; // Segna che il player è in pause
-        pauseMenu.SetActive(true);
+        pauseMenu.SetActive(true); // Attiva il menu di pausa
         Time.timeScale = 0f; // Freezza il gioco
     }
 
     public void Resume()
     {
-        Cursor.visible = false;
+        Cursor.visible = false; // Blocca e rende invisibile il cursore
         Cursor.lockState = CursorLockMode.Locked;
 
         player.isInTheMenu = false; // Segna che il player non è piu in pausa
-        pauseMenu.SetActive(false);
+        pauseMenu.SetActive(false); // Disattiva il menu di pausa
         
         Time.timeScale = 1f; // il gioco torna alla velocità normale
     }
 
     public void Home(int sceneID)
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(sceneID);
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene(sceneID); // Carica la scena avente come id il valore di sceneid
     }
 
 }

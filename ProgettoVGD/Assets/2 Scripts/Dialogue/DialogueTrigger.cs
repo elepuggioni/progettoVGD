@@ -44,6 +44,7 @@ public class DialogueTrigger : MonoBehaviour
         ActionText.GetComponent<Text>().text = "Parla [E]";
         ActionText.SetActive(true);
     }
+  // Metodo che disattiva i Game Object che fanno apparire il comando "Parla" in game
     public void TurnOffGameObjects()
     {
         ActionDisplay.SetActive(false);

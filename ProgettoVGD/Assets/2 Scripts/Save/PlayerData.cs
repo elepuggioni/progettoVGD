@@ -5,9 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData // Contenitore dei dati da salvare 
 {
+    // Attributi da salvare
     private  float x, y, z; // posizione del player
     private bool armatura, spada, questMeleTerminata;
+    private bool viceCapoDead;
 
+    #region Metodi Getter e Setter degli attributi
     public void setX(float x)
     {
         this.x = x; 
@@ -61,4 +64,13 @@ public class PlayerData // Contenitore dei dati da salvare
         return this.questMeleTerminata;
     }
 
+    public void SetViceCapoDead(bool isDead)
+    {
+        this.viceCapoDead = isDead;
+    }
+    public bool GetViceCapoDead()
+    {
+        return this.viceCapoDead;
+    }
+    #endregion
 }

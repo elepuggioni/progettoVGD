@@ -6,19 +6,21 @@ using UnityEngine.AI;
 
 public class ViceCapoController : MonoBehaviour
 {
-    private int life = 6;
-    private float speedAnimator = 0.0f;
-    private bool isDead = false;
-    private bool followPlayer = true;
-    private bool isImmune = false;
+    #region Variabili
+    private int life = 6;  // indica le vite
+    private float speedAnimator = 0.0f; // velcocita del vice capo
+    public bool isDead = false; // indica se e morto
+    private bool followPlayer = true; // indica se deve seguire il player
+    private bool isImmune = false; // indica se e immune
+    #endregion
 
-
+    #region Riferimenti
     public LayerMask playerLayer;
-    
     private NavMeshAgent agent;
     public TextMeshProUGUI lifeText;
     private Animator animator;
     private DialogueManager dialogueManager;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -38,16 +40,19 @@ public class ViceCapoController : MonoBehaviour
     private void FixedUpdate()
     {
         RaycastHit hit;
+        Vector3 position = transform.position;
+        position.y += 1f;
 
         // Ritorna true se il raggio intereseca un collider
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
+        if (Physics.Raycast(position, transform.forward, out hit, 1.5f))
         {
+          
             if (hit.transform.CompareTag("Player")) // Entro se colpisco il Player
             {
-                if (hit.distance < 1f && !isDead) // Se sono molto vicino al player
+                if (hit.distance <= 2f && !isDead) // Se sono molto vicino al player
                 {
-                    animator.SetTrigger("Attack");
                     followPlayer = false; // Smette di seguire il player  
+                    animator.SetTrigger("Attack");
                     hit.transform.GetComponent<PlayerController>().TakeDamage(1); // Il player prende danno
 
                 }
@@ -55,18 +60,20 @@ public class ViceCapoController : MonoBehaviour
         }
     }
 
-    // Funzione che permette al vice capo di seguire il player se nel suo raggio
+    // Funzione che permette al vice capo di seguire il player 
     // oppure di tornare alla sua posizione
     void FollowOrNot()
     {
-        Mathf.Clamp01(speedAnimator);
-        animator.SetFloat("Speed", speedAnimator);
-        if (Physics.CheckSphere(transform.position, 20.0f, playerLayer))
+        Mathf.Clamp01(speedAnimator); // Blocca il valore tra 0 e 1
+        animator.SetFloat("Speed", speedAnimator); // Setta il valore di Speed dell'animator
+
+        // Se il player si trova dentro il campo visivo del vice capo e non e morto
+        if (Physics.CheckSphere(transform.position, 20.0f, playerLayer) && !isDead) 
         {
-            speedAnimator = 1f;
+            speedAnimator = 1f; 
             ChasePlayer();
         }
-        else
+        else if(!isDead) // Se non è morto
         {
             Back();
         }
@@ -75,12 +82,13 @@ public class ViceCapoController : MonoBehaviour
     // Insegue il player
     void ChasePlayer()
     {
+        //Calcola la distanza tra player e vice capo
         float distance = Vector3.Distance(GameObject.FindWithTag("Player").transform.position,
-                                          this.transform.position);
-        if (followPlayer)
-            agent.SetDestination(GameObject.FindWithTag("Player").transform.position);
-        else if (distance > 2f)
-            followPlayer = true;
+                                          transform.position);
+        if (followPlayer)// Se devo seguire il player
+            agent.SetDestination(GameObject.FindWithTag("Player").transform.position); // la posizione del player diventa la destinazione
+        else if (distance > 2f) // Se il player si allontana
+            followPlayer = true; // posso ritornare a seguire il player in seguito
 
     }
 
@@ -88,6 +96,7 @@ public class ViceCapoController : MonoBehaviour
     void Back()
     {
         followPlayer = true;
+
         //distanza tra viceCapo e il gameObject "Punto di ritorno" 
         float distance = Vector3.Distance(GameObject.FindWithTag("Finish").transform.position, this.transform.position); 
 
@@ -99,26 +108,26 @@ public class ViceCapoController : MonoBehaviour
         else
         {
             speedAnimator = 0.0f; // Animazione di Idle
-            agent.ResetPath();
+            agent.ResetPath(); // Resetto il path del vice capo
         }
-           
-
     }
 
     // Chiamato quando il vice capo prende danno
     public void TakeDamage(int damage)
     {
-        if (!isImmune)
+        if (!isImmune) // Se non e immune
         {
-            isImmune = true;
-            life -= damage;
+            isImmune = true; // diventa immune
+            life -= damage; // riduci le vite
             lifeText.SetText(life.ToString());
-            if (life <= 0)
+            if (life <= 0) // quando muore
             {
-                StartCoroutine(Die());
+                animator.SetFloat("Speed", 0); // setta speed a 0
+                StopAllCoroutines(); // ferma tutte le coroutine
+                StartCoroutine(Die()); // avvia la coroutine di Die
             }
 
-            if(this.gameObject.activeSelf)
+            if(this.gameObject.activeSelf)// Se il vice capo risulta attivo
                 StartCoroutine(Immunity());
         }    
     }
@@ -130,18 +139,21 @@ public class ViceCapoController : MonoBehaviour
         isImmune = false;
     }
 
+    // Coroutine che gestisce l'animazione di morte 
     public IEnumerator Die()
     {
-        animator.SetFloat("Speed", 0);
-        isDead = true;
-        animator.SetLayerWeight(animator.GetLayerIndex("Die Layer"), 1);
-        animator.SetTrigger("Die");
-        lifeText.SetText("");
-        
-        yield return new WaitForSeconds(6f);
+        animator.SetFloat("Speed", 0); // Setto speed a zero
+        isDead = true; // Indica la morte
+        animator.SetLayerWeight(animator.GetLayerIndex("Die Layer"), 1); // Cambia layer dell'animator
+        animator.SetTrigger("Die"); // Setta il trigger
+        lifeText.SetText(""); // Elimina la scritta delle vite
+         
+        yield return new WaitForSeconds(6f); // Aspetta 6 secondi
 
-        FindObjectOfType<PlayerController>().spadaAcquisita = true;
-        agent.gameObject.SetActive(false);
+        FindObjectOfType<PlayerController>().spadaAcquisita = true; // Ottieni la spada
+
+        // Disattiva gameObject e pulsanti 
+        agent.gameObject.SetActive(false); 
         dialogueManager.alreadyTalk = false;
         dialogueManager.buttonBattle.SetActive(false);
         dialogueManager.buttonGoAway.SetActive(false);

@@ -7,20 +7,23 @@ using UnityEngine;
 public class SaveLoad : MonoBehaviour
 {
     public float x,y,z; // Posizione del Player
-    string filepath;  
+    string filepath;  // path del file
 
+    // Riferimenti
     public PauseMenu pm;
     public CharacterController cc;
     private PlayerController player;
     public GameManager gameManager;
-    
+    private GameObject viceCapo;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         gameManager = gameManager.GetComponent<GameManager>();
-        filepath = Path.Combine(Application.dataPath, "playerData.dat");
+        viceCapo = GameObject.FindGameObjectWithTag("ViceCapo");
+
+        filepath = Path.Combine(Application.dataPath, "playerData.dat"); // Creo il path
     }
 
     // Update is called once per frame
@@ -39,7 +42,7 @@ public class SaveLoad : MonoBehaviour
         data.SetArmor(player.armaturaAcquisita);
         data.SetSpada(player.spadaAcquisita);
         data.SetQuestMeleT(gameManager.questMeleTerminata);
-
+        data.SetViceCapoDead(viceCapo.GetComponent<ViceCapoController>().isDead);
 
         Stream stream = new FileStream(filepath, FileMode.Create); // Creo il file
         BinaryFormatter bf = new BinaryFormatter();
@@ -50,6 +53,7 @@ public class SaveLoad : MonoBehaviour
 
     public void Load(){
 
+        // Se il file esiste
         if (File.Exists(filepath))
         {
             Stream stream = new FileStream(filepath, FileMode.Open); // Apro il file
@@ -64,8 +68,13 @@ public class SaveLoad : MonoBehaviour
             gameManager.questMeleTerminata = data.GetQuestMeleT();
             player.armaturaAcquisita = data.GetArmor();
             player.spadaAcquisita = data.GetSpada();
-            
-            cc.enabled = true;
+            if (data.GetViceCapoDead())
+                viceCapo.SetActive(false);
+            else
+                viceCapo.SetActive(true);
+
+
+                cc.enabled = true;
 
             pm.Resume(); // Riprendo il gioco
         }

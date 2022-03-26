@@ -25,22 +25,24 @@ public class DialogueManager : MonoBehaviour
     private GameManager gameManager;
 
     private GameObject _npc;                //Game Object del npc
-
     public GameObject viceCapo;
+    
+    #region GameObject dei vari pulsanti dei dialoghi
     public GameObject buttonYes;
     public GameObject buttonNo;
     public GameObject buttonInfoYes;
     public GameObject buttonInfoNo;
     public GameObject buttonBattle;
     public GameObject buttonGoAway;
-    
+    #endregion
+
     public Heart numeroCuori;
     private ViceCapoController viceCapoController;
 
     public Text meleDaRaccogliereText;  //mele da raccogliere
     public GameObject[] mele; // raccoglitore per le mele 
-    public GameObject[] scheletri; //raccoglitore per gli scheletri
 
+    #region Boolean di controllo
     //indica se il viceCapo ha iniziato ad attaccare
     private bool viceCapoIsAttacking = false;
 
@@ -52,7 +54,8 @@ public class DialogueManager : MonoBehaviour
 
     //controlla se bisogna mostrare i bottoni si/no quando parli con la signora delle mele
     public bool displayButtons;
-    
+    #endregion
+
     //frase che dice la signora delle mele se non hai abbastanza mele
     public string questMeleNonBastano; 
 
@@ -64,9 +67,12 @@ public class DialogueManager : MonoBehaviour
     {
         //Inizializza la coda che conterrà le frasi dette dal npc
         sentences = new Queue<string>();
+
         _player = GameObject.Find("Player");
         viceCapoController = viceCapo.GetComponent<ViceCapoController>();
         gameManager = FindObjectOfType<GameManager>();
+        
+        // Inizializzazione frasi
         questMeleNonBastano = "Non hai abbastanza mele... me ne servono almeno dieci.";
         questMeleBastano = new string[]{"Grazie! Adesso mio figlio starà sicuramente meglio...", 
                                         "Come ti ho promesso, ecco la tua nuova armatura."}; 
@@ -79,6 +85,7 @@ public class DialogueManager : MonoBehaviour
         //Setta il Boolean che indica che è in corso un dialogo a true
         isDialogueStarted = true;
         displayButtons = true;
+
         //Disattiva il movimento del player
         _player.GetComponent<PlayerController>().lockMovment = true;
 
@@ -112,8 +119,8 @@ public class DialogueManager : MonoBehaviour
                 foreach (string sentence in questMeleBastano){
                     sentences.Enqueue(sentence);
                 }
-                gameManager.questMeleTerminata = true;
-                _player.GetComponent<PlayerController>().armaturaAcquisita = true;
+                gameManager.questMeleTerminata = true; // Termino la quest
+                _player.GetComponent<PlayerController>().armaturaAcquisita = true; // ottengo l'armatura
                 DisableQuestObject();
             }
             //se non hai abbastanza mele
@@ -141,21 +148,34 @@ public class DialogueManager : MonoBehaviour
         //Se non ci sono più frasi nella coda, termina il dialogo
         if(sentences.Count == 0 )
         {
+            // Se la signore delle mele mi ha detto tutto, sono ancora nel dialogo, e la quest non è ancora iniziata
             if (_npc.CompareTag("SignoraDelleMele") && displayButtons && !gameManager.questMeleIniziata){
-                buttonNo.SetActive(true);
+             // Attiva i pulsanti e il cursore
+                buttonNo.SetActive(true); 
                 buttonYes.SetActive(true);
                 ActiveCursor();
                 return;
             }
-            else if (_npc.CompareTag("ArciereInfo") && !infoAreDisplayed)
+            // Se sto parlando con l'arciere iniziale
+            else if (_npc.CompareTag("ArciereInfo") )
             {
-                buttonInfoNo.SetActive(true);
+                if (infoAreDisplayed) // Se l'aricere ha finito di parlare
+                {
+                    infoAreDisplayed = false; // Posso abbandonare il dialogo
+                    EndDialogue(); // Termino il dialogo
+                    return;
+                }
+
+                // Attivo i pulsanti di risposta e il cursore
+                buttonInfoNo.SetActive(true); 
                 buttonInfoYes.SetActive(true);
                 ActiveCursor();
                 return;
             }
+            // Se parlo con il viceCapo e ho ottenuto l'armatura dalla signora delle mele
             else if (_npc.CompareTag("ViceCapo") && _player.GetComponent<PlayerController>().armaturaAcquisita)
             {
+                // Attivo i pulsanti di risposta e il cursore
                 buttonBattle.SetActive(true);
                 buttonGoAway.SetActive(true);
                 ActiveCursor();
@@ -188,7 +208,7 @@ public class DialogueManager : MonoBehaviour
             yield return null;
             /* Se viene premuto un qualsiasi tasto durante la digitazione,
              * stampa tutta la frase in un frame ed esce dal ciclo */
-            if (Input.anyKeyDown)
+                if (Input.anyKeyDown)
             {
                 subText.GetComponent<Text>().text = sentence;
                 break;
@@ -232,90 +252,96 @@ public class DialogueManager : MonoBehaviour
         
     }
 
-
-    //chiama questa funzione se accetti la quest della signora delle mele
+    #region Funzioni per i pulsanti
+    // Chiama questa funzione se accetti la quest della signora delle mele
     public void Yes()
     {
-        string sentenceYes = "Grazie! Allora aspetto il tuo ritorno.";
-        sentences.Clear();
-        sentences.Enqueue(sentenceYes);
-        displayButtons = false;
-        buttonNo.SetActive(false);
+        sentences.Clear(); // Pulisce la coda
+        sentences.Enqueue("Grazie! Allora aspetto il tuo ritorno."); // Mette in coda  una nuova frase
+        displayButtons = false; // Indica che non mostra più i pulsanti 
+        buttonNo.SetActive(false); // Disattiva i pulsanti
         buttonYes.SetActive(false);
         gameManager.questMeleIniziata = true; //segna nel gameManager se hai iniziato la quest delle mele
-        DisplayNextSentence();
+        DisplayNextSentence(); // Mostra la frase 
 
-        meleDaRaccogliereText.gameObject.SetActive(true);
-        for(int i = 0; i < mele.Length; i++)//attiva le mele
+        meleDaRaccogliereText.gameObject.SetActive(true); // Attiva il counter delle mele
+        for(int i = 0; i < mele.Length; i++)//attiva le mele nella foresta
         {
             mele[i].SetActive(true);
         } 
     }
-    //chiama questa funzione se non accetti la quest della signora delle mele
+
+    // Chiama questa funzione se non accetti la quest della signora delle mele
     public void No()
     {
-        string sentenceNo = "Oh no... E allora come faremo..."; 
-        sentences.Clear();
-        sentences.Enqueue(sentenceNo);
-        displayButtons = false;
-        buttonNo.SetActive(false);
+        sentences.Clear(); // Pulisci la coda
+        sentences.Enqueue("Oh no... E allora come faremo..."); // Mette in coda una nuova frase
+        displayButtons = false; 
+        buttonNo.SetActive(false); // Disattiva i pulsanti
         buttonYes.SetActive(false);
-        DisplayNextSentence();
+        DisplayNextSentence(); // Mostra la frase
     }
 
     // Mostra le info dall'aricere inziale se decido di andare avanti col dialogo 
     public void YesInfo()
     {
-        sentences.Clear();
+        sentences.Clear(); //pulisce la coda
+        
+        // Mette in coda 5 frasi
         sentences.Enqueue("Per prima cosa verso est c'è una signora che ha bisogno di aiuto per suo figlio, parlaci e vedi cosa ha da dirti. " +
                            "Sicuramente ti può ricompensare per bene");
         sentences.Enqueue("Dopo potresti andare a sfidare la spalla destra dello stregone, facendo così sicuramente lo indebolirai e " +
                           "portai rubare la sua affilatissima spada.");
+        sentences.Enqueue("Il nostro capo malvagio è solito stare nella nicchia desertica tra le montagne, attualmente non c'è, " +
+                          "ma ho sentito dire che tornerà molto presto");
         sentences.Enqueue("Ricorda che se sei ferito puoi sempre andare verso il prete per poterti curare. Attualmente si trova in cima " +
                           "alla montagna con la croce");
         sentences.Enqueue("Alla fine sarai sicurmente pronto per affrontare il nostro capo e liberarci. Grazie straniero");
-        buttonInfoNo.SetActive(false);
+        buttonInfoNo.SetActive(false); // Disattiva i pulsanti
         buttonInfoYes.SetActive(false);
-        infoAreDisplayed = true;
-        DisplayNextSentence();
+        infoAreDisplayed = true; // Le info stanno venendo mostrate
+        DisplayNextSentence(); // Mostra le frasi
     }
+
     // Chiudo il dialogo dall'arciere iniziale se decido di non leggere le info
     public void NoInfo()
     {
-        sentences.Clear();
-        sentences.Enqueue("In bocca al lupo straniero, ne avrai bisogno");
-        buttonInfoNo.SetActive(false);
+        sentences.Clear(); // Pulisco la coda
+        sentences.Enqueue("In bocca al lupo straniero, ne avrai bisogno"); // Inserisco una frase
+        buttonInfoNo.SetActive(false); // Disattiva i pulsanti
         buttonInfoYes.SetActive(false);
-        infoAreDisplayed = true;
-        DisplayNextSentence();
+        infoAreDisplayed = true; // Le info sono mostrate
+        DisplayNextSentence(); // Mostra la frase
     }
 
+    // Chiama questa funzione se decido di combattere contro il vice capo
     public void YesBattle()
     {
-        sentences.Clear();
-        alreadyTalk = true;
-        viceCapoController.enabled = true;
-        viceCapoIsAttacking = true;
-        EndDialogue();
+        sentences.Clear(); // Pulisco la coda
+        alreadyTalk = true; // Ho gia parlato
+        viceCapoController.enabled = true; // abilito il controller
+        viceCapoIsAttacking = true; // inzia ad attaccare
+        EndDialogue(); //Termino il dialogo
     }
 
+    // Chiama questa funzione se decido di andare via e non combattere contro il vice capo
     public void NoGoAway()
     {
-        sentences.Clear();
-        EndDialogue();
+        sentences.Clear(); // Pulisce la coda
+        EndDialogue(); //Termina il dialogo
     }
+    #endregion
 
-
-    // Mostra il cursore sullo schermo
+    // Attiva e mostra il cursore sullo schermo
     public void ActiveCursor() {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     } 
 
-    // Se parlo con il prete vengo curato
+    // Vengo curato dal prete sulla montagna
     public void PriestHelth()
     {
-        if (_npc.CompareTag("Prete")) // Se parli con il prete ti rida tutti i cuori
+        if (_npc.CompareTag("Prete")) // Se parli con il prete ti cura tutti i cuori
         {
             _player.GetComponent<PlayerController>().life = 10;
             numeroCuori.numOfHearts = 10;
@@ -323,6 +349,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    //Disabilita i GameObject a quest delle mele completata
     public void DisableQuestObject()
     {
         buttonNo.SetActive(false);
@@ -331,6 +358,7 @@ public class DialogueManager : MonoBehaviour
         meleDaRaccogliereText.gameObject.SetActive(false);
     }
 
+    // Getter per l'attributo viceCapoIsAttacking
     public bool getViceCapo()
     {
         return this.viceCapoIsAttacking;

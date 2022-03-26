@@ -10,6 +10,7 @@ public class PlayerAttackColliders : MonoBehaviour
 
     private void Awake()
     {
+        // Inizializzaione
         rightArmCollider = transform.Find("RightArmCollider").GetComponent<Collider>();
         rightArmCollider.gameObject.SetActive(true);
         rightArmCollider.isTrigger = true;

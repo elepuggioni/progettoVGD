@@ -10,6 +10,7 @@ public class SkeletonAttackColliders : MonoBehaviour
 
     private void Awake()
     {
+        // Inizializzazioni 
         upLegCollider = transform.Find("UpLegCollider").GetComponent<Collider>();
         upLegCollider.isTrigger = true;
         upLegCollider.enabled = false;

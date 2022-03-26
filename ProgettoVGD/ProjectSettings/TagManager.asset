@@ -13,6 +13,8 @@ TagManager:
   - ArciereInfo
   - ViceCapo
   - Boss
+  - Muro
+  - GameManager
   layers:
   - Default
   - TransparentFX
