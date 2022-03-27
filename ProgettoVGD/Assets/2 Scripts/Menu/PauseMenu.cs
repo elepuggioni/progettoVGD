@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu; // riferimento al menu di pausa
+    [SerializeField] GameObject saveButton;
+    [SerializeField] GameObject loadButton;
     private PlayerController player; // riferimento al player
 
     private void Start()
@@ -19,7 +21,19 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined; // Confina il cursore e lo rende visibile
         Cursor.visible = true;
         player.isInTheMenu = true; // Segna che il player è in pause
-        pauseMenu.SetActive(true); // Attiva il menu di pausa
+        if (!player.bossBattleIsStarted) // Se la boss battle non è inziata puoi ancora salvare e caricare
+        {
+            pauseMenu.SetActive(true); // Attiva il menu di pausa
+            saveButton.SetActive(true);
+            loadButton.SetActive(true);
+        }
+        else if (player.bossBattleIsStarted) // se la boss battle è inziata non puoi piu salvare o caricare
+        {
+            pauseMenu.SetActive(true);
+            saveButton.SetActive(false);
+            loadButton.SetActive(false);
+        }
+
         Time.timeScale = 0f; // Freezza il gioco
     }
 

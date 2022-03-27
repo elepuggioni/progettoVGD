@@ -151,6 +151,7 @@ public class ViceCapoController : MonoBehaviour
         yield return new WaitForSeconds(6f); // Aspetta 6 secondi
 
         FindObjectOfType<PlayerController>().spadaAcquisita = true; // Ottieni la spada
+        GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>().mute = false; // riparte la musica
 
         // Disattiva gameObject e pulsanti 
         agent.gameObject.SetActive(false); 

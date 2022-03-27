@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public bool isImmune;
     public bool lockMovment;
     public bool isInTheMenu;
+    public bool bossBattleIsStarted;
 
     
     [Header("Player Grounded")] 
@@ -46,6 +47,8 @@ public class PlayerController : MonoBehaviour
     [Header("Upgrades")]
     public bool armaturaAcquisita;
     public bool spadaAcquisita;
+    [SerializeField] GameObject armorIcon;
+    [SerializeField] GameObject swordIcon;
     
 
     [Header("Animator fields")] 
@@ -131,6 +134,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
      {
+         ActiveIcon(); 
+
          StartPause();
 
          CheckVoidFall();
@@ -179,7 +184,9 @@ public class PlayerController : MonoBehaviour
         // Una volta dentro la boss battle non si puo piu uscire
         if (other.CompareTag("Muro") && spadaAcquisita && armaturaAcquisita)
         {
-            gm.GetComponent<GameManager>().muro.GetComponent<BoxCollider>().isTrigger = false; 
+            gm.GetComponent<GameManager>().muro.GetComponent<BoxCollider>().isTrigger = false;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>().mute = true; // muta la musica del player
+            bossBattleIsStarted = true;
         }
     }
 
@@ -486,5 +493,14 @@ public class PlayerController : MonoBehaviour
         else Gizmos.color = transparentRed;
 			
         Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundCheckDistance, transform.position.z), groundedRadius);
+    }
+
+    private void ActiveIcon()
+    {
+        if (spadaAcquisita)
+            swordIcon.SetActive(true);
+
+        if (armaturaAcquisita)
+            armorIcon.SetActive(true);
     }
 }

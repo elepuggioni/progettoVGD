@@ -319,6 +319,8 @@ public class DialogueManager : MonoBehaviour
     {
         sentences.Clear(); // Pulisco la coda
         alreadyTalk = true; // Ho gia parlato
+        _player.GetComponent<AudioSource>().mute = true;
+        viceCapo.GetComponent<AudioSource>().enabled = true;
         viceCapoController.enabled = true; // abilito il controller
         viceCapoIsAttacking = true; // inzia ad attaccare
         EndDialogue(); //Termino il dialogo
