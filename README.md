@@ -3,18 +3,17 @@
 Mancano da aggiungere alcune clip audio e mancano da fare le hitbox del vicecapo.
 Ora è presente:
 
-	-Audio dei passi del player
-	-Audio per il roll del player
-	-Audio per l'attacco del player
-	-Audio quando il player viene colpito
-	-Audio per la morte del player
-	-Urlo del player quando muore
-	-Animazione di morte del player
-	-Tre nuove tracce di background:
-		-Una standard che parte subito
-		-Una quando parte il combattimento con il vicecapo
-		-Una per il combattimento con il boss finale  
-
+	- Audio dei passi del player
+	- Audio per il roll del player
+	- Audio per l'attacco del player
+	- Audio quando il player viene colpito
+	- Audio per la morte del player
+	- Urlo del player quando muore
+	- Animazione di morte del player
+	- Tre nuove tracce di background:
+		- Una standard che parte subito
+		- Una quando parte il combattimento con il vicecapo
+		- Una per il combattimento con il boss finale
 **Le Musiche e le clip audio sono prese da Dark Souls e Dark Souls 3.. Sono quindi sicuramente soggette a copyright**
 
 - **Alessio update 22/03/22 commit "Hitbox scheletri-player"**  
