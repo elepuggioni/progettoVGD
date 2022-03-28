@@ -13,7 +13,7 @@ Ora è presente:
 	- Tre nuove tracce di background:
 		- Una standard che parte subito
 		- Una quando parte il combattimento con il vicecapo
-		- Una per il combattimento con il boss finale
+		- Una per il combattimento con il boss finale  
 **Le Musiche e le clip audio sono prese da Dark Souls e Dark Souls 3.. Sono quindi sicuramente soggette a copyright**
 
 - **Alessio update 22/03/22 commit "Hitbox scheletri-player"**  
