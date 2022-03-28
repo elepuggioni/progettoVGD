@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent agent; // riferimento alla nav mesh agent
     public TextMeshProUGUI lifeText; // riferimento alle vite
     private Animator animator;
+    private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviour
         lifeText.SetText(life.ToString());
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -47,7 +49,7 @@ public class EnemyController : MonoBehaviour
         
         if (Physics.Raycast(position, transform.forward, out hit, 1.5f))
         {
-            if (hit.transform.CompareTag("Player")) // Se hitto il player
+            if (hit.transform.CompareTag("Player") && !playerController.isDead) // Se hitto il player
             {
                 animator.SetTrigger("Attack"); // Anima l'attacco
                 followPlayer = false; //Smetti di seguire il player
@@ -59,7 +61,7 @@ public class EnemyController : MonoBehaviour
     void FollowOrNot()
     {
         animator.SetFloat("Speed", speedAnimator); // Setta il parametro 
-        if (Physics.CheckSphere(transform.position, 10.0f, playerLayer)) // Se il player è dentro la mia sfera di visione
+        if (!playerController.isDead && Physics.CheckSphere(transform.position, 10.0f, playerLayer)) // Se il player Ã¨ dentro la mia sfera di visione
         {
             speedAnimator = 1f; // Setto speed ad 1
             ChasePlayer(); 

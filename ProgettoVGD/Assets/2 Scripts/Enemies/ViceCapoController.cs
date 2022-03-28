@@ -20,6 +20,8 @@ public class ViceCapoController : MonoBehaviour
     public TextMeshProUGUI lifeText;
     private Animator animator;
     private DialogueManager dialogueManager;
+    private PlayerController playerController;
+    private AudioHandler audioHandler;
     #endregion
 
     // Start is called before the first frame update
@@ -29,6 +31,8 @@ public class ViceCapoController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         dialogueManager = FindObjectOfType<DialogueManager>();
+        playerController = FindObjectOfType<PlayerController>();
+        audioHandler = FindObjectOfType<AudioHandler>();
     }
 
     // Update is called once per frame
@@ -49,11 +53,11 @@ public class ViceCapoController : MonoBehaviour
           
             if (hit.transform.CompareTag("Player")) // Entro se colpisco il Player
             {
-                if (hit.distance <= 2f && !isDead) // Se sono molto vicino al player
+                if (hit.distance <= 2f && !isDead && !playerController.isDead) // Se sono molto vicino al player
                 {
                     followPlayer = false; // Smette di seguire il player  
                     animator.SetTrigger("Attack");
-                    hit.transform.GetComponent<PlayerController>().TakeDamage(1); // Il player prende danno
+                    playerController.TakeDamage(1); // Il player prende danno
 
                 }
             }
@@ -68,7 +72,7 @@ public class ViceCapoController : MonoBehaviour
         animator.SetFloat("Speed", speedAnimator); // Setta il valore di Speed dell'animator
 
         // Se il player si trova dentro il campo visivo del vice capo e non e morto
-        if (Physics.CheckSphere(transform.position, 20.0f, playerLayer) && !isDead) 
+        if (!playerController.isDead && Physics.CheckSphere(transform.position, 20.0f, playerLayer) && !isDead) 
         {
             speedAnimator = 1f; 
             ChasePlayer();
@@ -147,11 +151,13 @@ public class ViceCapoController : MonoBehaviour
         animator.SetLayerWeight(animator.GetLayerIndex("Die Layer"), 1); // Cambia layer dell'animator
         animator.SetTrigger("Die"); // Setta il trigger
         lifeText.SetText(""); // Elimina la scritta delle vite
-         
-        yield return new WaitForSeconds(6f); // Aspetta 6 secondi
 
-        FindObjectOfType<PlayerController>().spadaAcquisita = true; // Ottieni la spada
-        GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>().mute = false; // riparte la musica
+        yield return new WaitForSeconds(2f);
+        audioHandler.SecondaryBossBackground.Stop();
+        audioHandler.StandardBackground.UnPause();
+        
+        yield return new WaitForSeconds(3f); // Aspetta 6 secondi
+        playerController.spadaAcquisita = true; // Ottieni la spada
 
         // Disattiva gameObject e pulsanti 
         agent.gameObject.SetActive(false); 

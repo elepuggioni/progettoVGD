@@ -15,6 +15,7 @@ public class BossController : MonoBehaviour
     #region Riferiementi 
     private GameObject player;
     public GameManager gm;
+    private PlayerController playerController;
     private Animator animator;
     [SerializeField] GameObject boss;
     [SerializeField] GameObject projectileDistance;
@@ -34,6 +35,7 @@ public class BossController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
     }
 
@@ -53,12 +55,12 @@ public class BossController : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         // Se la distanza e maggiore di 4, non sta sparando e non è morto
-        if (distance > 4 && !isShooting && !isDead)
+        if (distance > 4 && !isShooting && !isDead && !playerController.isDead)
         {
             StartCoroutine(ShootDistance()); // Inzia a sparare
         }
         // Se la distanza e minore o uguale a 4, non sta sparando e non è morto
-        else if(distance <= 4 && !isShooting && !isDead)
+        else if(distance <= 4 && !isShooting && !isDead && !playerController.isDead)
         {
             StartCoroutine(Teleport()); // Si teletrasporta
         }

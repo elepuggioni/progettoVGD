@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /* In questo script sono implementate le funzioni che si
  * egeguono negli eventi delle animazioni del player principale */
@@ -9,12 +11,25 @@ public class PlayerAnimationsEvents : MonoBehaviour
     private PlayerController playerController;
     private Animator animator;
     private PlayerAttackColliders playerAttackColliders;
+    private AudioHandler audioHandler;
+
+    [Header("Sounds")]
+    [SerializeField] [Tooltip("Clip Audio per i passi del Player")]
+    private AudioSource Footstep;
+    [SerializeField] [Tooltip("Clip Audio per il roll del Player")]
+    private AudioSource RollSound;
+    [SerializeField] [Tooltip("Clip Audio per l'attacco del Player")]
+    private AudioSource AttackSound;
+    [SerializeField] [Tooltip("Clip Audio per la morte del Player")]
+    private AudioSource DeathSound;
+
     
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
         playerAttackColliders = GetComponentInChildren<PlayerAttackColliders>();
+        audioHandler = FindObjectOfType<AudioHandler>();
     }
 
     // Permette di attivare un animazione precisa
@@ -53,6 +68,11 @@ public class PlayerAnimationsEvents : MonoBehaviour
         playerAttackColliders.DisableAttackCollider();
     }
 
+    public void PlayAttackSound()
+    {
+        AttackSound.Play();
+    }
+
     // Resetta il boolean di controllo di ogni EnemyController nella scena
     private void ResetHit()
     {
@@ -64,5 +84,35 @@ public class PlayerAnimationsEvents : MonoBehaviour
         }
     }
     #endregion
+    
+    public void PlayFootStep()
+    {
+        if(!playerController.isAttacking && !playerController.isInteracting) 
+            Footstep.Play();
+    }
+
+    public void PlayRollSound()
+    {
+        RollSound.Play();
+    }
+
+    public void PlayDeathSound()
+    {
+        //Stoppa tutte le musiche di background
+        audioHandler.StandardBackground.Stop();
+        audioHandler.SecondaryBossBackground.Stop();
+        audioHandler.BossBackground.Stop();
+        
+        DeathSound.Play();
+        StartCoroutine(BackToMenu());
+    }
+
+    private IEnumerator BackToMenu()
+    {
+        yield return new WaitForSeconds(5.0f);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene(0);
+    }
 
 }

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("Conditions")]
     public int life = 10;
+    public bool isDead;
     public bool isInteracting;
     public bool isAttacking;
     public bool isImmune;
@@ -67,6 +68,13 @@ public class PlayerController : MonoBehaviour
     public GameObject ActionText;
     public Text meleText;
 
+    [Header("Sounds")]
+    [SerializeField] [Tooltip("Clip audio quando il player viene colpito")]
+    private AudioSource PlayerHitted;
+    [SerializeField] [Tooltip("Clip Audio per la morte del Player")]
+    private AudioSource VoiceDeathSound;
+
+
 
     //Riferimento ai parametri degll'animator
     private int _VerticalAnimatorID;
@@ -98,6 +106,8 @@ public class PlayerController : MonoBehaviour
     private DialogueManager dialogueManager;
     private PlayerAnimationsEvents _playerAnimationsEvents;
     private GameObject gm;
+    private AudioHandler audioHandler;
+    
     
     #endregion
 
@@ -107,6 +117,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         _playerAnimationsEvents = GetComponent<PlayerAnimationsEvents>();
+        audioHandler = FindObjectOfType<AudioHandler>();
         pm = GetComponent<PauseMenu>();
         cuori = GetComponent<Heart>();
         meleText.text = "Mele raccolte: " + meleRaccolte + "/10";
@@ -185,7 +196,8 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Muro") && spadaAcquisita && armaturaAcquisita)
         {
             gm.GetComponent<GameManager>().muro.GetComponent<BoxCollider>().isTrigger = false;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>().mute = true; // muta la musica del player
+            audioHandler.StandardBackground.Pause();
+            audioHandler.BossBackground.PlayDelayed(1.0f);
             bossBattleIsStarted = true;
         }
     }
@@ -219,7 +231,9 @@ public class PlayerController : MonoBehaviour
     {
         if (this.transform.position.y <= -10)
         {
-            TakeDamage(20);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            SceneManager.LoadScene(0);
         }
     }
 
@@ -418,30 +432,20 @@ public class PlayerController : MonoBehaviour
     
     public void TakeDamage(int damage)
     {
-        if (!isImmune)
+        if (!isImmune && !isDead)
         {
+            PlayerHitted.Play();
             isImmune = true;
             life -= damage;
             cuori.numOfHearts -= damage;
             if (life <= 0)
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                SceneManager.LoadScene(0);
+                isDead = true;
+                enabled = false;
+                _playerAnimationsEvents.PlayTargetAnimation("Death");
+                VoiceDeathSound.Play();
             }
             StartCoroutine(Immunity());
-        }
-    }
-
-    public void Attack()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.5f))
-        {
-            if (hit.transform.CompareTag("Enemy"))
-            {
-                hit.transform.gameObject.GetComponent<EnemyController>().TakeDamage(1);
-            }
         }
     }
 

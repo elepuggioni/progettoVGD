@@ -23,6 +23,8 @@ public class DialogueManager : MonoBehaviour
     private Animator _animator;             //animator del npc
     private Queue<string> sentences;        //Coda per le frasi del npc
     private GameManager gameManager;
+    private PlayerController playerController;
+    private AudioHandler audioHandler;
 
     private GameObject _npc;                //Game Object del npc
     public GameObject viceCapo;
@@ -69,8 +71,10 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
 
         _player = GameObject.Find("Player");
+        playerController = _player.GetComponent<PlayerController>();
         viceCapoController = viceCapo.GetComponent<ViceCapoController>();
         gameManager = FindObjectOfType<GameManager>();
+        audioHandler = FindObjectOfType<AudioHandler>();
         
         // Inizializzazione frasi
         questMeleNonBastano = "Non hai abbastanza mele... me ne servono almeno dieci.";
@@ -319,8 +323,8 @@ public class DialogueManager : MonoBehaviour
     {
         sentences.Clear(); // Pulisco la coda
         alreadyTalk = true; // Ho gia parlato
-        _player.GetComponent<AudioSource>().mute = true;
-        viceCapo.GetComponent<AudioSource>().enabled = true;
+        audioHandler.StandardBackground.Pause();
+        audioHandler.SecondaryBossBackground.PlayDelayed(1.3f);
         viceCapoController.enabled = true; // abilito il controller
         viceCapoIsAttacking = true; // inzia ad attaccare
         EndDialogue(); //Termino il dialogo
