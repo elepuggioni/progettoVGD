@@ -426,7 +426,7 @@ public class PlayerController : MonoBehaviour
 
     // Controlla che il player abbia premuto il tasto per mettere in pausa
     public void StartPause() {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Escape))
             pm.Pause();
     }
     
