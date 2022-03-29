@@ -45,7 +45,7 @@ public class TriggerHandler : MonoBehaviour
                     if (playerController != null && viceCapoController != null && !viceCapoController.playerHitted)
                     {
                         viceCapoController.playerHitted = true;
-                        playerController.TakeDamage(2);
+                        playerController.TakeDamage(1);
                     }
                 }
                 else

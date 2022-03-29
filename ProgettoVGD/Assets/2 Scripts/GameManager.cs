@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,10 +17,13 @@ public class GameManager : MonoBehaviour
     public PlayerController player; // riferimento al player
 
     public Light luce; // riferiemento alla luce principale
+    public  TextMeshProUGUI pointMele; // riferimento alle vite
 
     // Update is called once per frame
     void Update()
     {
         nMele = player.meleRaccolte; // Aggiorna la mele 
+        if (questMeleTerminata)
+            pointMele.text = "";
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,6 +44,9 @@ public class DialogueManager : MonoBehaviour
 
     public Text meleDaRaccogliereText;  //mele da raccogliere
     public GameObject[] mele; // raccoglitore per le mele 
+
+    public GameObject lifeViceCapoText; // riferimento alle vite
+    public GameObject pointViceCapo; 
 
     #region Boolean di controllo
     //indica se il viceCapo ha iniziato ad attaccare
@@ -292,15 +296,16 @@ public class DialogueManager : MonoBehaviour
         sentences.Clear(); //pulisce la coda
         
         // Mette in coda 5 frasi
-        sentences.Enqueue("Per prima cosa verso est c'è una signora che ha bisogno di aiuto per suo figlio, parlaci e vedi cosa ha da dirti. " +
+        sentences.Enqueue("Per prima cosa a destra del villaggio c'è una signora che ha bisogno di aiuto per suo figlio, parlaci e vedi cosa ha da dirti. " +
                            "Sicuramente ti può ricompensare per bene");
-        sentences.Enqueue("Dopo potresti andare a sfidare la spalla destra dello stregone, facendo così sicuramente lo indebolirai e " +
+        sentences.Enqueue("Dopo potresti andare a sfidare il vice capo, facendo così sicuramente " +
                           "portai rubare la sua affilatissima spada.");
-        sentences.Enqueue("Il nostro capo malvagio è solito stare nella nicchia desertica tra le montagne, attualmente non c'è, " +
-                          "ma ho sentito dire che tornerà molto presto");
+        sentences.Enqueue("Il nostro capo malvagio è solito stare nella nicchia desertica, è qui vicino e all'entrata sono presenti due stendardi.");
+        sentences.Enqueue("Attualmente non c'è, ma ho sentito dire che tornerà molto presto");
         sentences.Enqueue("Ricorda che se sei ferito puoi sempre andare verso il prete per poterti curare. Attualmente si trova in cima " +
                           "alla montagna con la croce");
         sentences.Enqueue("Alla fine sarai sicurmente pronto per affrontare il nostro capo e liberarci. Grazie straniero");
+
         buttonInfoNo.SetActive(false); // Disattiva i pulsanti
         buttonInfoYes.SetActive(false);
         infoAreDisplayed = true; // Le info stanno venendo mostrate
@@ -323,6 +328,8 @@ public class DialogueManager : MonoBehaviour
     {
         sentences.Clear(); // Pulisco la coda
         alreadyTalk = true; // Ho gia parlato
+        lifeViceCapoText.SetActive(true); // attivo le vite
+        pointViceCapo.SetActive(false); // disattivo il punto esclamativo
         audioHandler.StandardBackground.Pause();
         audioHandler.SecondaryBossBackground.PlayDelayed(1.3f);
         viceCapoController.enabled = true; // abilito il controller
