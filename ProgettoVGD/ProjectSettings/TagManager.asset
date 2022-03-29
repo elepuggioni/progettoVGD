@@ -15,6 +15,9 @@ TagManager:
   - Boss
   - Muro
   - GameManager
+  - Sword
+  - ViceCapo Collider
+  - Player Center
   layers:
   - Default
   - TransparentFX

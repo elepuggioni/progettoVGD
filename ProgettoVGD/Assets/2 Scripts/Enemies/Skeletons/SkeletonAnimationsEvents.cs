@@ -7,6 +7,11 @@ public class SkeletonAnimationsEvents : MonoBehaviour
    //Riferimenti ad altri script
    private SkeletonAttackColliders skeletonAttackColliders;
    private EnemyController enemyController;
+   private AudioHandler audioHandler;
+
+   [Header("Sounds")] 
+   [SerializeField] [Tooltip("Clip per i passi degli scheletri")]
+   private AudioSource SkeletonFootstep;
 
    private void Awake()
    {
@@ -26,5 +31,10 @@ public class SkeletonAnimationsEvents : MonoBehaviour
       skeletonAttackColliders.DisableLegColliders();
       //Aggiorna il booleano che evita che con un attacco vengano attivate più collisioni
       enemyController.PlayerHitted = false;
+   }
+
+   public void PlayFootstep()
+   {
+      SkeletonFootstep.Play();
    }
 }

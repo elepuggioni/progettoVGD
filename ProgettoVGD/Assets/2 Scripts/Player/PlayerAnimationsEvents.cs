@@ -12,6 +12,7 @@ public class PlayerAnimationsEvents : MonoBehaviour
     private Animator animator;
     private PlayerAttackColliders playerAttackColliders;
     private AudioHandler audioHandler;
+    
 
     [Header("Sounds")]
     [SerializeField] [Tooltip("Clip Audio per i passi del Player")]
@@ -73,14 +74,21 @@ public class PlayerAnimationsEvents : MonoBehaviour
         AttackSound.Play();
     }
 
-    // Resetta il boolean di controllo di ogni EnemyController nella scena
+    // Resetta il boolean di controllo di ogni nemico nella scena
     private void ResetHit()
     {
+        ViceCapoController viceCapoController = FindObjectOfType<ViceCapoController>();
+        if (viceCapoController != null)
+            viceCapoController.AlreadyHitted = false;
+        
+        BossController bossController = FindObjectOfType<BossController>();
+        if (bossController != null)
+            bossController.AlreadyHitted = false;
+        
         EnemyController[] enemyControllers = FindObjectsOfType<EnemyController>();
         foreach (EnemyController enemyController in enemyControllers)
         {
             enemyController.AlreadyHitted = false;
-
         }
     }
     #endregion
@@ -113,6 +121,16 @@ public class PlayerAnimationsEvents : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene(0);
+    }
+
+    public void EnableImmunity()
+    {
+        playerController.isImmune = true;
+    }
+
+    public void DisableImmunity()
+    {
+        playerController.isImmune = false;
     }
 
 }

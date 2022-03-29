@@ -167,19 +167,7 @@ public class PlayerController : MonoBehaviour
             meleRaccolte++;
             meleText.text = "Mele raccolte: " + meleRaccolte.ToString() + "/10";
         }
-
-        // Attacco contro il vice capo
-        if (other.CompareTag("ViceCapo") && isAttacking && dialogueManager.getViceCapo())
-        {
-            other.gameObject.GetComponent<ViceCapoController>().TakeDamage(1);
-        }
-
-        // Attacco contro il boss
-        if (other.CompareTag("Boss") && isAttacking)
-        {
-            other.gameObject.GetComponent<BossController>().TakeDamage(1);
-        }
-
+        
         // Quando si entra nell'arena dopo aver completato le missioni si attiva la boss battle
         if(other.CompareTag("Muro") && spadaAcquisita && armaturaAcquisita)
         {
@@ -480,7 +468,7 @@ public class PlayerController : MonoBehaviour
     // Permette al player di essere immune
     public IEnumerator Immunity()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.6f);
         isImmune = false;
     }
     #endregion

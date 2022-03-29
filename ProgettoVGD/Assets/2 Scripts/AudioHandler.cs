@@ -7,6 +7,9 @@ public class AudioHandler : MonoBehaviour
     public AudioSource StandardBackground;
     public AudioSource SecondaryBossBackground;
     public AudioSource BossBackground;
+    public AudioSource SkeletonHitted;
+    public AudioSource EnemyHitted;
+    public AudioSource EnemyKilled;
 
 
     // Start is called before the first frame update

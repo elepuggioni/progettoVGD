@@ -6,10 +6,14 @@ public class ProjectileMove : MonoBehaviour {
 
 	public float speed; // velocita di moviemento
 	private GameObject player; //riferiemento del player
+	private PlayerController playerController;
+	private BossController bossController;
 
-	void Start () {
+	void Awake () {
 		//prendo il player
-		player = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.FindGameObjectWithTag("Player Center");
+		playerController = player.GetComponentInParent<PlayerController>();
+		bossController = FindObjectOfType<BossController>();
 	}
 
 	void Update () {
@@ -34,9 +38,10 @@ public class ProjectileMove : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
 		// Se hitto il player questo prende danno
-        if(other.tag == "Player")
+        if(other.CompareTag("Player"))
         {
-			other.GetComponent<PlayerController>().TakeDamage(1);
+	        bossController.DestroyProj(this.gameObject, 0f);
+	        playerController.TakeDamage(3);
         }
     }
 

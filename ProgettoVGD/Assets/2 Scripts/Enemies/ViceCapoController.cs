@@ -12,6 +12,8 @@ public class ViceCapoController : MonoBehaviour
     public bool isDead = false; // indica se e morto
     private bool followPlayer = true; // indica se deve seguire il player
     private bool isImmune = false; // indica se e immune
+    public bool playerHitted;
+    public bool AlreadyHitted;
     #endregion
 
     #region Riferimenti
@@ -22,6 +24,9 @@ public class ViceCapoController : MonoBehaviour
     private DialogueManager dialogueManager;
     private PlayerController playerController;
     private AudioHandler audioHandler;
+
+    [Header("Sounds")] 
+    [SerializeField] private AudioSource DeathVoice;
     #endregion
 
     // Start is called before the first frame update
@@ -57,8 +62,6 @@ public class ViceCapoController : MonoBehaviour
                 {
                     followPlayer = false; // Smette di seguire il player  
                     animator.SetTrigger("Attack");
-                    playerController.TakeDamage(1); // Il player prende danno
-
                 }
             }
         }
@@ -124,9 +127,14 @@ public class ViceCapoController : MonoBehaviour
             isImmune = true; // diventa immune
             life -= damage; // riduci le vite
             lifeText.SetText(life.ToString());
-            if (life <= 0) // quando muore
+            if (life > 0)
             {
-                animator.SetFloat("Speed", 0); // setta speed a 0
+                audioHandler.EnemyHitted.Play();
+            }
+            else
+            {
+                DeathVoice.Play();
+                GetComponent<ViceCapoController>().enabled = false;
                 StopAllCoroutines(); // ferma tutte le coroutine
                 StartCoroutine(Die()); // avvia la coroutine di Die
             }
@@ -146,6 +154,7 @@ public class ViceCapoController : MonoBehaviour
     // Coroutine che gestisce l'animazione di morte 
     public IEnumerator Die()
     {
+        audioHandler.EnemyKilled.Play();
         animator.SetFloat("Speed", 0); // Setto speed a zero
         isDead = true; // Indica la morte
         animator.SetLayerWeight(animator.GetLayerIndex("Die Layer"), 1); // Cambia layer dell'animator
@@ -156,11 +165,12 @@ public class ViceCapoController : MonoBehaviour
         audioHandler.SecondaryBossBackground.Stop();
         audioHandler.StandardBackground.UnPause();
         
-        yield return new WaitForSeconds(3f); // Aspetta 6 secondi
+        yield return new WaitForSeconds(3f); // Aspetta 3 secondi
         playerController.spadaAcquisita = true; // Ottieni la spada
+        GameObject.FindGameObjectWithTag("Sword").SetActive(false);
 
         // Disattiva gameObject e pulsanti 
-        agent.gameObject.SetActive(false); 
+        GetComponent<CapsuleCollider>().enabled = false;
         dialogueManager.alreadyTalk = false;
         dialogueManager.buttonBattle.SetActive(false);
         dialogueManager.buttonGoAway.SetActive(false);

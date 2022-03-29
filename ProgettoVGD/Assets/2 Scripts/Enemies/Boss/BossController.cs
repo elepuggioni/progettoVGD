@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
@@ -17,6 +18,7 @@ public class BossController : MonoBehaviour
     public GameManager gm;
     private PlayerController playerController;
     private Animator animator;
+    private AudioHandler audioHandler;
     [SerializeField] GameObject boss;
     [SerializeField] GameObject projectileDistance;
     [SerializeField] GameObject spawnPointProjectile;
@@ -26,6 +28,7 @@ public class BossController : MonoBehaviour
     private bool isShooting = false; // indica che il boss sta attaccando o si sta teletrasportando
     private bool isImmune = false; // indica che il boss è immune
     private bool isDead = false; //indica che il boss è morto
+    public bool AlreadyHitted;
 
     public Slider slider; // Lo slider che rappresenta la health bar del boss
 
@@ -37,12 +40,21 @@ public class BossController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
+        audioHandler = FindObjectOfType<AudioHandler>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Attack();
+        if (playerController.isDead)
+        {
+            animator.SetBool("DistanceAttack", false);
+            animator.CrossFade("Idle", 0f);
+        }
+
+
+        if(!playerController.isDead) 
+            Attack();
     }
 
     // Funzione che permette al boss di attaccare
@@ -55,7 +67,7 @@ public class BossController : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         // Se la distanza e maggiore di 4, non sta sparando e non è morto
-        if (distance > 4 && !isShooting && !isDead && !playerController.isDead)
+        if (distance > 5 && !isShooting && !isDead && !playerController.isDead)
         {
             StartCoroutine(ShootDistance()); // Inzia a sparare
         }
@@ -73,11 +85,12 @@ public class BossController : MonoBehaviour
         isShooting = true; // indica che sta attaccando
 
         // Istanzia il projectileDistance  
+        /*
         GameObject proj = Instantiate(projectileDistance, spawnPointProjectile.transform.position, Quaternion.identity);
         proj.transform.localRotation = transform.rotation; // Prendo la rotazione del boss
-        Destroy(proj, 2f); // Viene ditrutto dopo 2 secondi
+        DestroyProj(proj, 2f); // Viene ditrutto dopo 2 secondi*/
         
-        yield return new WaitForSeconds(2f); // Aspetta prima di poter attaccare di nuovo
+        yield return new WaitForSeconds(3f); // Aspetta prima di poter attaccare di nuovo
         isShooting = false; // Ora il boss puo tornare ad attaccare
 
     }
@@ -120,6 +133,7 @@ public class BossController : MonoBehaviour
     // Permette l'animazione di morte e il suo controllo
     public IEnumerator Die()
     {
+        audioHandler.EnemyKilled.Play();
         animator.SetLayerWeight(animator.GetLayerIndex("Die Layer"), 1); // Vai nell'altro layer dell'animator
         animator.SetTrigger("Die"); // Setta il trigger
         isDead = true; // Indica che il boss è morto
@@ -127,7 +141,8 @@ public class BossController : MonoBehaviour
         yield return new WaitForSeconds(6f); // aspetta 6 secondi
 
         // Disattiva i gameObject e indica che il boss viene sconfitto
-        boss.gameObject.SetActive(false); 
+        GetComponent<CapsuleCollider>().enabled = false;
+        enabled = false;
         bossHealthBar.SetActive(false);
         gm.gianniSconfitto = true;
 
@@ -140,7 +155,11 @@ public class BossController : MonoBehaviour
         {
             isImmune = true; // diventa immune
             slider.value -= damage; //prende danno
-            if (slider.value <= 0) // se perde tutte le vite
+            if (slider.value > 0)
+            {
+               audioHandler.EnemyHitted.Play(); 
+            }
+            else 
             {
                 StopAllCoroutines(); // disattiva tutte le coroutine
                 StartCoroutine(Die()); // Avvia la coroutine die
@@ -152,4 +171,16 @@ public class BossController : MonoBehaviour
         }
     }
 
+    public void DestroyProj(GameObject proj, float time)
+    {
+        Destroy(proj, time);
+    }
+
+    public void ShotMagic()
+    {
+        // Istanzia il projectileDistance  
+        GameObject proj = Instantiate(projectileDistance, spawnPointProjectile.transform.position, Quaternion.identity);
+        proj.transform.localRotation = transform.rotation; // Prendo la rotazione del boss
+        DestroyProj(proj, 2f); // Viene ditrutto dopo 2 secondi
+    }
 }

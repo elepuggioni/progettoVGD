@@ -25,6 +25,8 @@ public class EnemyController : MonoBehaviour
     public TextMeshProUGUI lifeText; // riferimento alle vite
     private Animator animator;
     private PlayerController playerController;
+    private AudioHandler audioHandler;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,7 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         playerController = FindObjectOfType<PlayerController>();
+        audioHandler = FindObjectOfType<AudioHandler>();
     }
 
     // Update is called once per frame
@@ -110,10 +113,14 @@ public class EnemyController : MonoBehaviour
     {
         life -= damage; // Diminusco le vite
         lifeText.SetText(life.ToString()); // mostro le vite sopra lo scheletro
-        if (life <= 0) // Quando perdo tutte le vite
+        if (life > 0)
         {
+            audioHandler.SkeletonHitted.Play();
+        }
+        else 
+        {
+            audioHandler.EnemyKilled.Play();
            agent.gameObject.SetActive(false); // Disattivo lo scheletro
         }
-
     }
 }
