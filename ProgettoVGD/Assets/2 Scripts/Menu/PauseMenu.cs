@@ -9,11 +9,13 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject saveButton;
     [SerializeField] GameObject loadButton;
     private PlayerController player; // riferimento al player
+    private AudioHandler audioHandler;
 
     private void Start()
     {
         // Prendi il player
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(); 
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        audioHandler = FindObjectOfType<AudioHandler>();
     }
 
     public void Pause() 

@@ -1,5 +1,6 @@
+
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,10 +12,19 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject backButton; // riferimento al pulsante 'Indietro'
     [SerializeField] GameObject rules; // riferiemento alle regole scritte
     [SerializeField] GameObject textBox; // riferimento alla textBox
+    [SerializeField] private AudioSource BackgroundMusic;
+    [SerializeField] private AudioSource NewGameSound;
+
+
+    private void Start()
+    {
+        StartCoroutine(PlayMusic());
+    }
 
     public void NewGame()
     {
         SceneManager.LoadScene("Villaggio"); // Avvia il gioco
+        NewGameSound.Play();
     }
 
     public void Regole()
@@ -34,7 +44,17 @@ public class MenuManager : MonoBehaviour
 
     public void Back()
     {
-        SceneManager.LoadScene(0); // Carica la scena del menu 
+        textBox.SetActive(false);
+        rules.SetActive(false); 
+        buttons.SetActive(true);
+        backButton.SetActive(false);
+        comands.SetActive(false); 
+    }
+
+    private IEnumerator PlayMusic()
+    {
+        yield return new WaitForSeconds(0.8f);
+        BackgroundMusic.Play();
     }
 }
 

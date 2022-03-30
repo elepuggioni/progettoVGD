@@ -73,8 +73,7 @@ public class SaveLoad : MonoBehaviour
             else
                 viceCapo.SetActive(true);
 
-
-                cc.enabled = true;
+            cc.enabled = true;
 
             pm.Resume(); // Riprendo il gioco
         }

@@ -41,7 +41,7 @@ public class ProjectileMove : MonoBehaviour {
         if(other.CompareTag("Player"))
         {
 	        bossController.DestroyProj(this.gameObject, 0f);
-	        playerController.TakeDamage(3);
+	        playerController.TakeDamage(1);
         }
     }
 

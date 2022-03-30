@@ -91,7 +91,7 @@ public class DialogueManager : MonoBehaviour
         displayButtons = true;
 
         //Disattiva il movimento del player
-        _player.GetComponent<PlayerController>().lockMovment = true;
+        playerController.lockMovment = true;
 
         _npc = npc;
         
@@ -124,7 +124,7 @@ public class DialogueManager : MonoBehaviour
                     sentences.Enqueue(sentence);
                 }
                 gameManager.questMeleTerminata = true; // Termino la quest
-                _player.GetComponent<PlayerController>().armaturaAcquisita = true; // ottengo l'armatura
+                playerController.armaturaAcquisita = true; // ottengo l'armatura
                 DisableQuestObject();
             }
             //se non hai abbastanza mele
@@ -177,7 +177,7 @@ public class DialogueManager : MonoBehaviour
                 return;
             }
             // Se parlo con il viceCapo e ho ottenuto l'armatura dalla signora delle mele
-            else if (_npc.CompareTag("ViceCapo") && _player.GetComponent<PlayerController>().armaturaAcquisita)
+            else if (_npc.CompareTag("ViceCapo") && playerController.armaturaAcquisita)
             {
                 // Attivo i pulsanti di risposta e il cursore
                 buttonBattle.SetActive(true);
@@ -245,7 +245,7 @@ public class DialogueManager : MonoBehaviour
         isDialogueStarted = false;
         
         //Riattiva il movimento del player 
-        _player.GetComponent<PlayerController>().lockMovment = false;
+        playerController.lockMovment = false;
         
         //Resetta la rotazione del npc a quella iniziale
         _npc.transform.rotation = rotazioneNPC;
@@ -349,7 +349,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (_npc.CompareTag("Prete")) // Se parli con il prete ti cura tutti i cuori
         {
-            _player.GetComponent<PlayerController>().life = 10;
+            audioHandler.HealthRestored.Play();
+            playerController.life = 10;
             numeroCuori.numOfHearts = 10;
             numeroCuori.health = 10;
         }
