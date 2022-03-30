@@ -168,6 +168,7 @@ public class ViceCapoController : MonoBehaviour
         yield return new WaitForSeconds(3f); // Aspetta 3 secondi
         playerController.spadaAcquisita = true; // Ottieni la spada
         GameObject.FindGameObjectWithTag("Sword").SetActive(false);
+        this.gameObject.SetActive(false);
 
         // Disattiva gameObject e pulsanti 
         GetComponent<CapsuleCollider>().enabled = false;
