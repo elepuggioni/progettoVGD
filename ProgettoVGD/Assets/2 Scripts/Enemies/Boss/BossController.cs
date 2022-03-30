@@ -116,8 +116,9 @@ public class BossController : MonoBehaviour
         teleported = true; // Indica che si sta teletrasportando
         isShooting = true; //Blocca gli attacchi
         animator.SetBool("DistanceAttack", false); // Non deve piu attaccare da lontano
-        yield return new WaitForSeconds(Random.Range(0.5f, 2.0f)); // aspetta
+        yield return new WaitForSeconds(3.0f); // aspetta
         animator.SetTrigger("Teleport");
+
         
     }
 

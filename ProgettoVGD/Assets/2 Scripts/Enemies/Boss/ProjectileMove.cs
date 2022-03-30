@@ -22,7 +22,7 @@ public class ProjectileMove : MonoBehaviour {
 		{
 			Vector3 directionToPlayer = player.transform.position - transform.position; //direzione verso il player
 			Vector3 direction = transform.forward; // direzione attuale del proiettile
- 			float turn = 30f; // gradi per secondo
+ 			float turn = 10f; // gradi per secondo
 
 			// rotazione verso un certo obiettivo
 			Vector3 resultingDirection = Vector3.RotateTowards(direction, directionToPlayer, turn * Mathf.Deg2Rad * Time.deltaTime, 1f);
