@@ -18,7 +18,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(PlayMusic());
+        BackgroundMusic.PlayDelayed(0.8f);
     }
 
     public void NewGame()
@@ -49,12 +49,6 @@ public class MenuManager : MonoBehaviour
         buttons.SetActive(true);
         backButton.SetActive(false);
         comands.SetActive(false); 
-    }
-
-    private IEnumerator PlayMusic()
-    {
-        yield return new WaitForSeconds(0.8f);
-        BackgroundMusic.Play();
     }
 }
 

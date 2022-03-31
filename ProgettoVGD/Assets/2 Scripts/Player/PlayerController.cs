@@ -105,8 +105,10 @@ public class PlayerController : MonoBehaviour
     private FieldOfView _fieldOfView;
     private DialogueManager dialogueManager;
     private PlayerAnimationsEvents _playerAnimationsEvents;
-    private GameObject gm;
+    private GameManager gameManager;
     private AudioHandler audioHandler;
+
+    public Material sky;
     
     
     #endregion
@@ -140,7 +142,7 @@ public class PlayerController : MonoBehaviour
     {
         Keyframe dodge_lastFrame = dodgeCurve[dodgeCurve.length - 1]; // Prendo l'ultimo keyframe
         dodgeTimer = dodge_lastFrame.time; // prendo il time del keyframe
-        gm = GameObject.FindGameObjectWithTag("GameManager");
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -156,6 +158,9 @@ public class PlayerController : MonoBehaviour
          HandleInput();
 
          CheckDialog();
+
+         //if (Input.GetKeyDown(KeyCode.U))
+
      }
 
     void OnTriggerEnter(Collider other)
@@ -171,9 +176,9 @@ public class PlayerController : MonoBehaviour
         // Quando si entra nell'arena dopo aver completato le missioni si attiva la boss battle
         if(other.CompareTag("Muro") && spadaAcquisita && armaturaAcquisita)
         {
-            gm.GetComponent<GameManager>().boss.SetActive(true); // attiva il boss
-            gm.GetComponent<GameManager>().bossHealtBar.SetActive(true); // attiva la health bar
-            gm.GetComponent<GameManager>().luce.color = Color.black; // cambio della luce
+            gameManager.boss.SetActive(true); // attiva il boss
+            gameManager.bossHealtBar.SetActive(true); // attiva la health bar
+            gameManager.ChangeIllumination();
         }
 
     }
@@ -183,7 +188,7 @@ public class PlayerController : MonoBehaviour
         // Una volta dentro la boss battle non si puo piu uscire
         if (other.CompareTag("Muro") && spadaAcquisita && armaturaAcquisita)
         {
-            gm.GetComponent<GameManager>().muro.GetComponent<BoxCollider>().isTrigger = false;
+            gameManager.muro.GetComponent<BoxCollider>().isTrigger = false;
             audioHandler.StandardBackground.Pause();
             audioHandler.BossBackground.PlayDelayed(1.0f);
             bossBattleIsStarted = true;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -15,9 +13,13 @@ public class GameManager : MonoBehaviour
     public GameObject bossHealtBar; // riferimento della health bar del boss
     public GameObject muro; // riferimento del muro invisibile nell'arena della boss battle
     public PlayerController player; // riferimento al player
-
-    public Light luce; // riferiemento alla luce principale
     public  TextMeshProUGUI pointMele; // riferimento alle vite
+
+    [Header("Boss illumination")] 
+    [SerializeField] private Material BossSkybox;
+    [SerializeField] private Color FogColor;
+    [SerializeField] private GameObject StandardDirectionLight;
+    [SerializeField] private GameObject BossFightDirectionLight;
 
     // Update is called once per frame
     void Update()
@@ -26,4 +28,15 @@ public class GameManager : MonoBehaviour
         if (questMeleTerminata)
             pointMele.text = "";
     }
+
+    public void ChangeIllumination()
+    {
+        StandardDirectionLight.SetActive(false);
+        BossFightDirectionLight.SetActive(true);
+        RenderSettings.sun = BossFightDirectionLight.GetComponent<Light>();
+        RenderSettings.skybox = BossSkybox;
+        RenderSettings.fogColor = FogColor;
+        DynamicGI.UpdateEnvironment();
+    }
+    
 }

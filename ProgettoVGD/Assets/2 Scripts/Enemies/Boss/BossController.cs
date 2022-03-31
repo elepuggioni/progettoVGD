@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
+using RenderSettings = UnityEditor.Experimental.RenderSettings;
 
 public class BossController : MonoBehaviour
 {
@@ -71,13 +74,6 @@ public class BossController : MonoBehaviour
         // Distanza tra player e boss
         float distance = Vector3.Distance(transform.position, player.transform.position);
         
-        // Se la distanza e maggiore di 4, non sta sparando e non è morto
-        /*
-        if (distance > 8 && !isShooting && !isDead && !playerController.isDead)
-        {
-            animator.SetBool("DistanceAttack", true); // Animazione di attacco
-            //StartCoroutine(ShootDistance()); // Inzia a sparare
-        }*/
         if(!teleported && distance <= 8 && !isDead && !playerController.isDead)
         {
             StartCoroutine(Teleport()); // Si teletrasporta
@@ -93,30 +89,13 @@ public class BossController : MonoBehaviour
         }
     }
 
-    // Permette l'animazione di attacco e il suo controllo
-    public IEnumerator ShootDistance()
-    {
-        animator.SetBool("DistanceAttack", true); // Animazione di attacco
-        isShooting = true; // indica che sta attaccando
-
-        // Istanzia il projectileDistance  
-        /*
-        GameObject proj = Instantiate(projectileDistance, spawnPointProjectile.transform.position, Quaternion.identity);
-        proj.transform.localRotation = transform.rotation; // Prendo la rotazione del boss
-        DestroyProj(proj, 2f); // Viene ditrutto dopo 2 secondi*/
-        
-        yield return new WaitForSeconds(30f); // Aspetta prima di poter attaccare di nuovo
-        isShooting = false; // Ora il boss puo tornare ad attaccare
-
-    }
-
     // Permette l'animazione di teletrasporto e il suo controllo
     public IEnumerator Teleport()
     {
         teleported = true; // Indica che si sta teletrasportando
         isShooting = true; //Blocca gli attacchi
         animator.SetBool("DistanceAttack", false); // Non deve piu attaccare da lontano
-        yield return new WaitForSeconds(3.0f); // aspetta
+        yield return new WaitForSeconds(Random.Range(1f, 3f)); // aspetta
         animator.SetTrigger("Teleport");
 
         
@@ -164,9 +143,9 @@ public class BossController : MonoBehaviour
     public void ShotMagic()
     {
         // Istanzia il projectileDistance 
-        AttackAudio.Play();
         GameObject proj = Instantiate(projectileDistance, spawnPointProjectile.transform.position, Quaternion.identity);
         proj.transform.localRotation = transform.rotation; // Prendo la rotazione del boss
+        AttackAudio.Play();
         DestroyProj(proj, 2f); // Viene ditrutto dopo 2 secondi
     }
 
