@@ -1,9 +1,11 @@
 # progettoVGD
 
+## About this project
 This is a university group project created by @Champion98M, @andredore and @elepuggioni for our Videogame Design course.
 
 This program is a very simple game titled "Medioeval" made in Unity. It's a 3D RPG game where the user plays as a knight that wakes up in a village that is being terrorized by the evil wizard Unef Innaig. The player has to complete side quests by interacting with NPCs and slaying monsters in order to obtain a sword and armor, and then defeat the evil wizard in a boss battle to win the game, which takes about 30 minutes to complete.
 
+## Development log
 - **Alessio update 28/03/22 commit "Effetti sonori e musica di background"**  
 Mancano da aggiungere alcune clip audio e mancano da fare le hitbox del vicecapo.
 Ora è presente:
